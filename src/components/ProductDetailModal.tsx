@@ -144,18 +144,24 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 stars={2}
                 trailLength={0.34}
                 thickness={1.4}
-                radius={2}
+                radius={6}
                 glow={0.7}
                 sparkle
                 hover="lap"
                 clickPulse
                 backgroundColor="#F4EFEA"
-                textColor="#0A1118"
-                borderColor="rgba(255, 255, 255, 0.7)"
-                className="w-full py-4 px-5 hover:bg-white font-sans font-extrabold text-xs sm:text-sm uppercase tracking-[0.16em] flex items-center justify-center gap-2.5 transition-colors"
+                textColor="#000000"
+                borderColor="rgba(255, 255, 255, 0.75)"
+                style={{ color: '#000000' }}
+                className="w-full py-4 px-5 rounded-md bg-[#F4EFEA] text-black font-bold hover:bg-white transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer font-sans text-xs sm:text-sm tracking-wider uppercase"
               >
-                <MessageCircle className="w-4 h-4" />
-                <span>Order via WhatsApp</span>
+                <MessageCircle
+                  className="w-4 h-4 shrink-0 text-black"
+                  style={{ color: '#000000' }}
+                />
+                <span className="text-black font-bold" style={{ color: '#000000' }}>
+                  Order via WhatsApp
+                </span>
               </StarBorder>
             </Magnet>
 
