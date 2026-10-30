@@ -124,9 +124,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
           FULL-BLEED HERO SECTION (100% Viewport Width + Interactive Topography)
       ====================================================================== */}
       <section
-        className={`relative w-full min-h-screen overflow-hidden border-b border-white/12 bg-[#0D0D0D] flex items-center ${
-          adminMode ? 'pt-36 sm:pt-40' : 'pt-24 sm:pt-28'
-        } pb-14 sm:pb-20`}
+        className={`relative w-full min-h-screen overflow-x-hidden overflow-y-hidden border-b border-white/12 bg-[#0D0D0D] flex items-center ${
+          adminMode ? 'pt-32 sm:pt-36' : 'pt-20 sm:pt-24'
+        }`}
       >
         {/* Full-Bleed Architectural Grid Texture & Ambient Glow Blurs */}
         <div
@@ -184,171 +184,169 @@ export const HomeView: React.FC<HomeViewProps> = ({
           className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#0D0D0D]/55 via-transparent to-[#0D0D0D]/88"
         />
 
-        {/* Full-Width Hero Content Container */}
-        <div className="w-full px-6 md:px-12 lg:px-16 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 w-full gap-8 xl:gap-12 items-center">
-            {/* Left Editorial Column (7 Columns) */}
-            <div className="lg:col-span-7 min-w-0 space-y-7">
-              {/* Customer Rating Badge */}
-              <div className="inline-flex flex-wrap items-center gap-3 bg-[#181818]/95 border border-white/15 px-4 py-2">
-                <div
-                  className="flex items-center gap-0.5 text-[#CCFF00]"
-                  aria-label="4.9 out of 5 stars"
-                >
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 fill-[#CCFF00] stroke-[#CCFF00]" />
-                  ))}
-                </div>
-                <span className="font-mono-spec text-xs font-bold text-white">4.9 / 5.0</span>
-                <span className="text-white/25">|</span>
-                <span className="font-mono-spec text-[11px] uppercase tracking-[0.16em] text-neutral-300">
-                  640+ Verified Kenyan Thrift Buyers
+        {/* Strict Hero Content Grid Container */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Left Editorial Text Block (7 Columns — min-w-0 prevents CSS Grid text overflow) */}
+          <div className="lg:col-span-7 flex flex-col justify-center min-w-0 space-y-6">
+            {/* Customer Rating Badge */}
+            <div className="self-start inline-flex flex-wrap items-center gap-3 bg-[#181818]/95 border border-white/15 px-4 py-2 max-w-full">
+              <div
+                className="flex items-center gap-0.5 text-[#CCFF00]"
+                aria-label="4.9 out of 5 stars"
+              >
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-[#CCFF00] stroke-[#CCFF00]" />
+                ))}
+              </div>
+              <span className="font-mono-spec text-xs font-bold text-white">4.9 / 5.0</span>
+              <span className="text-white/25">|</span>
+              <span className="font-mono-spec text-[11px] uppercase tracking-[0.16em] text-neutral-300">
+                640+ Verified Kenyan Thrift Buyers
+              </span>
+            </div>
+
+            {/* Official Brand Mark + Fluid Responsive Headline */}
+            <div className="space-y-3.5 min-w-0 max-w-full">
+              <div className="inline-flex flex-wrap items-center gap-3 max-w-full">
+                <CreewrldEmblem size={34} />
+                <CreewrldWordmark height={18} />
+                <span className="font-mono-spec text-[11px] uppercase tracking-[0.28em] text-[#CCFF00]">
+                  // EST. NAIROBI, KENYA
                 </span>
               </div>
 
-              {/* Official Brand Mark + Fluid Responsive Headline */}
-              <div className="space-y-3.5 min-w-0">
-                <div className="inline-flex flex-wrap items-center gap-3">
-                  <CreewrldEmblem size={34} />
-                  <CreewrldWordmark height={18} />
-                  <span className="font-mono-spec text-[11px] uppercase tracking-[0.28em] text-[#CCFF00]">
-                    // EST. NAIROBI, KENYA
-                  </span>
-                </div>
-
-                <h1 className="hero-fluid-headline font-display font-extrabold uppercase text-white max-w-full">
-                  1-of-1 Underground{' '}
-                  <span className="text-[#CCFF00]">Thrift</span> &amp; Street Archive.
-                </h1>
-              </div>
-
-              <p className="text-neutral-300 text-base sm:text-lg xl:text-xl max-w-2xl leading-relaxed">
-                Hand-selected archival sneakers, heavyweight streetwear, Y2K leather, and Old Money
-                tailoring curated in Nairobi. Priced in{' '}
-                <span className="text-white font-semibold">KSh</span> — no bloated carts, claim
-                directly on WhatsApp before someone else locks it.
-              </p>
-
-              {/* Primary & Secondary CTAs */}
-              <div className="flex flex-wrap items-center gap-4 pt-1">
-                <Magnet
-                  padding={90}
-                  magnetStrength={2.4}
-                  maxOffset={18}
-                  tilt={6}
-                  scale={1.03}
-                  spring={{ stiffness: 190, damping: 15, mass: 1 }}
-                  wrapperClassName="creewrld-magnet-glow"
-                >
-                  <button
-                    type="button"
-                    onClick={() => onNavigateToShop('All')}
-                    className="px-7 py-4 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs sm:text-sm uppercase tracking-[0.2em] inline-flex items-center gap-3 transition-colors cursor-pointer"
-                  >
-                    <span>Shop Live Drops</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </Magnet>
-
-                <Magnet
-                  padding={80}
-                  magnetStrength={2.8}
-                  maxOffset={15}
-                  tilt={5}
-                  scale={1.02}
-                >
-                  <a
-                    href={buildGeneralWhatsAppUrl()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-6 py-4 bg-[#181818]/95 border border-white/20 hover:border-[#CCFF00] text-white hover:text-[#CCFF00] font-mono-spec font-semibold text-xs sm:text-sm uppercase tracking-[0.18em] inline-flex items-center gap-2.5 transition-colors"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>WhatsApp Concierge</span>
-                  </a>
-                </Magnet>
-              </div>
-
-              {/* Nairobi Trust Strip */}
-              <div className="pt-5 border-t border-white/12 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl">
-                <div>
-                  <span className="block font-mono-spec text-lg sm:text-2xl font-bold text-white">
-                    1-OF-1
-                  </span>
-                  <span className="font-mono-spec text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400">
-                    Zero Restocks
-                  </span>
-                </div>
-                <div>
-                  <span className="block font-mono-spec text-lg sm:text-2xl font-bold text-[#CCFF00]">
-                    SAME DAY
-                  </span>
-                  <span className="font-mono-spec text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400">
-                    Nairobi Dispatch
-                  </span>
-                </div>
-                <div>
-                  <span className="block font-mono-spec text-lg sm:text-2xl font-bold text-white">
-                    47 COUNTIES
-                  </span>
-                  <span className="font-mono-spec text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400">
-                    Nationwide Courier
-                  </span>
-                </div>
-              </div>
+              <h1 className="hero-fluid-headline font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-black uppercase tracking-tight leading-none break-words max-w-full overflow-hidden text-white">
+                1-of-1 Underground{' '}
+                <span className="text-[#CCFF00]">Thrift</span> &amp; Street Archive.
+              </h1>
             </div>
 
-            {/* Right Feature Visual Card (5 Columns) */}
-            <div className="lg:col-span-5 min-w-0 w-full">
-              <div className="relative w-full bg-[#181818] border border-white/20 p-3 sm:p-4">
-                {/* Corner Electric Lime Accents */}
-                <span className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#CCFF00]" />
-                <span className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-[#CCFF00]" />
-                <span className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-[#CCFF00]" />
-                <span className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#CCFF00]" />
+            <p className="text-neutral-300 text-base sm:text-lg max-w-2xl leading-relaxed break-words">
+              Hand-selected archival sneakers, heavyweight streetwear, Y2K leather, and Old Money
+              tailoring curated in Nairobi. Priced in{' '}
+              <span className="text-white font-semibold">KSh</span> — no bloated carts, claim
+              directly on WhatsApp before someone else locks it.
+            </p>
 
-                <div className="relative aspect-[4/5] max-h-[74vh] w-full overflow-hidden bg-[#0D0D0D]">
-                  <img
-                    src="/images/hero-lookbook.jpg"
-                    alt="CREEWRLD Nairobi Street-Culture Editorial"
-                    className="w-full h-full object-cover object-center"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-transparent to-transparent opacity-80" />
+            {/* Primary & Secondary CTAs */}
+            <div className="flex flex-wrap items-center gap-4 pt-1">
+              <Magnet
+                padding={90}
+                magnetStrength={2.4}
+                maxOffset={18}
+                tilt={6}
+                scale={1.03}
+                spring={{ stiffness: 190, damping: 15, mass: 1 }}
+                wrapperClassName="creewrld-magnet-glow"
+              >
+                <button
+                  type="button"
+                  onClick={() => onNavigateToShop('All')}
+                  className="px-7 py-4 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs sm:text-sm uppercase tracking-[0.2em] inline-flex items-center gap-3 transition-colors cursor-pointer"
+                >
+                  <span>Shop Live Drops</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </Magnet>
 
-                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
-                    <span className="bg-[#0D0D0D]/90 border border-white/20 px-3 py-1 font-mono-spec text-[10px] uppercase tracking-[0.2em] text-white inline-flex items-center gap-1.5">
-                      <MapPin className="w-3 h-3 text-[#CCFF00]" />
-                      NBO // KENYA
-                    </span>
-                    <span className="bg-[#CCFF00] px-2.5 py-1 font-mono-spec text-[10px] font-bold uppercase tracking-[0.18em] text-[#0D0D0D]">
-                      SEASON ARCHIVE
-                    </span>
+              <Magnet
+                padding={80}
+                magnetStrength={2.8}
+                maxOffset={15}
+                tilt={5}
+                scale={1.02}
+              >
+                <a
+                  href={buildGeneralWhatsAppUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-4 bg-[#181818]/95 border border-white/20 hover:border-[#CCFF00] text-white hover:text-[#CCFF00] font-mono-spec font-semibold text-xs sm:text-sm uppercase tracking-[0.18em] inline-flex items-center gap-2.5 transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>WhatsApp Concierge</span>
+                </a>
+              </Magnet>
+            </div>
+
+            {/* Nairobi Trust Strip */}
+            <div className="pt-5 border-t border-white/12 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl">
+              <div className="min-w-0">
+                <span className="block font-mono-spec text-lg sm:text-2xl font-bold text-white">
+                  1-OF-1
+                </span>
+                <span className="font-mono-spec text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400">
+                  Zero Restocks
+                </span>
+              </div>
+              <div className="min-w-0">
+                <span className="block font-mono-spec text-lg sm:text-2xl font-bold text-[#CCFF00]">
+                  SAME DAY
+                </span>
+                <span className="font-mono-spec text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400">
+                  Nairobi Dispatch
+                </span>
+              </div>
+              <div className="min-w-0">
+                <span className="block font-mono-spec text-lg sm:text-2xl font-bold text-white">
+                  47 COUNTIES
+                </span>
+                <span className="font-mono-spec text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400">
+                  Nationwide Courier
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Feature Visual Card (5 Columns) */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end min-w-0">
+            <div className="relative w-full max-w-md lg:max-w-full bg-[#181818] border border-white/20 rounded-xl p-3 sm:p-4">
+              {/* Corner Electric Lime Accents */}
+              <span className="pointer-events-none absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#CCFF00]" />
+              <span className="pointer-events-none absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-[#CCFF00]" />
+              <span className="pointer-events-none absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-[#CCFF00]" />
+              <span className="pointer-events-none absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#CCFF00]" />
+
+              <div className="relative w-full max-w-md lg:max-w-full aspect-[4/5] overflow-hidden rounded-xl bg-[#0D0D0D]">
+                <img
+                  src="/images/hero-lookbook.jpg"
+                  alt="CREEWRLD Nairobi Street-Culture Editorial"
+                  className="w-full max-w-md lg:max-w-full h-full aspect-[4/5] object-cover object-center rounded-xl"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-transparent to-transparent opacity-80" />
+
+                <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
+                  <span className="bg-[#0D0D0D]/90 border border-white/20 px-3 py-1 font-mono-spec text-[10px] uppercase tracking-[0.2em] text-white inline-flex items-center gap-1.5">
+                    <MapPin className="w-3 h-3 text-[#CCFF00]" />
+                    NBO // KENYA
+                  </span>
+                  <span className="bg-[#CCFF00] px-2.5 py-1 font-mono-spec text-[10px] font-bold uppercase tracking-[0.18em] text-[#0D0D0D]">
+                    SEASON ARCHIVE
+                  </span>
+                </div>
+
+                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
+                  <div className="min-w-0">
+                    <CreewrldWordmark height={18} className="mb-1.5" />
+                    <p className="font-mono-spec text-[11px] uppercase tracking-[0.18em] text-[#CCFF00] truncate">
+                      CURATED VINTAGE OUTERWEAR &amp; KICKS
+                    </p>
                   </div>
-
-                  <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
-                    <div>
-                      <CreewrldWordmark height={18} className="mb-1.5" />
-                      <p className="font-mono-spec text-[11px] uppercase tracking-[0.18em] text-[#CCFF00]">
-                        CURATED VINTAGE OUTERWEAR &amp; KICKS
-                      </p>
-                    </div>
-                    <Magnet
-                      padding={60}
-                      magnetStrength={2.6}
-                      maxOffset={10}
-                      tilt={4}
-                      scale={1.04}
-                      wrapperClassName="shrink-0"
+                  <Magnet
+                    padding={60}
+                    magnetStrength={2.6}
+                    maxOffset={10}
+                    tilt={4}
+                    scale={1.04}
+                    wrapperClassName="shrink-0"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => onNavigateToShop('Streetwear')}
+                      className="px-3.5 py-2 bg-white text-[#0D0D0D] hover:bg-[#CCFF00] font-mono-spec font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer shrink-0"
                     >
-                      <button
-                        type="button"
-                        onClick={() => onNavigateToShop('Streetwear')}
-                        className="px-3.5 py-2 bg-white text-[#0D0D0D] hover:bg-[#CCFF00] font-mono-spec font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer shrink-0"
-                      >
-                        View Fit →
-                      </button>
-                    </Magnet>
-                  </div>
+                      View Fit →
+                    </button>
+                  </Magnet>
                 </div>
               </div>
             </div>
