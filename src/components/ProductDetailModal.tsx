@@ -43,7 +43,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
       aria-label={product.title}
     >
       <div
-        className="relative w-full max-w-4xl bg-[#132238] border border-[#F4EFEA]/25 overflow-hidden grid grid-cols-1 md:grid-cols-2 max-h-[92vh] overflow-y-auto shadow-[0_24px_70px_rgba(10,17,24,0.85)]"
+        className="relative w-full max-w-4xl rounded-2xl bg-[#132238] border border-[#F4EFEA]/25 overflow-hidden grid grid-cols-1 md:grid-cols-2 max-h-[92vh] overflow-y-auto shadow-[0_24px_70px_rgba(10,17,24,0.85)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -51,20 +51,20 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           type="button"
           onClick={onClose}
           aria-label="Close product modal"
-          className="absolute top-3 right-3 z-20 w-10 h-10 bg-[#0A1118]/90 border border-[#F4EFEA]/25 text-white hover:border-[#F4EFEA] hover:text-[#F4EFEA] flex items-center justify-center transition-colors cursor-pointer"
+          className="absolute top-3.5 right-3.5 z-20 w-10 h-10 rounded-lg bg-[#0A1118]/90 border border-[#F4EFEA]/25 text-white hover:border-[#F4EFEA] hover:text-[#F4EFEA] flex items-center justify-center transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Left Image */}
-        <div className="relative aspect-[4/5] md:aspect-auto md:min-h-[480px] bg-[#0A1118]">
+        <div className="relative aspect-[4/5] md:aspect-auto md:min-h-[480px] overflow-hidden bg-[#0A1118]">
           <img
             src={product.image_url}
             alt={product.title}
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute top-3 left-3 flex items-center gap-2">
-            <span className="px-3 py-1 bg-[#0A1118]/90 border border-[#F4EFEA]/25 font-cinzel font-semibold text-xs uppercase tracking-[0.18em] text-[#F4EFEA]">
+          <div className="absolute top-3.5 left-3.5 flex items-center gap-2">
+            <span className="px-3 py-1 rounded-full bg-[#0A1118]/90 border border-[#F4EFEA]/25 font-cinzel font-semibold text-xs uppercase tracking-[0.18em] text-[#F4EFEA]">
               {product.category}
             </span>
           </div>
@@ -92,7 +92,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
             {/* Technical Specs Box */}
             <div className="grid grid-cols-2 gap-3 border-y border-[#F4EFEA]/15 py-4">
-              <div className="bg-[#0A1118] p-3 border border-[#F4EFEA]/14">
+              <div className="rounded-xl bg-[#0A1118] p-3.5 border border-[#F4EFEA]/14">
                 <span className="block font-cinzel text-[10px] uppercase tracking-[0.18em] text-slate-400">
                   TAG / FIT SIZE
                 </span>
@@ -100,7 +100,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   {product.size}
                 </span>
               </div>
-              <div className="bg-[#0A1118] p-3 border border-[#F4EFEA]/14">
+              <div className="rounded-xl bg-[#0A1118] p-3.5 border border-[#F4EFEA]/14">
                 <span className="block font-cinzel text-[10px] uppercase tracking-[0.18em] text-slate-400">
                   CONDITION GRADE
                 </span>
@@ -144,7 +144,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 stars={2}
                 trailLength={0.34}
                 thickness={1.4}
-                radius={6}
+                radius={8}
                 glow={0.7}
                 sparkle
                 hover="lap"
@@ -153,7 +153,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 textColor="#000000"
                 borderColor="rgba(255, 255, 255, 0.75)"
                 style={{ color: '#000000' }}
-                className="w-full py-4 px-5 rounded-md bg-[#F4EFEA] text-black font-bold hover:bg-white transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer font-sans text-xs sm:text-sm tracking-wider uppercase"
+                className="w-full py-4 px-5 rounded-lg bg-[#F4EFEA] text-black font-bold hover:bg-white transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer font-sans text-xs sm:text-sm tracking-wider uppercase"
               >
                 <MessageCircle
                   className="w-4 h-4 shrink-0 text-black"
@@ -176,7 +176,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   onClose();
                   onRequestDelete(product);
                 }}
-                className="admin-only w-full py-2.5 px-4 bg-[#FF3B30]/15 hover:bg-[#FF3B30] border border-[#FF3B30] text-[#FF3B30] hover:text-white font-sans text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                className="admin-only w-full py-2.5 px-4 rounded-lg bg-[#FF3B30]/15 hover:bg-[#FF3B30] border border-[#FF3B30] text-[#FF3B30] hover:text-white font-sans text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
                 <Trash2 className="w-4 h-4" />
                 <span>Admin: Delete From Supabase</span>

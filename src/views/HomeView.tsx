@@ -200,14 +200,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
               stars={1}
               trailLength={0.35}
               thickness={1}
-              radius={2}
+              radius={999}
               glow={0.55}
               sparkle
               hover="brighten"
               clickPulse={false}
               backgroundColor="rgba(19, 34, 56, 0.92)"
               borderColor="rgba(244, 239, 234, 0.28)"
-              className="self-start inline-flex flex-wrap items-center gap-3 px-4 py-2 max-w-full"
+              className="self-start inline-flex flex-wrap items-center gap-3 px-4 py-2 rounded-full max-w-full"
             >
               <div
                 className="flex items-center gap-0.5 text-[#F4EFEA]"
@@ -271,7 +271,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   stars={2}
                   trailLength={0.35}
                   thickness={1.5}
-                  radius={2}
+                  radius={8}
                   glow={0.7}
                   sparkle
                   hover="lap"
@@ -279,7 +279,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   backgroundColor="#F4EFEA"
                   textColor="#0A1118"
                   borderColor="rgba(255, 255, 255, 0.7)"
-                  className="px-7 py-4 hover:bg-white font-sans font-extrabold text-xs sm:text-sm uppercase tracking-[0.16em] inline-flex items-center gap-3 transition-colors cursor-pointer"
+                  className="px-7 py-4 rounded-lg hover:bg-white font-sans font-extrabold text-xs sm:text-sm uppercase tracking-[0.16em] inline-flex items-center gap-3 transition-colors cursor-pointer"
                 >
                   <span>Shop Live Drops</span>
                   <ArrowRight className="w-4 h-4" />
@@ -304,7 +304,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   stars={1}
                   trailLength={0.32}
                   thickness={1.2}
-                  radius={2}
+                  radius={8}
                   glow={0.6}
                   sparkle
                   hover="lap"
@@ -312,7 +312,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   backgroundColor="#132238"
                   textColor="#F4EFEA"
                   borderColor="rgba(244, 239, 234, 0.45)"
-                  className="px-6 py-4 hover:bg-[#F4EFEA] hover:text-[#0A1118] font-sans font-semibold text-xs sm:text-sm uppercase tracking-[0.16em] inline-flex items-center gap-2.5 transition-colors"
+                  className="px-6 py-4 rounded-lg hover:bg-[#F4EFEA] hover:text-[#0A1118] font-sans font-semibold text-xs sm:text-sm uppercase tracking-[0.16em] inline-flex items-center gap-2.5 transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>WhatsApp Concierge</span>
@@ -351,28 +351,22 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
           {/* Right Feature Visual Card (5 Columns — Framed in Yacht Club Navy Gradient) */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end min-w-0">
-            <div className="relative w-full max-w-md lg:max-w-full rounded-xl p-[2px] yacht-club-gradient shadow-[0_24px_65px_rgba(10,17,24,0.85)]">
-              <div className="relative w-full bg-[#132238] rounded-[10px] p-3 sm:p-4">
-                {/* Corner Cream Ivory Accents */}
-                <span className="pointer-events-none absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#F4EFEA]" />
-                <span className="pointer-events-none absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-[#F4EFEA]" />
-                <span className="pointer-events-none absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-[#F4EFEA]" />
-                <span className="pointer-events-none absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#F4EFEA]" />
-
+            <div className="relative w-full max-w-md lg:max-w-full rounded-2xl p-[2px] yacht-club-gradient overflow-hidden shadow-[0_24px_65px_rgba(10,17,24,0.85)]">
+              <div className="relative w-full bg-[#132238] rounded-[14px] p-3 sm:p-4 overflow-hidden">
                 <div className="relative w-full max-w-md lg:max-w-full aspect-[4/5] overflow-hidden rounded-xl bg-[#0A1118]">
                   <img
                     src="/images/hero-lookbook.jpg"
                     alt="CREEWRLD Nairobi Heritage Street-Culture Editorial"
                     className="w-full max-w-md lg:max-w-full h-full aspect-[4/5] object-cover object-center rounded-xl"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A1118] via-[#0A1118]/30 to-transparent opacity-85" />
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-[#0A1118] via-[#0A1118]/30 to-transparent opacity-85" />
 
                   <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
-                    <span className="bg-[#0A1118]/90 border border-[#F4EFEA]/25 px-3 py-1 font-cinzel font-semibold text-[10px] uppercase tracking-[0.18em] text-[#F4EFEA] inline-flex items-center gap-1.5">
+                    <span className="rounded-full bg-[#0A1118]/90 border border-[#F4EFEA]/25 px-3 py-1 font-cinzel font-semibold text-[10px] uppercase tracking-[0.18em] text-[#F4EFEA] inline-flex items-center gap-1.5">
                       <MapPin className="w-3 h-3 text-[#F4EFEA]" />
                       NBO // KENYA
                     </span>
-                    <span className="bg-[#F4EFEA] px-2.5 py-1 font-cinzel text-[10px] font-bold uppercase tracking-[0.16em] text-[#0A1118]">
+                    <span className="rounded-full bg-[#F4EFEA] px-3 py-1 font-cinzel text-[10px] font-bold uppercase tracking-[0.16em] text-[#0A1118]">
                       SEASON ARCHIVE
                     </span>
                   </div>
@@ -395,7 +389,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                       <button
                         type="button"
                         onClick={() => onNavigateToShop('Old Money')}
-                        className="px-3.5 py-2 bg-[#F4EFEA] text-[#0A1118] hover:bg-white font-sans font-extrabold text-[11px] uppercase tracking-wider transition-colors cursor-pointer shrink-0"
+                        className="px-3.5 py-2 rounded-lg bg-[#F4EFEA] text-[#0A1118] hover:bg-white font-sans font-extrabold text-[11px] uppercase tracking-wider transition-colors cursor-pointer shrink-0"
                       >
                         View Fit →
                       </button>
@@ -460,9 +454,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </svg>
 
         <div className="w-full px-6 md:px-12 lg:px-16 relative z-10">
-          <div className="w-full bg-[#132238] border border-[#F4EFEA]/18 p-6 sm:p-10 lg:p-14 space-y-10">
+          <div className="w-full rounded-2xl overflow-hidden bg-[#132238] border border-[#F4EFEA]/20 p-6 sm:p-10 lg:p-14 space-y-10 shadow-[0_20px_55px_rgba(10,17,24,0.6)]">
             <div className="flex flex-col md:flex-row items-start gap-6 lg:gap-10 pb-10 border-b border-[#F4EFEA]/12">
-              <div className="bg-[#0A1118] border border-[#F4EFEA]/20 p-3.5 sm:p-4 self-start shrink-0">
+              <div className="rounded-xl bg-[#0A1118] border border-[#F4EFEA]/20 p-3.5 sm:p-4 self-start shrink-0">
                 <CreewrldStackedLogo width={116} />
               </div>
 
@@ -490,7 +484,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-              <div className="bg-[#0A1118] border border-[#F4EFEA]/14 p-6 lg:p-8">
+              <div className="rounded-xl overflow-hidden bg-[#0A1118] border border-[#F4EFEA]/16 p-6 lg:p-8">
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-cinzel font-semibold text-xs tracking-[0.18em] text-[#F4EFEA]/85">
                     01 // CURATION
@@ -506,7 +500,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 </p>
               </div>
 
-              <div className="bg-[#0A1118] border border-[#F4EFEA]/14 p-6 lg:p-8">
+              <div className="rounded-xl overflow-hidden bg-[#0A1118] border border-[#F4EFEA]/16 p-6 lg:p-8">
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-cinzel font-semibold text-xs tracking-[0.18em] text-[#F4EFEA]/85">
                     02 // TRANSPARENCY
@@ -522,7 +516,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 </p>
               </div>
 
-              <div className="bg-[#0A1118] border border-[#F4EFEA]/14 p-6 lg:p-8">
+              <div className="rounded-xl overflow-hidden bg-[#0A1118] border border-[#F4EFEA]/16 p-6 lg:p-8">
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-cinzel font-semibold text-xs tracking-[0.18em] text-[#F4EFEA]/85">
                     03 // SPEED
@@ -576,7 +570,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   key={world.category}
                   type="button"
                   onClick={() => onNavigateToShop(world.category)}
-                  className="group relative h-72 bg-[#132238] border border-[#F4EFEA]/15 hover:border-[#F4EFEA]/70 overflow-hidden text-left p-6 flex flex-col justify-between transition-all cursor-pointer"
+                  className="group relative h-72 rounded-xl bg-[#132238] border border-[#F4EFEA]/20 hover:border-[#F4EFEA]/70 overflow-hidden text-left p-6 flex flex-col justify-between transition-all cursor-pointer shadow-[0_14px_34px_rgba(10,17,24,0.5)]"
                 >
                   <img
                     src={world.coverImage}
@@ -587,10 +581,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A1118] via-[#0A1118]/60 to-transparent" />
 
                   <div className="relative z-10 flex items-center justify-between gap-2 w-full">
-                    <span className="font-cinzel font-semibold text-[11px] uppercase tracking-[0.16em] text-[#F4EFEA] bg-[#0A1118]/85 border border-[#F4EFEA]/20 px-2.5 py-1">
+                    <span className="rounded-full font-cinzel font-semibold text-[11px] uppercase tracking-[0.16em] text-[#F4EFEA] bg-[#0A1118]/85 border border-[#F4EFEA]/20 px-3 py-1">
                       {world.code} // {world.category.toUpperCase()} ARCHIVE
                     </span>
-                    <span className="font-cinzel font-semibold text-[11px] uppercase tracking-wider text-[#F4EFEA] bg-[#132238]/90 border border-[#F4EFEA]/20 px-2.5 py-1 shrink-0">
+                    <span className="rounded-full font-cinzel font-semibold text-[11px] uppercase tracking-wider text-[#F4EFEA] bg-[#132238]/90 border border-[#F4EFEA]/20 px-3 py-1 shrink-0">
                       {count} {count === 1 ? 'Piece' : 'Pieces'}
                     </span>
                   </div>
@@ -648,14 +642,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 stars={1}
                 trailLength={0.3}
                 thickness={1}
-                radius={2}
+                radius={8}
                 glow={0.6}
                 hover="lap"
                 clickPulse
                 backgroundColor="#132238"
                 textColor="#F4EFEA"
                 borderColor="rgba(244, 239, 234, 0.4)"
-                className="px-5 py-3 hover:bg-[#F4EFEA] hover:text-[#0A1118] font-sans font-semibold text-xs uppercase tracking-[0.16em] inline-flex items-center gap-2 transition-colors cursor-pointer"
+                className="px-5 py-3 rounded-lg hover:bg-[#F4EFEA] hover:text-[#0A1118] font-sans font-semibold text-xs uppercase tracking-[0.16em] inline-flex items-center gap-2 transition-colors cursor-pointer"
               >
                 <span>View All Drops ({products.length})</span>
                 <ArrowRight className="w-4 h-4" />
@@ -695,9 +689,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
       <section className="w-full py-16 sm:py-22 full-bleed-grid-bg">
         <div className="w-full px-6 md:px-12 lg:px-16 space-y-12">
           {/* Verified Customer Rating Banner with Yacht Club Navy Surface */}
-          <div className="w-full bg-[#132238] border border-[#F4EFEA]/20 p-8 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="w-full rounded-2xl overflow-hidden bg-[#132238] border border-[#F4EFEA]/20 p-8 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-[0_18px_50px_rgba(10,17,24,0.55)]">
             <div className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-[#F4EFEA]/15 pb-6 lg:pb-0 lg:pr-8">
-              <div className="inline-flex items-center gap-2 bg-[#F4EFEA] text-[#0A1118] px-3 py-1 font-cinzel text-[10px] font-bold uppercase tracking-[0.18em] mb-4">
+              <div className="inline-flex items-center gap-2 rounded-full bg-[#F4EFEA] text-[#0A1118] px-3.5 py-1 font-cinzel text-[10px] font-bold uppercase tracking-[0.18em] mb-4">
                 VERIFIED BUYER RATING
               </div>
               <div className="flex items-baseline gap-4">
@@ -718,7 +712,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </div>
 
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <blockquote className="bg-[#0A1118] border border-[#F4EFEA]/14 p-5 lg:p-6">
+              <blockquote className="rounded-xl bg-[#0A1118] border border-[#F4EFEA]/16 p-5 lg:p-6">
                 <p className="font-sans text-sm text-slate-200 leading-relaxed mb-3">
                   “Ordered the vintage leather racing jacket on WhatsApp at 11am, rider dropped it
                   in Westlands by 2pm. Condition was literally 10/10.”
@@ -728,7 +722,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 </footer>
               </blockquote>
 
-              <blockquote className="bg-[#0A1118] border border-[#F4EFEA]/14 p-5 lg:p-6">
+              <blockquote className="rounded-xl bg-[#0A1118] border border-[#F4EFEA]/16 p-5 lg:p-6">
                 <p className="font-sans text-sm text-slate-200 leading-relaxed mb-3">
                   “Cleanest thrift curation in 254. Accurate sizing, zero catfishing, and fast
                   overnight parcel delivery to Mombasa.”
@@ -756,7 +750,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group bg-[#132238] border border-[#F4EFEA]/15 hover:border-[#F4EFEA]/70 p-6 flex flex-col justify-between gap-4 transition-colors"
+                  className="group rounded-xl overflow-hidden bg-[#132238] border border-[#F4EFEA]/20 hover:border-[#F4EFEA]/70 p-6 flex flex-col justify-between gap-4 transition-colors shadow-[0_12px_28px_rgba(10,17,24,0.45)]"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-cinzel font-semibold text-xs uppercase tracking-[0.18em] text-slate-300 group-hover:text-[#F4EFEA]">

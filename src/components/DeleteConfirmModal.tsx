@@ -32,7 +32,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
       aria-labelledby="delete-modal-heading"
     >
       <div
-        className="w-full max-w-md bg-[#132238] border border-[#FF3B30]/60 p-6 sm:p-7 relative shadow-2xl"
+        className="w-full max-w-md rounded-2xl overflow-hidden bg-[#132238] border border-[#FF3B30]/60 p-6 sm:p-7 relative shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -40,13 +40,13 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
           disabled={isDeleting}
           onClick={onCancel}
           aria-label="Cancel deletion"
-          className="absolute top-4 right-4 text-slate-300 hover:text-[#F4EFEA] disabled:opacity-40 cursor-pointer"
+          className="absolute top-4 right-4 w-9 h-9 rounded-lg bg-[#0A1118] border border-[#F4EFEA]/20 text-slate-300 hover:border-[#F4EFEA] hover:text-[#F4EFEA] flex items-center justify-center transition-colors disabled:opacity-40 cursor-pointer"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
 
         <div className="flex items-center gap-3 text-[#FF3B30] mb-4">
-          <div className="w-10 h-10 bg-[#FF3B30]/15 border border-[#FF3B30]/40 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-[#FF3B30]/15 border border-[#FF3B30]/40 flex items-center justify-center">
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
@@ -63,11 +63,11 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
         </div>
 
         {/* Item Preview Card */}
-        <div className="flex items-center gap-3.5 bg-[#0A1118] border border-[#F4EFEA]/15 p-3 mb-4">
+        <div className="flex items-center gap-3.5 rounded-xl bg-[#0A1118] border border-[#F4EFEA]/15 p-3 mb-4">
           <img
             src={product.image_url}
             alt={product.title}
-            className="w-14 h-16 object-cover bg-[#132238] shrink-0"
+            className="w-14 h-16 rounded-lg object-cover bg-[#132238] shrink-0"
           />
           <div className="min-w-0">
             <p className="font-cinzel text-sm font-bold uppercase tracking-wider text-[#F4EFEA] truncate">
@@ -93,7 +93,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
             type="button"
             disabled={isDeleting}
             onClick={onCancel}
-            className="py-3 px-4 bg-[#0A1118] border border-[#F4EFEA]/20 text-slate-200 hover:border-[#F4EFEA] hover:text-[#F4EFEA] font-sans font-semibold text-xs uppercase tracking-widest transition-colors disabled:opacity-50 cursor-pointer"
+            className="py-3 px-4 rounded-lg bg-[#0A1118] border border-[#F4EFEA]/20 text-slate-200 hover:border-[#F4EFEA] hover:text-[#F4EFEA] font-sans font-semibold text-xs uppercase tracking-widest transition-colors disabled:opacity-50 cursor-pointer"
           >
             Cancel
           </button>
@@ -102,7 +102,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
             type="button"
             disabled={isDeleting}
             onClick={() => onConfirmDelete(product)}
-            className="py-3 px-4 bg-[#FF3B30] hover:bg-red-600 text-white font-sans font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-colors disabled:opacity-60 cursor-pointer"
+            className="py-3 px-4 rounded-lg bg-[#FF3B30] hover:bg-red-600 text-white font-sans font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-colors disabled:opacity-60 cursor-pointer"
           >
             {isDeleting ? (
               <>

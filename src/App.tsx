@@ -350,7 +350,7 @@ export const App: React.FC = () => {
       {toast && (
         <div
           role="status"
-          className={`fixed bottom-5 right-5 z-50 max-w-sm px-4 py-3.5 border shadow-2xl flex items-start gap-3 ${
+          className={`fixed bottom-5 right-5 z-50 max-w-sm px-4 py-3.5 rounded-xl border shadow-2xl flex items-start gap-3 ${
             toast.type === 'success'
               ? 'bg-[#132238] border-[#F4EFEA]/70 text-[#F4EFEA]'
               : 'bg-[#132238] border-[#FF3B30] text-red-100'

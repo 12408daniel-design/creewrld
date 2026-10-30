@@ -102,7 +102,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             type="button"
             onClick={() => onNavigate('home')}
-            className="flex items-center text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F4EFEA] cursor-pointer flex-shrink-0"
+            className="flex items-center text-left rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F4EFEA] cursor-pointer flex-shrink-0"
             aria-label="CREEWRLD Home"
           >
             <div className="hidden md:block flex-shrink-0">
@@ -173,14 +173,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                   stars={1}
                   trailLength={0.3}
                   thickness={1}
-                  radius={2}
+                  radius={999}
                   glow={0.55}
                   hover="lap"
                   clickPulse
                   backgroundColor="#132238"
                   textColor="#F4EFEA"
                   borderColor="rgba(244, 239, 234, 0.65)"
-                  className="inline-flex items-center justify-center gap-1.5 min-h-[34px] sm:min-h-[38px] px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-sans font-bold uppercase tracking-[0.1em] sm:tracking-[0.16em] whitespace-nowrap flex-shrink-0 hover:bg-[#F4EFEA] hover:text-[#0A1118] transition-colors cursor-pointer"
+                  className="inline-flex items-center justify-center gap-1.5 min-h-[34px] sm:min-h-[38px] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-sans font-bold uppercase tracking-[0.1em] sm:tracking-[0.16em] whitespace-nowrap flex-shrink-0 hover:bg-[#F4EFEA] hover:text-[#0A1118] transition-colors cursor-pointer"
                 >
                   <Shield className="w-3.5 h-3.5 flex-shrink-0" />
                   <span>Admin</span>
@@ -206,7 +206,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     stars={2}
                     trailLength={0.32}
                     thickness={1.2}
-                    radius={2}
+                    radius={999}
                     glow={0.65}
                     sparkle
                     hover="lap"
@@ -214,7 +214,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     backgroundColor="#132238"
                     textColor="#F4EFEA"
                     borderColor="rgba(244, 239, 234, 0.8)"
-                    className="inline-flex items-center justify-center gap-1.5 min-h-[34px] sm:min-h-[38px] px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-xs font-sans font-bold uppercase tracking-[0.1em] sm:tracking-[0.14em] whitespace-nowrap flex-shrink-0 transition-all cursor-pointer"
+                    className="inline-flex items-center justify-center gap-1.5 min-h-[34px] sm:min-h-[38px] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-sans font-bold uppercase tracking-[0.1em] sm:tracking-[0.14em] whitespace-nowrap flex-shrink-0 transition-all cursor-pointer"
                   >
                     <span className="w-2 h-2 rounded-full bg-[#F4EFEA] animate-pulse flex-shrink-0" />
                     <ShieldCheck className="w-3.5 h-3.5 text-[#F4EFEA] hidden md:inline flex-shrink-0" />
@@ -234,11 +234,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {dropdownOpen && (
                   <div
                     role="menu"
-                    className="admin-only absolute right-0 top-full mt-2 w-64 max-w-[calc(100vw-2rem)] bg-[#132238] border border-[#F4EFEA]/50 shadow-2xl p-3 z-50 space-y-2.5"
+                    className="admin-only absolute right-0 top-full mt-2 w-64 max-w-[calc(100vw-2rem)] rounded-xl overflow-hidden bg-[#132238] border border-[#F4EFEA]/40 shadow-2xl p-3 z-50 space-y-2.5"
                   >
-                    <div className="px-2.5 py-2 bg-[#0A1118] border border-[#F4EFEA]/15">
+                    <div className="px-3 py-2 rounded-lg bg-[#0A1118] border border-[#F4EFEA]/15">
                       <div className="flex items-center gap-1.5 text-[10px] font-cinzel font-semibold uppercase tracking-[0.2em] text-[#F4EFEA]">
-                        <span className="w-1.5 h-1.5 bg-[#F4EFEA] inline-block" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#F4EFEA] inline-block" />
                         <span>Admin Active</span>
                       </div>
                       <p className="font-mono-spec text-xs text-white truncate mt-1">
@@ -253,7 +253,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         setDropdownOpen(false);
                         onOpenAddModal();
                       }}
-                      className="w-full py-2.5 px-3 bg-[#F4EFEA] text-[#0A1118] hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                      className="w-full py-2.5 px-3 rounded-lg bg-[#F4EFEA] text-[#0A1118] hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-colors cursor-pointer"
                     >
                       <Plus className="w-3.5 h-3.5" />
                       <span>Add Product</span>
@@ -266,7 +266,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         setDropdownOpen(false);
                         onOpenSupabaseModal();
                       }}
-                      className="w-full py-2 px-3 bg-[#0A1118] border border-[#F4EFEA]/20 hover:border-[#F4EFEA] text-slate-200 hover:text-[#F4EFEA] font-sans font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                      className="w-full py-2 px-3 rounded-lg bg-[#0A1118] border border-[#F4EFEA]/20 hover:border-[#F4EFEA] text-slate-200 hover:text-[#F4EFEA] font-sans font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
                     >
                       <Database className="w-3.5 h-3.5" />
                       <span>{isSupabaseLive ? 'Supabase Config' : 'Connect Supabase'}</span>
@@ -280,7 +280,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         setDropdownOpen(false);
                         await onSignOut();
                       }}
-                      className="w-full py-2.5 px-3 bg-[#0A1118] border border-[#FF3B30]/50 hover:bg-[#FF3B30] text-[#FF3B30] hover:text-white font-sans font-bold text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
+                      className="w-full py-2.5 px-3 rounded-lg bg-[#0A1118] border border-[#FF3B30]/50 hover:bg-[#FF3B30] text-[#FF3B30] hover:text-white font-sans font-bold text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
                     >
                       {isSigningOut ? (
                         <>
@@ -308,7 +308,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="w-full px-4 sm:px-6 md:px-12 lg:px-16 py-2.5 flex flex-wrap items-center justify-between gap-2.5 text-xs font-mono-spec">
             <div className="flex items-center gap-2.5 min-w-0">
               <span className="inline-flex items-center gap-2 text-[#F4EFEA] uppercase tracking-wider font-semibold truncate">
-                <span className="w-2 h-2 bg-[#F4EFEA] inline-block animate-pulse flex-shrink-0" />
+                <span className="w-2 h-2 rounded-full bg-[#F4EFEA] inline-block animate-pulse flex-shrink-0" />
                 <span className="truncate">Admin Active ({session?.user?.email})</span>
               </span>
               <span className="text-slate-300 hidden lg:inline font-sans">
@@ -320,7 +320,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 type="button"
                 onClick={onOpenAddModal}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#F4EFEA] text-[#0A1118] font-sans font-extrabold uppercase tracking-wider hover:bg-white transition-colors cursor-pointer flex-shrink-0"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F4EFEA] text-[#0A1118] font-sans font-extrabold uppercase tracking-wider hover:bg-white transition-colors cursor-pointer flex-shrink-0"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add Product</span>
@@ -330,7 +330,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 type="button"
                 disabled={isSigningOut}
                 onClick={() => void onSignOut()}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#0A1118] border border-[#F4EFEA]/25 text-slate-200 hover:border-[#FF3B30] hover:text-[#FF3B30] font-sans font-semibold uppercase tracking-wider transition-colors disabled:opacity-50 cursor-pointer flex-shrink-0"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0A1118] border border-[#F4EFEA]/25 text-slate-200 hover:border-[#FF3B30] hover:text-[#FF3B30] font-sans font-semibold uppercase tracking-wider transition-colors disabled:opacity-50 cursor-pointer flex-shrink-0"
               >
                 <LogOut className="w-3.5 h-3.5" />
                 <span>Log Out</span>
