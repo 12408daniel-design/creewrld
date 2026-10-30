@@ -10,6 +10,7 @@ import {
   Loader2,
 } from 'lucide-react';
 import { CreewrldLogo } from './CreewrldLogo';
+import Magnet from './Magnet';
 
 export type ActivePage = 'home' | 'shop';
 
@@ -79,91 +80,113 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Main Full-Width Navigation Row */}
       <div className="w-full flex justify-between items-center px-6 md:px-12 lg:px-16 py-4 gap-3 box-border">
         {/* Brand Emblem + Blackletter Wordmark */}
-        <button
-          type="button"
-          onClick={() => onNavigate('home')}
-          className="text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CCFF00] cursor-pointer shrink-0 min-w-0"
-          aria-label="CREEWRLD Home"
+        <Magnet
+          padding={45}
+          magnetStrength={4}
+          maxOffset={6}
+          scale={1.02}
+          wrapperClassName="shrink-0 min-w-0"
         >
-          <div className="hidden sm:block">
-            <CreewrldLogo emblemSize={42} />
-          </div>
-          <div className="block sm:hidden">
-            <CreewrldLogo emblemSize={34} compact showSubtag={false} />
-          </div>
-        </button>
+          <button
+            type="button"
+            onClick={() => onNavigate('home')}
+            className="text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CCFF00] cursor-pointer shrink-0 min-w-0"
+            aria-label="CREEWRLD Home"
+          >
+            <div className="hidden sm:block">
+              <CreewrldLogo emblemSize={42} />
+            </div>
+            <div className="block sm:hidden">
+              <CreewrldLogo emblemSize={34} compact showSubtag={false} />
+            </div>
+          </button>
+        </Magnet>
 
         {/* Strictly Two Pages Navigation: HOME & SHOP */}
         <nav
           aria-label="Main navigation"
           className="flex items-center gap-1 sm:gap-2 bg-[#181818] p-1 border border-white/12 shrink-0"
         >
-          <button
-            type="button"
-            onClick={() => onNavigate('home')}
-            className={`px-3 sm:px-6 py-2 text-xs sm:text-sm font-mono-spec uppercase tracking-[0.18em] sm:tracking-[0.2em] transition-all cursor-pointer ${
-              activePage === 'home'
-                ? 'bg-[#CCFF00] text-[#0D0D0D] font-bold'
-                : 'text-neutral-300 hover:text-white'
-            }`}
-          >
-            Home
-          </button>
-          <button
-            type="button"
-            onClick={() => onNavigate('shop')}
-            className={`px-3 sm:px-6 py-2 text-xs sm:text-sm font-mono-spec uppercase tracking-[0.18em] sm:tracking-[0.2em] transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
-              activePage === 'shop'
-                ? 'bg-[#CCFF00] text-[#0D0D0D] font-bold'
-                : 'text-neutral-300 hover:text-white'
-            }`}
-          >
-            <span>Shop</span>
-            <span
-              className={`text-[10px] px-1.5 py-0.5 font-mono-spec ${
-                activePage === 'shop'
-                  ? 'bg-[#0D0D0D] text-[#CCFF00]'
-                  : 'bg-white/10 text-[#CCFF00]'
+          <Magnet padding={36} magnetStrength={4} maxOffset={5} scale={1.02}>
+            <button
+              type="button"
+              onClick={() => onNavigate('home')}
+              className={`px-3 sm:px-6 py-2 text-xs sm:text-sm font-mono-spec uppercase tracking-[0.18em] sm:tracking-[0.2em] transition-all cursor-pointer ${
+                activePage === 'home'
+                  ? 'bg-[#CCFF00] text-[#0D0D0D] font-bold'
+                  : 'text-neutral-300 hover:text-white'
               }`}
             >
-              {productCount}
-            </span>
-          </button>
+              Home
+            </button>
+          </Magnet>
+          <Magnet padding={36} magnetStrength={4} maxOffset={5} scale={1.02}>
+            <button
+              type="button"
+              onClick={() => onNavigate('shop')}
+              className={`px-3 sm:px-6 py-2 text-xs sm:text-sm font-mono-spec uppercase tracking-[0.18em] sm:tracking-[0.2em] transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
+                activePage === 'shop'
+                  ? 'bg-[#CCFF00] text-[#0D0D0D] font-bold'
+                  : 'text-neutral-300 hover:text-white'
+              }`}
+            >
+              <span>Shop</span>
+              <span
+                className={`text-[10px] px-1.5 py-0.5 font-mono-spec ${
+                  activePage === 'shop'
+                    ? 'bg-[#0D0D0D] text-[#CCFF00]'
+                    : 'bg-white/10 text-[#CCFF00]'
+                }`}
+              >
+                {productCount}
+              </span>
+            </button>
+          </Magnet>
         </nav>
 
         {/* Admin Trigger Button / Authenticated Dropdown */}
         <div className="relative flex items-center shrink-0" ref={dropdownContainerRef}>
           {!isAdmin ? (
-            <button
-              type="button"
-              onClick={onOpenAuthModal}
-              title="Admin Login"
-              className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-2 text-xs font-mono-spec uppercase tracking-[0.16em] bg-[#181818] border border-white/18 text-white hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all cursor-pointer"
-            >
-              <Shield className="w-3.5 h-3.5 shrink-0" />
-              <span className="hidden xs:inline sm:inline">Admin</span>
-            </button>
-          ) : (
-            <>
+            <Magnet padding={48} magnetStrength={3.5} maxOffset={7} scale={1.02}>
               <button
                 type="button"
-                onClick={() => setDropdownOpen((prev) => !prev)}
-                aria-expanded={dropdownOpen}
-                aria-haspopup="menu"
-                className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2 text-xs font-mono-spec uppercase tracking-[0.14em] bg-[#181818] border border-[#CCFF00] text-white hover:bg-[#CCFF00]/10 transition-all cursor-pointer"
+                onClick={onOpenAuthModal}
+                title="Admin Login"
+                className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-2 text-xs font-mono-spec uppercase tracking-[0.16em] bg-[#181818] border border-white/18 text-white hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all cursor-pointer"
               >
-                <span className="w-2 h-2 rounded-full bg-[#CCFF00] animate-pulse shrink-0" />
-                <ShieldCheck className="w-3.5 h-3.5 text-[#CCFF00] hidden md:inline" />
-                <span className="text-[#CCFF00] font-bold">
-                  <span className="hidden sm:inline">Admin Active</span>
-                  <span className="inline sm:hidden">Active</span>
-                </span>
-                <ChevronDown
-                  className={`w-3.5 h-3.5 text-[#CCFF00] transition-transform ${
-                    dropdownOpen ? 'rotate-180' : ''
-                  }`}
-                />
+                <Shield className="w-3.5 h-3.5 shrink-0" />
+                <span className="hidden xs:inline sm:inline">Admin</span>
               </button>
+            </Magnet>
+          ) : (
+            <>
+              <Magnet
+                padding={48}
+                magnetStrength={3.5}
+                maxOffset={7}
+                scale={1.02}
+                disabled={dropdownOpen}
+              >
+                <button
+                  type="button"
+                  onClick={() => setDropdownOpen((prev) => !prev)}
+                  aria-expanded={dropdownOpen}
+                  aria-haspopup="menu"
+                  className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2 text-xs font-mono-spec uppercase tracking-[0.14em] bg-[#181818] border border-[#CCFF00] text-white hover:bg-[#CCFF00]/10 transition-all cursor-pointer"
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#CCFF00] animate-pulse shrink-0" />
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#CCFF00] hidden md:inline" />
+                  <span className="text-[#CCFF00] font-bold">
+                    <span className="hidden sm:inline">Admin Active</span>
+                    <span className="inline sm:hidden">Active</span>
+                  </span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 text-[#CCFF00] transition-transform ${
+                      dropdownOpen ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+              </Magnet>
 
               {/* Admin Active Dropdown Menu */}
               {dropdownOpen && (

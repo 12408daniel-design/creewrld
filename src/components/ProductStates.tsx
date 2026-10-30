@@ -1,6 +1,7 @@
 import React from 'react';
 import { PackageOpen, Plus, MessageCircle, RotateCcw } from 'lucide-react';
 import { buildGeneralWhatsAppUrl } from '../utils/whatsapp';
+import Magnet from './Magnet';
 
 export const ProductGridSkeleton: React.FC<{ count?: number }> = ({ count = 8 }) => {
   return (
@@ -78,38 +79,50 @@ export const EmptyArchiveState: React.FC<EmptyArchiveStateProps> = ({
 
       <div className="flex flex-wrap items-center justify-center gap-3">
         {isFiltered && onResetCategory && (
-          <button
-            type="button"
-            onClick={onResetCategory}
-            className="inline-flex items-center gap-2 px-5 py-3 bg-[#CCFF00] text-[#0D0D0D] font-mono-spec font-bold text-xs uppercase tracking-[0.18em] hover:bg-white transition-colors cursor-pointer"
-          >
-            <RotateCcw className="w-4 h-4" />
-            View All Categories
-          </button>
+          <Magnet padding={65} magnetStrength={2.8} maxOffset={10} scale={1.03}>
+            <button
+              type="button"
+              onClick={onResetCategory}
+              className="inline-flex items-center gap-2 px-5 py-3 bg-[#CCFF00] text-[#0D0D0D] font-mono-spec font-bold text-xs uppercase tracking-[0.18em] hover:bg-white transition-colors cursor-pointer"
+            >
+              <RotateCcw className="w-4 h-4" />
+              View All Categories
+            </button>
+          </Magnet>
         )}
 
         {isAdmin && onOpenAddModal && (
-          <button
-            type="button"
-            onClick={onOpenAddModal}
-            className="admin-only inline-flex items-center gap-2 px-5 py-3 bg-[#0D0D0D] border border-white/25 text-white hover:border-[#CCFF00] hover:text-[#CCFF00] font-mono-spec font-bold text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer"
+          <Magnet
+            padding={65}
+            magnetStrength={2.8}
+            maxOffset={10}
+            scale={1.03}
+            wrapperClassName="admin-only"
           >
-            <Plus className="w-4 h-4" />
-            Add Product
-          </button>
+            <button
+              type="button"
+              onClick={onOpenAddModal}
+              className="inline-flex items-center gap-2 px-5 py-3 bg-[#0D0D0D] border border-white/25 text-white hover:border-[#CCFF00] hover:text-[#CCFF00] font-mono-spec font-bold text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer"
+            >
+              <Plus className="w-4 h-4" />
+              Add Product
+            </button>
+          </Magnet>
         )}
 
-        <a
-          href={buildGeneralWhatsAppUrl(
-            'Hello CREEWRLD! Please alert me when the next thrift archive drop goes live.'
-          )}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-5 py-3 bg-[#121212] border border-[#CCFF00]/40 text-[#CCFF00] hover:bg-[#CCFF00] hover:text-[#0D0D0D] font-mono-spec font-bold text-xs uppercase tracking-[0.18em] transition-colors"
-        >
-          <MessageCircle className="w-4 h-4" />
-          Request a Piece on WhatsApp
-        </a>
+        <Magnet padding={65} magnetStrength={2.8} maxOffset={10} scale={1.03}>
+          <a
+            href={buildGeneralWhatsAppUrl(
+              'Hello CREEWRLD! Please alert me when the next thrift archive drop goes live.'
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-[#121212] border border-[#CCFF00]/40 text-[#CCFF00] hover:bg-[#CCFF00] hover:text-[#0D0D0D] font-mono-spec font-bold text-xs uppercase tracking-[0.18em] transition-colors"
+          >
+            <MessageCircle className="w-4 h-4" />
+            Request a Piece on WhatsApp
+          </a>
+        </Magnet>
       </div>
     </div>
   );

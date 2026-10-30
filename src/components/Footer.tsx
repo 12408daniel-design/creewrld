@@ -1,5 +1,6 @@
 import React from 'react';
 import { CreewrldLogo } from './CreewrldLogo';
+import Magnet from './Magnet';
 import type { ActivePage } from './Navbar';
 import { buildGeneralWhatsAppUrl, CREEWRLD_WHATSAPP_DISPLAY } from '../utils/whatsapp';
 
@@ -44,14 +45,16 @@ export const Footer: React.FC<FooterProps> = ({
           >
             Shop
           </button>
-          <a
-            href={buildGeneralWhatsAppUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#CCFF00] hover:text-white transition-colors"
-          >
-            WhatsApp Order Desk
-          </a>
+          <Magnet padding={60} magnetStrength={3} maxOffset={10} scale={1.04}>
+            <a
+              href={buildGeneralWhatsAppUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#CCFF00] hover:text-white transition-colors"
+            >
+              WhatsApp Order Desk
+            </a>
+          </Magnet>
           {isAdmin ? (
             <button
               type="button"

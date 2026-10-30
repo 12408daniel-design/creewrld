@@ -1,0 +1,15 @@
+.creewrld-magnet-wrapper {
+  position: relative;
+}
+
+.creewrld-magnet-wrapper[data-magnet-active] {
+  z-index: 20;
+}
+
+.creewrld-magnet-glow > .creewrld-magnet-inner {
+  transition: filter 220ms ease;
+}
+
+.creewrld-magnet-glow[data-magnet-active] > .creewrld-magnet-inner {
+  filter: drop-shadow(0 0 18px rgba(204, 255, 0, 0.28));
+}
