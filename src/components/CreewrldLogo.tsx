@@ -85,10 +85,12 @@ export const CreewrldLogo: React.FC<CreewrldLogoProps> = ({
         className="transition-transform duration-300 group-hover:scale-105 shrink-0"
       />
       <div className="flex flex-col justify-center leading-none">
-        <CreewrldWordmark height={compact ? 17 : 21} className="w-auto" />
+        <div className="flex items-center gap-2">
+          <CreewrldWordmark height={compact ? 17 : 21} className="w-auto" />
+        </div>
         {showSubtag && (
-          <span className="font-mono-spec text-[9px] uppercase tracking-[0.28em] text-[#CCFF00] mt-1.5">
-            NAIROBI ARCHIVE // KE
+          <span className="font-cinzel font-semibold text-[9px] uppercase tracking-[0.26em] text-[#CCFF00] mt-1.5">
+            CREEWRLD // NAIROBI ARCHIVE
           </span>
         )}
       </div>

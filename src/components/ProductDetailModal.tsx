@@ -68,10 +68,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             className="w-full h-full object-cover object-center"
           />
           <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-            <span className="bg-[#0D0D0D]/90 border border-white/20 px-3 py-1 font-mono-spec text-[11px] uppercase tracking-[0.2em] text-white">
-              {product.category}
+            <span className="bg-[#0D0D0D]/90 border border-white/20 px-3 py-1 font-cinzel font-semibold text-[11px] uppercase tracking-[0.18em] text-white">
+              {product.category} Archive
             </span>
-            <span className="bg-[#CCFF00] px-3 py-1 font-mono-spec text-[11px] font-bold uppercase tracking-[0.15em] text-[#0D0D0D]">
+            <span className="bg-[#CCFF00] px-3 py-1 font-cinzel text-[11px] font-bold uppercase tracking-[0.16em] text-[#0D0D0D]">
               1-OF-1 PIECE
             </span>
           </div>
@@ -80,22 +80,22 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
         {/* Right: Specs & Direct WhatsApp Ordering */}
         <div className="p-6 sm:p-8 flex flex-col justify-between gap-6">
           <div>
-            <p className="font-mono-spec text-[11px] uppercase tracking-[0.24em] text-neutral-400 mb-2">
+            <p className="font-cinzel font-semibold text-[11px] uppercase tracking-[0.2em] text-neutral-400 mb-2">
               CREEWRLD ARCHIVE // LOT #{product.id.slice(0, 8).toUpperCase()}
             </p>
 
             <h2
               id="modal-product-title"
-              className="font-display text-2xl sm:text-3xl font-extrabold text-white leading-tight"
+              className="font-cinzel text-2xl sm:text-3xl font-bold uppercase tracking-wider text-white leading-snug"
             >
               {product.title}
             </h2>
 
             <div className="mt-4 pb-5 border-b border-white/12 flex items-baseline justify-between gap-4">
-              <div className="font-mono-spec text-2xl sm:text-3xl font-bold text-[#CCFF00]">
+              <div className="font-cinzel text-2xl sm:text-3xl font-bold tracking-wider text-[#CCFF00]">
                 KSh {formatKsh(product.price_ksh)}
               </div>
-              <span className="font-mono-spec text-xs uppercase tracking-widest text-neutral-400">
+              <span className="font-sans text-xs uppercase tracking-widest text-neutral-400">
                 M-PESA / CASH ON PICKUP
               </span>
             </div>
@@ -123,7 +123,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             </div>
 
             {/* Fulfillment Assurance */}
-            <div className="space-y-2.5 text-xs text-neutral-300 border-t border-white/10 pt-4">
+            <div className="font-sans space-y-2.5 text-xs text-neutral-300 border-t border-white/10 pt-4">
               <div className="flex items-start gap-2.5">
                 <ShieldCheck className="w-4 h-4 text-[#CCFF00] shrink-0 mt-0.5" />
                 <span>
@@ -156,7 +156,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-4 px-5 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs sm:text-sm uppercase tracking-[0.18em] flex items-center justify-center gap-2.5 transition-colors"
+                className="w-full py-4 px-5 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-sans font-extrabold text-xs sm:text-sm uppercase tracking-[0.16em] flex items-center justify-center gap-2.5 transition-colors"
               >
                 <MessageCircle className="w-4 h-4 fill-[#0D0D0D] stroke-[#0D0D0D]" />
                 <span>Order via WhatsApp</span>
