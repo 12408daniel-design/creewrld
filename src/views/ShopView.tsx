@@ -8,6 +8,7 @@ import {
 import { ProductCard } from '../components/ProductCard';
 import { ProductGridSkeleton, EmptyArchiveState } from '../components/ProductStates';
 import Magnet from '../components/Magnet';
+import StarBorder from '../components/StarBorder';
 import Topography from '../components/Topography';
 
 type SortOption = 'newest' | 'price-asc' | 'price-desc';
@@ -147,15 +148,27 @@ export const ShopView: React.FC<ShopViewProps> = ({
             </span>
 
             <Magnet padding={55} magnetStrength={3} maxOffset={10} tilt={4} scale={1.03}>
-              <button
-                type="button"
+              <StarBorder
                 onClick={onRefresh}
                 title="Refresh inventory from Supabase"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#181818]/95 border border-white/15 hover:border-[#CCFF00] text-xs font-sans font-semibold uppercase tracking-wider text-neutral-200 hover:text-[#CCFF00] transition-colors cursor-pointer"
+                color="#CCFF00"
+                trailColor="#FFFFFF"
+                duration={4.2}
+                stars={1}
+                trailLength={0.3}
+                thickness={1}
+                radius={2}
+                glow={0.55}
+                hover="lap"
+                clickPulse
+                backgroundColor="rgba(24, 24, 24, 0.95)"
+                textColor="#E5E5E5"
+                borderColor="rgba(255, 255, 255, 0.16)"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-sans font-semibold uppercase tracking-wider hover:text-[#CCFF00] transition-colors cursor-pointer"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-                Sync
-              </button>
+                <span>Sync</span>
+              </StarBorder>
             </Magnet>
 
             {adminMode && (
@@ -167,14 +180,27 @@ export const ShopView: React.FC<ShopViewProps> = ({
                 scale={1.03}
                 wrapperClassName="admin-only creewrld-magnet-glow"
               >
-                <button
-                  type="button"
+                <StarBorder
                   onClick={onOpenAddModal}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white text-xs font-sans font-extrabold uppercase tracking-wider transition-colors cursor-pointer"
+                  color="#FFFFFF"
+                  trailColor="#CCFF00"
+                  duration={3.8}
+                  stars={2}
+                  trailLength={0.32}
+                  thickness={1.2}
+                  radius={2}
+                  glow={0.65}
+                  sparkle
+                  hover="lap"
+                  clickPulse
+                  backgroundColor="#CCFF00"
+                  textColor="#0D0D0D"
+                  borderColor="rgba(255, 255, 255, 0.4)"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 hover:bg-white text-xs font-sans font-extrabold uppercase tracking-wider transition-colors cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
-                  Add Product
-                </button>
+                  <span>Add Product</span>
+                </StarBorder>
               </Magnet>
             )}
           </div>

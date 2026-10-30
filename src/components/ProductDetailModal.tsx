@@ -11,6 +11,7 @@ import {
 import type { Product } from '../types/product';
 import { buildWhatsAppOrderUrl, formatKsh, CREEWRLD_WHATSAPP_DISPLAY } from '../utils/whatsapp';
 import Magnet from './Magnet';
+import StarBorder from './StarBorder';
 
 interface ProductDetailModalProps {
   product: Product | null;
@@ -152,16 +153,31 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               innerClassName="w-full"
               style={{ display: 'block', width: '100%' }}
             >
-              <a
+              <StarBorder
+                as="a"
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-4 px-5 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-sans font-extrabold text-xs sm:text-sm uppercase tracking-[0.16em] flex items-center justify-center gap-2.5 transition-colors"
+                color="#FFFFFF"
+                trailColor="#CCFF00"
+                duration={3.8}
+                stars={2}
+                trailLength={0.32}
+                thickness={1.5}
+                radius={2}
+                glow={0.7}
+                sparkle
+                hover="lap"
+                clickPulse
+                backgroundColor="#CCFF00"
+                textColor="#0D0D0D"
+                borderColor="rgba(255, 255, 255, 0.4)"
+                className="w-full py-4 px-5 hover:bg-white font-sans font-extrabold text-xs sm:text-sm uppercase tracking-[0.16em] flex items-center justify-center gap-2.5 transition-colors"
               >
                 <MessageCircle className="w-4 h-4 fill-[#0D0D0D] stroke-[#0D0D0D]" />
                 <span>Order via WhatsApp</span>
                 <ArrowUpRight className="w-4 h-4" />
-              </a>
+              </StarBorder>
             </Magnet>
 
             <div className="flex items-center justify-between pt-1">

@@ -16,6 +16,7 @@ import {
   CreewrldWordmark,
 } from '../components/CreewrldLogo';
 import Magnet from '../components/Magnet';
+import StarBorder from '../components/StarBorder';
 import Topography from '../components/Topography';
 import { ProductCard } from '../components/ProductCard';
 import { ProductGridSkeleton, EmptyArchiveState } from '../components/ProductStates';
@@ -189,7 +190,23 @@ export const HomeView: React.FC<HomeViewProps> = ({
           {/* Left Editorial Text Block (7 Columns — min-w-0 prevents CSS Grid text overflow) */}
           <div className="lg:col-span-7 flex flex-col justify-center min-w-0 space-y-6">
             {/* Customer Rating Badge */}
-            <div className="self-start inline-flex flex-wrap items-center gap-3 bg-[#181818]/95 border border-white/15 px-4 py-2 max-w-full">
+            <StarBorder
+              as="div"
+              color="#CCFF00"
+              trailColor="#FFFFFF"
+              duration={6}
+              stars={1}
+              trailLength={0.35}
+              thickness={1}
+              radius={2}
+              glow={0.55}
+              sparkle
+              hover="brighten"
+              clickPulse={false}
+              backgroundColor="rgba(24, 24, 24, 0.95)"
+              borderColor="rgba(255, 255, 255, 0.16)"
+              className="self-start inline-flex flex-wrap items-center gap-3 px-4 py-2 max-w-full"
+            >
               <div
                 className="flex items-center gap-0.5 text-[#CCFF00]"
                 aria-label="4.9 out of 5 stars"
@@ -203,7 +220,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <span className="font-cinzel text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-200">
                 640+ Verified Kenyan Thrift Buyers
               </span>
-            </div>
+            </StarBorder>
 
             {/* Official Brand Mark + Fluid Responsive Headline */}
             <div className="space-y-3.5 min-w-0 max-w-full">
@@ -239,14 +256,27 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 spring={{ stiffness: 190, damping: 15, mass: 1 }}
                 wrapperClassName="creewrld-magnet-glow"
               >
-                <button
-                  type="button"
+                <StarBorder
                   onClick={() => onNavigateToShop('All')}
-                  className="px-7 py-4 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-sans font-extrabold text-xs sm:text-sm uppercase tracking-[0.16em] inline-flex items-center gap-3 transition-colors cursor-pointer"
+                  color="#FFFFFF"
+                  trailColor="#CCFF00"
+                  duration={3.6}
+                  stars={2}
+                  trailLength={0.35}
+                  thickness={1.5}
+                  radius={2}
+                  glow={0.75}
+                  sparkle
+                  hover="lap"
+                  clickPulse
+                  backgroundColor="#CCFF00"
+                  textColor="#0D0D0D"
+                  borderColor="rgba(255, 255, 255, 0.45)"
+                  className="px-7 py-4 hover:bg-white font-sans font-extrabold text-xs sm:text-sm uppercase tracking-[0.16em] inline-flex items-center gap-3 transition-colors cursor-pointer"
                 >
                   <span>Shop Live Drops</span>
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </StarBorder>
               </Magnet>
 
               <Magnet
@@ -256,15 +286,30 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 tilt={5}
                 scale={1.02}
               >
-                <a
+                <StarBorder
+                  as="a"
                   href={buildGeneralWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-4 bg-[#181818]/95 border border-white/20 hover:border-[#CCFF00] text-white hover:text-[#CCFF00] font-sans font-semibold text-xs sm:text-sm uppercase tracking-[0.16em] inline-flex items-center gap-2.5 transition-colors"
+                  color="#CCFF00"
+                  trailColor="#FFFFFF"
+                  duration={4.2}
+                  stars={1}
+                  trailLength={0.32}
+                  thickness={1.2}
+                  radius={2}
+                  glow={0.65}
+                  sparkle
+                  hover="lap"
+                  clickPulse
+                  backgroundColor="rgba(24, 24, 24, 0.95)"
+                  textColor="#FFFFFF"
+                  borderColor="rgba(255, 255, 255, 0.22)"
+                  className="px-6 py-4 hover:text-[#CCFF00] font-sans font-semibold text-xs sm:text-sm uppercase tracking-[0.16em] inline-flex items-center gap-2.5 transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>WhatsApp Concierge</span>
-                </a>
+                </StarBorder>
               </Magnet>
             </div>
 
@@ -581,14 +626,26 @@ export const HomeView: React.FC<HomeViewProps> = ({
               scale={1.02}
               wrapperClassName="self-start sm:self-auto"
             >
-              <button
-                type="button"
+              <StarBorder
                 onClick={() => onNavigateToShop('All')}
-                className="px-5 py-3 bg-[#181818] border border-white/20 hover:border-[#CCFF00] text-white hover:text-[#CCFF00] font-sans font-semibold text-xs uppercase tracking-[0.16em] inline-flex items-center gap-2 transition-colors cursor-pointer"
+                color="#CCFF00"
+                trailColor="#FFFFFF"
+                duration={4.5}
+                stars={1}
+                trailLength={0.3}
+                thickness={1}
+                radius={2}
+                glow={0.6}
+                hover="lap"
+                clickPulse
+                backgroundColor="#181818"
+                textColor="#FFFFFF"
+                borderColor="rgba(255, 255, 255, 0.2)"
+                className="px-5 py-3 hover:text-[#CCFF00] font-sans font-semibold text-xs uppercase tracking-[0.16em] inline-flex items-center gap-2 transition-colors cursor-pointer"
               >
                 <span>View All Drops ({products.length})</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </StarBorder>
             </Magnet>
           </div>
 
