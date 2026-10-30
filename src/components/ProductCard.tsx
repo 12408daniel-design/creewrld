@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MessageCircle, Trash2, ArrowUpRight, Sparkles } from 'lucide-react';
 import type { Product } from '../types/product';
-import { buildWhatsAppOrderUrl, formatKsh } from '../utils/whatsapp';
+import { formatKsh } from '../utils/whatsapp';
 import Magnet from './Magnet';
 import StarBorder from './StarBorder';
 
@@ -9,6 +9,7 @@ interface ProductCardProps {
   product: Product;
   adminMode: boolean;
   onSelectProduct: (product: Product) => void;
+  onOrderViaWhatsApp: (product: Product) => void;
   onRequestDelete: (product: Product) => void;
 }
 
@@ -16,12 +17,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   product,
   adminMode,
   onSelectProduct,
+  onOrderViaWhatsApp,
   onRequestDelete,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageFailed, setImageFailed] = useState(false);
-
-  const whatsappUrl = buildWhatsAppOrderUrl(product);
 
   return (
     <article
@@ -133,7 +133,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         </div>
 
-        {/* Direct Order via WhatsApp Button (Cream Ivory CTA with Solid Black Text & Icon) */}
+        {/* Direct Order via WhatsApp Button (Opens 3-Teller Agent Selection Modal) */}
         <Magnet
           padding={55}
           magnetStrength={3.2}
@@ -143,10 +143,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           wrapperClassName="w-full creewrld-magnet-glow"
         >
           <StarBorder
-            as="a"
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={() => onOrderViaWhatsApp(product)}
             color="#FFFFFF"
             trailColor="#F4EFEA"
             duration={4}

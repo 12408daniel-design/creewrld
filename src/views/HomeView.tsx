@@ -29,6 +29,7 @@ interface HomeViewProps {
   isSupabaseLive: boolean;
   onNavigateToShop: (category?: FilterCategory) => void;
   onSelectProduct: (product: Product) => void;
+  onOrderViaWhatsApp: (product: Product) => void;
   onRequestDelete: (product: Product) => void;
   onOpenAddModal: () => void;
 }
@@ -111,6 +112,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   isSupabaseLive,
   onNavigateToShop,
   onSelectProduct,
+  onOrderViaWhatsApp,
   onRequestDelete,
   onOpenAddModal,
 }) => {
@@ -678,6 +680,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   product={product}
                   adminMode={adminMode}
                   onSelectProduct={onSelectProduct}
+                  onOrderViaWhatsApp={onOrderViaWhatsApp}
                   onRequestDelete={onRequestDelete}
                 />
               ))}

@@ -6,6 +6,7 @@ import { Footer } from './components/Footer';
 import { HomeView } from './views/HomeView';
 import { ShopView } from './views/ShopView';
 import { ProductDetailModal } from './components/ProductDetailModal';
+import { WhatsAppTellerModal } from './components/WhatsAppTellerModal';
 import { DeleteConfirmModal } from './components/DeleteConfirmModal';
 import { AddProductModal, SupabaseSetupModal } from './components/AdminModals';
 import { AdminAuthModal } from './components/AdminAuthModal';
@@ -41,6 +42,7 @@ export const App: React.FC = () => {
   const [isSigningOut, setIsSigningOut] = useState<boolean>(false);
 
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [whatsappOrderProduct, setWhatsappOrderProduct] = useState<Product | null>(null);
   const [productPendingDelete, setProductPendingDelete] = useState<Product | null>(null);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
@@ -199,6 +201,9 @@ export const App: React.FC = () => {
       if (selectedProduct?.id === target.id) {
         setSelectedProduct(null);
       }
+      if (whatsappOrderProduct?.id === target.id) {
+        setWhatsappOrderProduct(null);
+      }
       setProductPendingDelete(null);
 
       showToast(
@@ -258,6 +263,7 @@ export const App: React.FC = () => {
             isSupabaseLive={isSupabaseLive}
             onNavigateToShop={handleNavigateToShop}
             onSelectProduct={setSelectedProduct}
+            onOrderViaWhatsApp={setWhatsappOrderProduct}
             onRequestDelete={(product) => void handleRequestDeleteProduct(product)}
             onOpenAddModal={() => void handleRequestOpenAddModal()}
           />
@@ -271,6 +277,7 @@ export const App: React.FC = () => {
             adminMode={isAdmin}
             isSupabaseLive={isSupabaseLive}
             onSelectProduct={setSelectedProduct}
+            onOrderViaWhatsApp={setWhatsappOrderProduct}
             onRequestDelete={(product) => void handleRequestDeleteProduct(product)}
             onRefresh={() => void loadProducts()}
             onOpenAddModal={() => void handleRequestOpenAddModal()}
@@ -298,8 +305,16 @@ export const App: React.FC = () => {
       <ProductDetailModal
         product={selectedProduct}
         isAdmin={isAdmin}
+        isTellerModalOpen={Boolean(whatsappOrderProduct)}
         onClose={() => setSelectedProduct(null)}
+        onOrderViaWhatsApp={setWhatsappOrderProduct}
         onRequestDelete={(product) => void handleRequestDeleteProduct(product)}
+      />
+
+      {/* WhatsApp 3-Teller Agent Selection Modal */}
+      <WhatsAppTellerModal
+        product={whatsappOrderProduct}
+        onClose={() => setWhatsappOrderProduct(null)}
       />
 
       {/* Admin-Only Modals (Rendered only when an active Supabase Auth session is verified) */}
