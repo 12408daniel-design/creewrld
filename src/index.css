@@ -1,0 +1,103 @@
+@import "tailwindcss";
+@import "@fontsource/unifrakturmaguntia/400.css";
+@import "@fontsource/syne/700.css";
+@import "@fontsource/syne/800.css";
+@import "@fontsource/space-grotesk/400.css";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/600.css";
+@import "@fontsource/space-grotesk/700.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+@import "@fontsource/jetbrains-mono/700.css";
+
+@layer base {
+  :root {
+    --bg-obsidian: #0D0D0D;
+    --bg-surface: #181818;
+    --ink-white: #FFFFFF;
+    --accent-lime: #CCFF00;
+  }
+
+  html {
+    background-color: #0D0D0D;
+    color: #FFFFFF;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #0D0D0D;
+    color: #FFFFFF;
+    overflow-x: hidden;
+  }
+}
+
+.font-blackletter {
+  font-family: 'UnifrakturMaguntia', Georgia, serif;
+  letter-spacing: 0.03em;
+}
+
+.font-display {
+  font-family: 'Syne', 'Space Grotesk', sans-serif;
+}
+
+.font-mono-spec {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+@keyframes creewrld-marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-creewrld-marquee {
+  display: flex;
+  width: max-content;
+  animation: creewrld-marquee 28s linear infinite;
+}
+
+.animate-creewrld-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-pulse-surface {
+  background: linear-gradient(
+    90deg,
+    #181818 0%,
+    #242424 50%,
+    #181818 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+/* Custom high-contrast scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0D0D0D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2A2A2A;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #CCFF00;
+}
