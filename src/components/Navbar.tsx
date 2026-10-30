@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import {
   Shield,
@@ -10,6 +10,7 @@ import {
   Loader2,
 } from 'lucide-react';
 import { CreewrldEmblem, CreewrldLogo } from './CreewrldLogo';
+import GooeyNav, { type GooeyNavItem } from './GooeyNav';
 import Magnet from './Magnet';
 import StarBorder from './StarBorder';
 
@@ -43,6 +44,16 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownContainerRef = useRef<HTMLDivElement | null>(null);
   const isAdmin = Boolean(session);
+
+  const navItems = useMemo<GooeyNavItem[]>(
+    () => [
+      { label: 'Home' },
+      { label: 'Shop', badge: productCount },
+    ],
+    [productCount]
+  );
+
+  const activeNavIndex = activePage === 'home' ? 0 : 1;
 
   useEffect(() => {
     if (!isAdmin) {
@@ -105,60 +116,39 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Right Compact Cluster on mobile (< md); balanced 3-slot bar on md+ */}
         <div className="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0 md:contents">
-          {/* Strictly Two Pages Navigation: HOME & SHOP */}
-          <nav
-            aria-label="Main navigation"
-            className="flex items-center gap-0.5 sm:gap-1.5 bg-[#132238] p-0.5 sm:p-1 border border-[#F4EFEA]/18 flex-shrink-0"
-          >
-            <Magnet
-              padding={36}
-              magnetStrength={4}
-              maxOffset={5}
-              scale={1.02}
-              wrapperClassName="flex-shrink-0"
-            >
-              <button
-                type="button"
-                onClick={() => onNavigate('home')}
-                className={`px-2.5 sm:px-5 py-1.5 sm:py-2 text-[11px] sm:text-sm font-sans uppercase tracking-[0.1em] sm:tracking-[0.16em] whitespace-nowrap flex-shrink-0 transition-all cursor-pointer ${
-                  activePage === 'home'
-                    ? 'bg-[#F4EFEA] text-[#0A1118] font-extrabold'
-                    : 'text-slate-300 hover:text-[#F4EFEA] font-semibold'
-                }`}
-              >
-                Home
-              </button>
-            </Magnet>
-
-            <Magnet
-              padding={36}
-              magnetStrength={4}
-              maxOffset={5}
-              scale={1.02}
-              wrapperClassName="flex-shrink-0"
-            >
-              <button
-                type="button"
-                onClick={() => onNavigate('shop')}
-                className={`px-2.5 sm:px-5 py-1.5 sm:py-2 text-[11px] sm:text-sm font-sans uppercase tracking-[0.1em] sm:tracking-[0.16em] whitespace-nowrap flex-shrink-0 transition-all flex items-center gap-1 sm:gap-2 cursor-pointer ${
-                  activePage === 'shop'
-                    ? 'bg-[#F4EFEA] text-[#0A1118] font-extrabold'
-                    : 'text-slate-300 hover:text-[#F4EFEA] font-semibold'
-                }`}
-              >
-                <span>Shop</span>
-                <span
-                  className={`text-[10px] px-1 sm:px-1.5 py-0.5 font-cinzel font-bold leading-none flex-shrink-0 ${
-                    activePage === 'shop'
-                      ? 'bg-[#0A1118] text-[#F4EFEA]'
-                      : 'bg-[#0A1118]/70 text-[#F4EFEA]'
-                  }`}
-                >
-                  {productCount}
-                </span>
-              </button>
-            </Magnet>
-          </nav>
+          {/* Strictly Two Pages Navigation via WebGL2 <GooeyNav />: HOME & SHOP */}
+          <div className="flex items-center flex-shrink-0">
+            <GooeyNav
+              items={navItems}
+              activeIndex={activeNavIndex}
+              onChange={(index) => onNavigate(index === 0 ? 'home' : 'shop')}
+              theme="dark"
+              size="sm"
+              frame={true}
+              color="#F4EFEA"
+              activeTextColor="#0A1118"
+              colors={['#F4EFEA', '#FFFFFF', '#DFD6CA']}
+              particleCount={15}
+              spread={48}
+              animationTime={580}
+              timeVariance={260}
+              gooeyness={0.55}
+              wobble={0.5}
+              hoverEffect={true}
+              ariaLabel="Main navigation"
+              className="gooey-nav--creewrld font-sans flex-shrink-0"
+              style={
+                {
+                  '--gn-frame': 'rgba(19, 34, 56, 0.9)',
+                  '--gn-frame-edge': 'rgba(244, 239, 234, 0.24)',
+                  '--gn-frame-highlight': 'rgba(244, 239, 234, 0.14)',
+                  '--gn-frame-shadow': '0 14px 32px -14px rgba(10, 17, 24, 0.85)',
+                  '--gn-ink': '#F4EFEA',
+                  '--gn-muted': 'rgba(244, 239, 234, 0.72)',
+                } as React.CSSProperties
+              }
+            />
+          </div>
 
           {/* Dedicated High-Contrast ADMIN Trigger Button / Authenticated Dropdown */}
           <div
