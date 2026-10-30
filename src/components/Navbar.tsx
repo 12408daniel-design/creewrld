@@ -75,27 +75,33 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, [dropdownOpen]);
 
   return (
-    <header className="sticky top-0 z-40 bg-[#0D0D0D]/92 backdrop-blur-md border-b border-white/12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+    <header className="w-full fixed top-0 left-0 right-0 z-50 bg-[#0D0D0D]/90 backdrop-blur-md border-b border-white/12 box-border">
+      {/* Main Full-Width Navigation Row */}
+      <div className="w-full flex justify-between items-center px-6 md:px-12 lg:px-16 py-4 gap-3 box-border">
         {/* Brand Emblem + Blackletter Wordmark */}
         <button
           type="button"
           onClick={() => onNavigate('home')}
-          className="text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CCFF00] cursor-pointer"
+          className="text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CCFF00] cursor-pointer shrink-0 min-w-0"
           aria-label="CREEWRLD Home"
         >
-          <CreewrldLogo emblemSize={42} />
+          <div className="hidden sm:block">
+            <CreewrldLogo emblemSize={42} />
+          </div>
+          <div className="block sm:hidden">
+            <CreewrldLogo emblemSize={34} compact showSubtag={false} />
+          </div>
         </button>
 
         {/* Strictly Two Pages Navigation: HOME & SHOP */}
         <nav
           aria-label="Main navigation"
-          className="flex items-center gap-1 sm:gap-2 bg-[#181818] p-1 border border-white/12"
+          className="flex items-center gap-1 sm:gap-2 bg-[#181818] p-1 border border-white/12 shrink-0"
         >
           <button
             type="button"
             onClick={() => onNavigate('home')}
-            className={`px-4 sm:px-6 py-2 text-xs sm:text-sm font-mono-spec uppercase tracking-[0.2em] transition-all cursor-pointer ${
+            className={`px-3 sm:px-6 py-2 text-xs sm:text-sm font-mono-spec uppercase tracking-[0.18em] sm:tracking-[0.2em] transition-all cursor-pointer ${
               activePage === 'home'
                 ? 'bg-[#CCFF00] text-[#0D0D0D] font-bold'
                 : 'text-neutral-300 hover:text-white'
@@ -106,7 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             type="button"
             onClick={() => onNavigate('shop')}
-            className={`px-4 sm:px-6 py-2 text-xs sm:text-sm font-mono-spec uppercase tracking-[0.2em] transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-3 sm:px-6 py-2 text-xs sm:text-sm font-mono-spec uppercase tracking-[0.18em] sm:tracking-[0.2em] transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
               activePage === 'shop'
                 ? 'bg-[#CCFF00] text-[#0D0D0D] font-bold'
                 : 'text-neutral-300 hover:text-white'
@@ -126,16 +132,16 @@ export const Navbar: React.FC<NavbarProps> = ({
         </nav>
 
         {/* Admin Trigger Button / Authenticated Dropdown */}
-        <div className="relative flex items-center" ref={dropdownContainerRef}>
+        <div className="relative flex items-center shrink-0" ref={dropdownContainerRef}>
           {!isAdmin ? (
             <button
               type="button"
               onClick={onOpenAuthModal}
               title="Admin Login"
-              className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-mono-spec uppercase tracking-[0.18em] bg-[#181818] border border-white/18 text-white hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-2 text-xs font-mono-spec uppercase tracking-[0.16em] bg-[#181818] border border-white/18 text-white hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all cursor-pointer"
             >
-              <Shield className="w-3.5 h-3.5" />
-              <span>Admin</span>
+              <Shield className="w-3.5 h-3.5 shrink-0" />
+              <span className="hidden xs:inline sm:inline">Admin</span>
             </button>
           ) : (
             <>
@@ -144,11 +150,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setDropdownOpen((prev) => !prev)}
                 aria-expanded={dropdownOpen}
                 aria-haspopup="menu"
-                className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-mono-spec uppercase tracking-[0.15em] bg-[#181818] border border-[#CCFF00] text-white hover:bg-[#CCFF00]/10 transition-all cursor-pointer"
+                className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2 text-xs font-mono-spec uppercase tracking-[0.14em] bg-[#181818] border border-[#CCFF00] text-white hover:bg-[#CCFF00]/10 transition-all cursor-pointer"
               >
                 <span className="w-2 h-2 rounded-full bg-[#CCFF00] animate-pulse shrink-0" />
-                <ShieldCheck className="w-3.5 h-3.5 text-[#CCFF00] hidden sm:inline" />
-                <span className="text-[#CCFF00] font-bold">Admin Active</span>
+                <ShieldCheck className="w-3.5 h-3.5 text-[#CCFF00] hidden md:inline" />
+                <span className="text-[#CCFF00] font-bold">
+                  <span className="hidden sm:inline">Admin Active</span>
+                  <span className="inline sm:hidden">Active</span>
+                </span>
                 <ChevronDown
                   className={`w-3.5 h-3.5 text-[#CCFF00] transition-transform ${
                     dropdownOpen ? 'rotate-180' : ''
@@ -160,7 +169,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               {dropdownOpen && (
                 <div
                   role="menu"
-                  className="admin-only absolute right-0 top-full mt-2 w-64 bg-[#181818] border border-[#CCFF00]/60 shadow-2xl p-3 z-50 space-y-2.5"
+                  className="admin-only absolute right-0 top-full mt-2 w-64 max-w-[calc(100vw-3rem)] bg-[#181818] border border-[#CCFF00]/60 shadow-2xl p-3 z-50 space-y-2.5"
                 >
                   <div className="px-2.5 py-2 bg-[#0D0D0D] border border-white/10">
                     <div className="flex items-center gap-1.5 text-[10px] font-mono-spec uppercase tracking-[0.2em] text-[#CCFF00]">
@@ -229,8 +238,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Authenticated .admin-only Management Toolbar */}
       {isAdmin && (
-        <div className="admin-only bg-[#141414] border-t border-[#CCFF00]/30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs font-mono-spec">
+        <div className="admin-only w-full bg-[#141414]/95 border-t border-[#CCFF00]/30">
+          <div className="w-full px-6 md:px-12 lg:px-16 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs font-mono-spec">
             <div className="flex items-center gap-3 flex-wrap">
               <span className="inline-flex items-center gap-2 text-[#CCFF00] uppercase tracking-wider font-semibold">
                 <span className="w-2 h-2 bg-[#CCFF00] inline-block animate-pulse" />

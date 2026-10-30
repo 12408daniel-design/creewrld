@@ -112,19 +112,37 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onRequestDelete,
   onOpenAddModal,
 }) => {
-  const featuredProducts = products.slice(0, 6);
+  const featuredProducts = products.slice(0, 8);
 
   const getCategoryCount = (cat: string) =>
     products.filter((p) => p.category.toLowerCase() === cat.toLowerCase()).length;
 
   return (
-    <div>
+    <div className="w-full overflow-x-hidden">
       {/* =====================================================================
-          HERO SECTION (Interactive WebGL2 <Topography /> Contour Terrain)
+          FULL-BLEED HERO SECTION (100% Viewport Width + Interactive Topography)
       ====================================================================== */}
-      <section className="relative overflow-hidden border-b border-white/12 bg-[#0D0D0D]">
-        {/* Interactive Electric Lime Topographic Terrain */}
-        <div className="absolute inset-0 z-0">
+      <section
+        className={`relative w-full min-h-screen overflow-hidden border-b border-white/12 bg-[#0D0D0D] flex items-center ${
+          adminMode ? 'pt-36 sm:pt-40' : 'pt-24 sm:pt-28'
+        } pb-14 sm:pb-20`}
+      >
+        {/* Full-Bleed Architectural Grid Texture & Ambient Glow Blurs */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 w-full h-full full-bleed-grid-bg opacity-70 z-0"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-32 -left-24 w-[36rem] h-[36rem] rounded-full bg-[#CCFF00]/10 blur-[140px] z-0"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-0 right-0 w-[32rem] h-[32rem] rounded-full bg-[#CCFF00]/8 blur-[150px] z-0"
+        />
+
+        {/* Full-Bleed Interactive Electric Lime WebGL2 <Topography /> Terrain */}
+        <div className="absolute inset-0 w-full h-full min-h-screen z-0">
           <Topography
             color="#CCFF00"
             lineCount={24}
@@ -158,20 +176,24 @@ export const HomeView: React.FC<HomeViewProps> = ({
         {/* Directional Obsidian Readability Scrims */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-[#0D0D0D]/88 via-[#0D0D0D]/62 to-[#0D0D0D]/20"
+          className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-[#0D0D0D]/90 via-[#0D0D0D]/62 to-[#0D0D0D]/20"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#0D0D0D]/50 via-transparent to-[#0D0D0D]/85"
+          className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#0D0D0D]/55 via-transparent to-[#0D0D0D]/88"
         />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-22 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            {/* Left Editorial Column */}
-            <div className="lg:col-span-7 space-y-7">
+        {/* Full-Width Hero Content Container */}
+        <div className="w-full px-6 md:px-12 lg:px-16 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 w-full gap-8 xl:gap-12 items-center">
+            {/* Left Editorial Column (7 Columns) */}
+            <div className="lg:col-span-7 min-w-0 space-y-7">
               {/* Customer Rating Badge */}
-              <div className="inline-flex flex-wrap items-center gap-3 bg-[#181818] border border-white/15 px-4 py-2">
-                <div className="flex items-center gap-0.5 text-[#CCFF00]" aria-label="4.9 out of 5 stars">
+              <div className="inline-flex flex-wrap items-center gap-3 bg-[#181818]/95 border border-white/15 px-4 py-2">
+                <div
+                  className="flex items-center gap-0.5 text-[#CCFF00]"
+                  aria-label="4.9 out of 5 stars"
+                >
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} className="w-3.5 h-3.5 fill-[#CCFF00] stroke-[#CCFF00]" />
                   ))}
@@ -183,8 +205,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 </span>
               </div>
 
-              {/* Official Brand Mark + Stark Display Headline */}
-              <div className="space-y-3.5">
+              {/* Official Brand Mark + Fluid Responsive Headline */}
+              <div className="space-y-3.5 min-w-0">
                 <div className="inline-flex flex-wrap items-center gap-3">
                   <CreewrldEmblem size={34} />
                   <CreewrldWordmark height={18} />
@@ -193,13 +215,13 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   </span>
                 </div>
 
-                <h1 className="font-display text-4xl sm:text-6xl xl:text-7xl font-extrabold uppercase tracking-tight leading-[0.96] text-white">
+                <h1 className="hero-fluid-headline font-display font-extrabold uppercase text-white max-w-full">
                   1-of-1 Underground{' '}
                   <span className="text-[#CCFF00]">Thrift</span> &amp; Street Archive.
                 </h1>
               </div>
 
-              <p className="text-neutral-300 text-base sm:text-lg max-w-xl leading-relaxed">
+              <p className="text-neutral-300 text-base sm:text-lg xl:text-xl max-w-2xl leading-relaxed">
                 Hand-selected archival sneakers, heavyweight streetwear, Y2K leather, and Old Money
                 tailoring curated in Nairobi. Priced in{' '}
                 <span className="text-white font-semibold">KSh</span> — no bloated carts, claim
@@ -221,7 +243,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   href={buildGeneralWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-4 bg-[#181818] border border-white/20 hover:border-[#CCFF00] text-white hover:text-[#CCFF00] font-mono-spec font-semibold text-xs sm:text-sm uppercase tracking-[0.18em] inline-flex items-center gap-2.5 transition-colors"
+                  className="px-6 py-4 bg-[#181818]/95 border border-white/20 hover:border-[#CCFF00] text-white hover:text-[#CCFF00] font-mono-spec font-semibold text-xs sm:text-sm uppercase tracking-[0.18em] inline-flex items-center gap-2.5 transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>WhatsApp Concierge</span>
@@ -229,44 +251,44 @@ export const HomeView: React.FC<HomeViewProps> = ({
               </div>
 
               {/* Nairobi Trust Strip */}
-              <div className="pt-4 border-t border-white/10 grid grid-cols-3 gap-4 max-w-xl">
+              <div className="pt-5 border-t border-white/12 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl">
                 <div>
-                  <span className="block font-mono-spec text-lg sm:text-xl font-bold text-white">
+                  <span className="block font-mono-spec text-lg sm:text-2xl font-bold text-white">
                     1-OF-1
                   </span>
-                  <span className="font-mono-spec text-[10px] uppercase tracking-widest text-neutral-400">
+                  <span className="font-mono-spec text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400">
                     Zero Restocks
                   </span>
                 </div>
                 <div>
-                  <span className="block font-mono-spec text-lg sm:text-xl font-bold text-[#CCFF00]">
+                  <span className="block font-mono-spec text-lg sm:text-2xl font-bold text-[#CCFF00]">
                     SAME DAY
                   </span>
-                  <span className="font-mono-spec text-[10px] uppercase tracking-widest text-neutral-400">
+                  <span className="font-mono-spec text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400">
                     Nairobi Dispatch
                   </span>
                 </div>
                 <div>
-                  <span className="block font-mono-spec text-lg sm:text-xl font-bold text-white">
+                  <span className="block font-mono-spec text-lg sm:text-2xl font-bold text-white">
                     47 COUNTIES
                   </span>
-                  <span className="font-mono-spec text-[10px] uppercase tracking-widest text-neutral-400">
+                  <span className="font-mono-spec text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400">
                     Nationwide Courier
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Right Lookbook Visual Frame */}
-            <div className="lg:col-span-5">
-              <div className="relative bg-[#181818] border border-white/20 p-3 sm:p-4">
+            {/* Right Feature Visual Card (5 Columns) */}
+            <div className="lg:col-span-5 min-w-0 w-full">
+              <div className="relative w-full bg-[#181818] border border-white/20 p-3 sm:p-4">
                 {/* Corner Electric Lime Accents */}
                 <span className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#CCFF00]" />
                 <span className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-[#CCFF00]" />
                 <span className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-[#CCFF00]" />
                 <span className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#CCFF00]" />
 
-                <div className="relative aspect-[4/5] overflow-hidden bg-[#0D0D0D]">
+                <div className="relative aspect-[4/5] max-h-[74vh] w-full overflow-hidden bg-[#0D0D0D]">
                   <img
                     src="/images/hero-lookbook.jpg"
                     alt="CREEWRLD Nairobi Street-Culture Editorial"
@@ -274,7 +296,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-transparent to-transparent opacity-80" />
 
-                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
                     <span className="bg-[#0D0D0D]/90 border border-white/20 px-3 py-1 font-mono-spec text-[10px] uppercase tracking-[0.2em] text-white inline-flex items-center gap-1.5">
                       <MapPin className="w-3 h-3 text-[#CCFF00]" />
                       NBO // KENYA
@@ -307,11 +329,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* =====================================================================
-          ELECTRIC LIME KINETIC TICKER
+          FULL-BLEED ELECTRIC LIME KINETIC TICKER
       ====================================================================== */}
-      <div className="bg-[#CCFF00] text-[#0D0D0D] border-b border-white/12 py-2.5 overflow-hidden select-none">
+      <div className="w-full bg-[#CCFF00] text-[#0D0D0D] border-b border-white/12 py-2.5 overflow-hidden select-none">
         <div className="animate-creewrld-marquee font-mono-spec text-xs font-bold uppercase tracking-[0.24em]">
-          {Array.from({ length: 2 }).map((_, blockIdx) => (
+          {Array.from({ length: 3 }).map((_, blockIdx) => (
             <div key={blockIdx} className="flex items-center gap-8 pr-8">
               <span>CREEWRLD KENYA</span>
               <span>✦</span>
@@ -329,12 +351,37 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </div>
 
       {/* =====================================================================
-          BRAND STATEMENT / MANIFESTO
+          BRAND STATEMENT / MANIFESTO (Full-Width Edge Padding + Topographic SVG Texture)
       ====================================================================== */}
-      <section className="border-b border-white/12 py-16 sm:py-22 bg-[#0D0D0D]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#181818] border border-white/12 p-8 sm:p-12 lg:p-16">
-            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 pb-10 border-b border-white/10">
+      <section className="relative w-full border-b border-white/12 py-16 sm:py-22 bg-[#0D0D0D] overflow-hidden">
+        {/* Subtle Full-Bleed Topographical Contour SVG Accent */}
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 1440 420"
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute inset-0 w-screen left-1/2 -translate-x-1/2 h-full opacity-[0.07]"
+          fill="none"
+        >
+          <path
+            d="M-120 340C220 190 480 390 820 230C1120 90 1320 270 1560 150"
+            stroke="#CCFF00"
+            strokeWidth="1.5"
+          />
+          <path
+            d="M-120 290C240 130 510 340 850 180C1150 40 1340 220 1560 100"
+            stroke="#FFFFFF"
+            strokeWidth="1"
+          />
+          <path
+            d="M-120 390C210 250 470 430 800 280C1100 150 1310 320 1560 210"
+            stroke="#CCFF00"
+            strokeWidth="1"
+          />
+        </svg>
+
+        <div className="w-full px-6 md:px-12 lg:px-16 relative z-10">
+          <div className="w-full bg-[#181818] border border-white/12 p-8 sm:p-12 lg:p-16">
+            <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-8 pb-10 border-b border-white/10">
               <div className="flex items-center gap-6">
                 <div className="bg-[#0D0D0D] border border-white/15 p-4 shrink-0">
                   <CreewrldStackedLogo width={128} />
@@ -343,13 +390,13 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   <span className="font-mono-spec text-[11px] uppercase tracking-[0.28em] text-[#CCFF00] block mb-2">
                     BRAND STATEMENT // THE CREEWRLD CODE
                   </span>
-                  <h2 className="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white">
+                  <h2 className="font-display text-2xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">
                     Nairobi Street Manifesto
                   </h2>
                 </div>
               </div>
 
-              <p className="text-lg sm:text-xl text-neutral-200 max-w-2xl leading-relaxed font-medium">
+              <p className="text-lg sm:text-xl text-neutral-200 max-w-3xl leading-relaxed font-medium">
                 “Born out of Nairobi’s underground thrift culture,{' '}
                 <span className="text-[#CCFF00] font-semibold">CREEWRLD</span> hunts down rare
                 1-of-1 garments with heavyweight fabric, real patina, and sharp silhouette —
@@ -357,8 +404,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-10">
-              <div className="bg-[#0D0D0D] border border-white/10 p-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-10 w-full">
+              <div className="bg-[#0D0D0D] border border-white/10 p-6 lg:p-8">
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-mono-spec text-xs text-[#CCFF00]">01 // CURATION</span>
                   <Sparkles className="w-4 h-4 text-[#CCFF00]" />
@@ -372,7 +419,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 </p>
               </div>
 
-              <div className="bg-[#0D0D0D] border border-white/10 p-6">
+              <div className="bg-[#0D0D0D] border border-white/10 p-6 lg:p-8">
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-mono-spec text-xs text-[#CCFF00]">02 // TRANSPARENCY</span>
                   <ShieldCheck className="w-4 h-4 text-[#CCFF00]" />
@@ -386,7 +433,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 </p>
               </div>
 
-              <div className="bg-[#0D0D0D] border border-white/10 p-6">
+              <div className="bg-[#0D0D0D] border border-white/10 p-6 lg:p-8">
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-mono-spec text-xs text-[#CCFF00]">03 // SPEED</span>
                   <Zap className="w-4 h-4 text-[#CCFF00]" />
@@ -405,10 +452,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* =====================================================================
-          FEATURED CATEGORIES
+          FEATURED CATEGORIES (Full-Width Grid)
       ====================================================================== */}
-      <section className="border-b border-white/12 py-16 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative w-full border-b border-white/12 py-16 sm:py-20 full-bleed-grid-bg">
+        <div className="w-full px-6 md:px-12 lg:px-16">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <div>
               <p className="font-mono-spec text-xs uppercase tracking-[0.25em] text-[#CCFF00] mb-2">
@@ -428,7 +475,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
             {CURATED_WORLDS.map((world) => {
               const count = getCategoryCount(world.category);
               return (
@@ -436,7 +483,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   key={world.category}
                   type="button"
                   onClick={() => onNavigateToShop(world.category)}
-                  className="group relative h-64 bg-[#181818] border border-white/12 hover:border-[#CCFF00] overflow-hidden text-left p-6 flex flex-col justify-between transition-all cursor-pointer"
+                  className="group relative h-72 bg-[#181818] border border-white/12 hover:border-[#CCFF00] overflow-hidden text-left p-6 flex flex-col justify-between transition-all cursor-pointer"
                 >
                   <img
                     src={world.coverImage}
@@ -472,10 +519,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* =====================================================================
-          FEATURED DROPS (Dynamic from Supabase `products`)
+          FEATURED DROPS (Full-Width Dynamic Grid from Supabase `products`)
       ====================================================================== */}
-      <section className="border-b border-white/12 py-16 sm:py-22">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative w-full border-b border-white/12 py-16 sm:py-22 overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-1/3 -right-32 w-[30rem] h-[30rem] rounded-full bg-[#CCFF00]/6 blur-[140px]"
+        />
+        <div className="w-full px-6 md:px-12 lg:px-16 relative z-10">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <div>
               <p className="font-mono-spec text-xs uppercase tracking-[0.25em] text-[#CCFF00] mb-2">
@@ -497,7 +548,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
           </div>
 
           {loading ? (
-            <ProductGridSkeleton count={6} />
+            <ProductGridSkeleton count={8} />
           ) : featuredProducts.length === 0 ? (
             <EmptyArchiveState
               selectedCategory="All"
@@ -506,7 +557,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               isSupabaseLive={isSupabaseLive}
             />
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
               {featuredProducts.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -522,12 +573,12 @@ export const HomeView: React.FC<HomeViewProps> = ({
       </section>
 
       {/* =====================================================================
-          CUSTOMER RATING BADGE SHOWCASE & SOCIAL LINKS
+          CUSTOMER RATING BADGE SHOWCASE & SOCIAL LINKS (Full-Width)
       ====================================================================== */}
-      <section className="py-16 sm:py-22">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <section className="w-full py-16 sm:py-22 full-bleed-grid-bg">
+        <div className="w-full px-6 md:px-12 lg:px-16 space-y-12">
           {/* Verified Customer Rating Banner */}
-          <div className="bg-[#181818] border border-white/15 p-8 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="w-full bg-[#181818] border border-white/15 p-8 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-white/12 pb-6 lg:pb-0 lg:pr-8">
               <div className="inline-flex items-center gap-2 bg-[#CCFF00] text-[#0D0D0D] px-3 py-1 font-mono-spec text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
                 VERIFIED BUYER RATING
@@ -550,7 +601,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </div>
 
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <blockquote className="bg-[#0D0D0D] border border-white/10 p-5">
+              <blockquote className="bg-[#0D0D0D] border border-white/10 p-5 lg:p-6">
                 <p className="text-sm text-neutral-200 leading-relaxed mb-3">
                   “Ordered the vintage leather racing jacket on WhatsApp at 11am, rider dropped it
                   in Westlands by 2pm. Condition was literally 10/10.”
@@ -560,7 +611,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 </footer>
               </blockquote>
 
-              <blockquote className="bg-[#0D0D0D] border border-white/10 p-5">
+              <blockquote className="bg-[#0D0D0D] border border-white/10 p-5 lg:p-6">
                 <p className="text-sm text-neutral-200 leading-relaxed mb-3">
                   “Cleanest thrift curation in 254. Accurate sizing, zero catfishing, and fast
                   overnight parcel delivery to Mombasa.”
@@ -573,7 +624,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
           </div>
 
           {/* Social Links Grid */}
-          <div>
+          <div className="w-full">
             <div className="flex items-center justify-between mb-6">
               <p className="font-mono-spec text-xs uppercase tracking-[0.24em] text-neutral-400">
                 CONNECT WITH THE ARCHIVE // SOCIAL CHANNELS
@@ -581,14 +632,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <CreewrldWordmark height={17} />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full">
               {SOCIAL_CHANNELS.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group bg-[#181818] border border-white/12 hover:border-[#CCFF00] p-5 flex flex-col justify-between gap-4 transition-colors"
+                  className="group bg-[#181818] border border-white/12 hover:border-[#CCFF00] p-6 flex flex-col justify-between gap-4 transition-colors"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-mono-spec text-xs uppercase tracking-[0.2em] text-neutral-400 group-hover:text-white">

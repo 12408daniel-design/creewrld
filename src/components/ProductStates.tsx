@@ -2,10 +2,10 @@ import React from 'react';
 import { PackageOpen, Plus, MessageCircle, RotateCcw } from 'lucide-react';
 import { buildGeneralWhatsAppUrl } from '../utils/whatsapp';
 
-export const ProductGridSkeleton: React.FC<{ count?: number }> = ({ count = 6 }) => {
+export const ProductGridSkeleton: React.FC<{ count?: number }> = ({ count = 8 }) => {
   return (
     <div
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full"
       aria-busy="true"
       aria-label="Loading CREEWRLD thrift drops"
     >
@@ -53,7 +53,7 @@ export const EmptyArchiveState: React.FC<EmptyArchiveStateProps> = ({
   const isFiltered = selectedCategory !== 'All';
 
   return (
-    <div className="bg-[#181818] border border-white/12 p-8 sm:p-14 text-center max-w-2xl mx-auto my-6">
+    <div className="w-full bg-[#181818] border border-white/12 p-8 sm:p-14 text-center my-6">
       <div className="w-14 h-14 mx-auto mb-5 border border-[#CCFF00]/50 bg-[#0D0D0D] flex items-center justify-center text-[#CCFF00]">
         <PackageOpen className="w-7 h-7" />
       </div>

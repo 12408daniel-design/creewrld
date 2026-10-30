@@ -233,7 +233,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D] text-white flex flex-col">
+    <div className="min-h-screen w-full bg-[#0D0D0D] text-white flex flex-col overflow-x-hidden">
       {/* Strictly Two-View Navigation Header + Supabase Auth Admin Trigger */}
       <Navbar
         activePage={activePage}
@@ -249,7 +249,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Two-View Router: HOME or SHOP */}
-      <main className="flex-1">
+      <main className="flex-1 w-full">
         {activePage === 'home' ? (
           <HomeView
             products={products}
