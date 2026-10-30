@@ -53,7 +53,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </span>
         </div>
 
-        {/* Top-Right Delete / Trash Action (Visible on hover OR persistently in Admin Mode) */}
+        {/* Top-Right Action Controls: Quick View for shoppers + .admin-only Delete Trash icon when authenticated */}
         <div
           className={`absolute top-3 right-3 z-10 flex items-center gap-1.5 transition-opacity duration-200 ${
             adminMode
@@ -74,22 +74,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             <Eye className="w-3.5 h-3.5" />
           </button>
 
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              onRequestDelete(product);
-            }}
-            title="Delete item & storage image"
-            aria-label={`Delete ${product.title}`}
-            className={`w-8 h-8 flex items-center justify-center transition-colors cursor-pointer ${
-              adminMode
-                ? 'bg-[#FF3B30] text-white border border-[#FF3B30] hover:bg-red-700'
-                : 'bg-[#0D0D0D]/90 text-neutral-300 border border-white/20 hover:bg-[#FF3B30] hover:border-[#FF3B30] hover:text-white'
-            }`}
-          >
-            <Trash2 className="w-3.5 h-3.5" />
-          </button>
+          {adminMode && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onRequestDelete(product);
+              }}
+              title="Delete item & storage image"
+              aria-label={`Delete ${product.title}`}
+              className="admin-only w-8 h-8 flex items-center justify-center bg-[#FF3B30] text-white border border-[#FF3B30] hover:bg-red-700 transition-colors cursor-pointer"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
 
         {/* Bottom-Left Condition Rating Badge */}
@@ -125,7 +123,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         </div>
 
-        {/* Direct Order via WhatsApp Button (Replaces Add to Cart completely) */}
+        {/* Direct Order via WhatsApp Button */}
         <a
           href={whatsappUrl}
           target="_blank"

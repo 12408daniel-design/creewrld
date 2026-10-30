@@ -118,10 +118,10 @@ export const ShopView: React.FC<ShopViewProps> = ({
               <button
                 type="button"
                 onClick={onOpenAddModal}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white text-xs font-mono-spec font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                className="admin-only inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white text-xs font-mono-spec font-bold uppercase tracking-wider transition-colors cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
-                Add Drop
+                Add Product
               </button>
             )}
           </div>
@@ -224,6 +224,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
               setSearchQuery('');
             }}
             onOpenAddModal={onOpenAddModal}
+            isAdmin={adminMode}
             isSupabaseLive={isSupabaseLive}
           />
         ) : (

@@ -98,7 +98,7 @@ export const PREVIEW_SHOWCASE_PRODUCTS: Product[] = [
   },
 ];
 
-export const SUPABASE_SETUP_SQL = `-- CREEWRLD Supabase Schema & Storage Bucket Setup
+export const SUPABASE_SETUP_SQL = `-- CREEWRLD Supabase Schema, Storage Bucket & Authenticated Admin RLS
 create extension if not exists "pgcrypto";
 
 -- 1. Public Storage Bucket: product-images
@@ -109,11 +109,13 @@ on conflict (id) do update set public = true;
 create policy "Public read access for product-images"
   on storage.objects for select using (bucket_id = 'product-images');
 
-create policy "Allow upload to product-images"
-  on storage.objects for insert with check (bucket_id = 'product-images');
+create policy "Authenticated admins can upload product-images"
+  on storage.objects for insert to authenticated
+  with check (bucket_id = 'product-images' and auth.role() = 'authenticated');
 
-create policy "Allow delete from product-images"
-  on storage.objects for delete using (bucket_id = 'product-images');
+create policy "Authenticated admins can delete product-images"
+  on storage.objects for delete to authenticated
+  using (bucket_id = 'product-images' and auth.role() = 'authenticated');
 
 -- 2. Database Table: products
 create table if not exists public.products (
@@ -132,8 +134,10 @@ alter table public.products enable row level security;
 create policy "Public can view all products"
   on public.products for select using (true);
 
-create policy "Allow product creation"
-  on public.products for insert with check (true);
+create policy "Authenticated admins can insert products"
+  on public.products for insert to authenticated
+  with check (auth.role() = 'authenticated');
 
-create policy "Allow product deletion"
-  on public.products for delete using (true);`;
+create policy "Authenticated admins can delete products"
+  on public.products for delete to authenticated
+  using (auth.role() = 'authenticated');`;

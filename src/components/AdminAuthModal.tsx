@@ -1,0 +1,259 @@
+import React, { useEffect, useState } from 'react';
+import type { Session } from '@supabase/supabase-js';
+import {
+  X,
+  Lock,
+  Mail,
+  KeyRound,
+  Eye,
+  EyeOff,
+  Loader2,
+  AlertCircle,
+  ShieldCheck,
+} from 'lucide-react';
+import { CreewrldEmblem } from './CreewrldLogo';
+import { getSupabaseClient } from '../supabaseClient';
+
+interface AdminAuthModalProps {
+  open: boolean;
+  onClose: () => void;
+  onAuthenticated: (session: Session) => void;
+}
+
+export const AdminAuthModal: React.FC<AdminAuthModalProps> = ({
+  open,
+  onClose,
+  onAuthenticated,
+}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [verifying, setVerifying] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!open) {
+      setPassword('');
+      setShowPassword(false);
+      setErrorMessage(null);
+      setVerifying(false);
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && !verifying) {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [open, verifying, onClose]);
+
+  if (!open) return null;
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setErrorMessage(null);
+
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail || !password) {
+      setErrorMessage('Please enter both your admin email and password.');
+      return;
+    }
+
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      setErrorMessage('Supabase client is not configured. Check SUPABASE_URL and SUPABASE_ANON_KEY.');
+      return;
+    }
+
+    setVerifying(true);
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: trimmedEmail,
+        password,
+      });
+
+      if (error || !data.session) {
+        const rawMsg = error?.message?.toLowerCase() ?? '';
+        if (
+          rawMsg.includes('invalid login credentials') ||
+          rawMsg.includes('invalid credentials') ||
+          !data.session
+        ) {
+          setErrorMessage('Invalid admin credentials');
+        } else {
+          setErrorMessage(error?.message ?? 'Invalid admin credentials');
+        }
+        return;
+      }
+
+      setPassword('');
+      setErrorMessage(null);
+      onAuthenticated(data.session);
+      onClose();
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : 'Invalid admin credentials');
+    } finally {
+      setVerifying(false);
+    }
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+      onClick={() => !verifying && onClose()}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="admin-auth-modal-title"
+    >
+      <div
+        className="relative w-full max-w-md bg-[#181818] border border-[#CCFF00]/65 shadow-[0_0_45px_rgba(204,255,0,0.08)] p-6 sm:p-8"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Electric Lime Architectural Corner Accents */}
+        <span className="pointer-events-none absolute -top-0.5 -left-0.5 w-3.5 h-3.5 border-t-2 border-l-2 border-[#CCFF00]" />
+        <span className="pointer-events-none absolute -top-0.5 -right-0.5 w-3.5 h-3.5 border-t-2 border-r-2 border-[#CCFF00]" />
+        <span className="pointer-events-none absolute -bottom-0.5 -left-0.5 w-3.5 h-3.5 border-b-2 border-l-2 border-[#CCFF00]" />
+        <span className="pointer-events-none absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 border-b-2 border-r-2 border-[#CCFF00]" />
+
+        {/* Close Button */}
+        <button
+          type="button"
+          disabled={verifying}
+          onClick={onClose}
+          aria-label="Close admin verification modal"
+          className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-[#0D0D0D] border border-white/15 text-neutral-400 hover:text-white hover:border-[#CCFF00] transition-colors disabled:opacity-40 cursor-pointer"
+        >
+          <X className="w-4 h-4" />
+        </button>
+
+        {/* Modal Header */}
+        <div className="flex items-center gap-3.5 mb-6">
+          <div className="w-12 h-12 bg-[#0D0D0D] border border-[#CCFF00]/40 flex items-center justify-center shrink-0">
+            <CreewrldEmblem size={34} />
+          </div>
+          <div>
+            <div className="inline-flex items-center gap-1.5 font-mono-spec text-[10px] uppercase tracking-[0.24em] text-[#CCFF00]">
+              <Lock className="w-3 h-3" />
+              <span>SUPABASE AUTH // RESTRICTED</span>
+            </div>
+            <h2
+              id="admin-auth-modal-title"
+              className="font-display text-xl sm:text-2xl font-extrabold uppercase tracking-tight text-white mt-0.5"
+            >
+              Admin Verification
+            </h2>
+          </div>
+        </div>
+
+        <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed mb-5">
+          Sign in with your verified CREEWRLD admin credentials to unlock drop uploads and storage
+          management.
+        </p>
+
+        {/* Error Banner */}
+        {errorMessage && (
+          <div
+            role="alert"
+            className="mb-5 p-3.5 bg-[#FF3B30]/15 border border-[#FF3B30] flex items-start gap-2.5 text-xs font-mono-spec text-red-200"
+          >
+            <AlertCircle className="w-4 h-4 text-[#FF3B30] shrink-0 mt-0.5" />
+            <span>{errorMessage}</span>
+          </div>
+        )}
+
+        {/* Verification Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label
+              htmlFor="admin-email-input"
+              className="block font-mono-spec text-[11px] uppercase tracking-[0.18em] text-neutral-300 mb-1.5"
+            >
+              Admin Email
+            </label>
+            <div className="relative">
+              <Mail className="w-4 h-4 text-neutral-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                id="admin-email-input"
+                type="email"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                required
+                disabled={verifying}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@creewrld.com"
+                className="w-full bg-[#0D0D0D] border border-white/20 focus:border-[#CCFF00] pl-10 pr-3.5 py-3 text-sm text-white placeholder:text-neutral-600 outline-none transition-colors disabled:opacity-60"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="admin-password-input"
+              className="block font-mono-spec text-[11px] uppercase tracking-[0.18em] text-neutral-300 mb-1.5"
+            >
+              Password
+            </label>
+            <div className="relative">
+              <KeyRound className="w-4 h-4 text-neutral-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                id="admin-password-input"
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                autoComplete="current-password"
+                required
+                disabled={verifying}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••••••"
+                className="w-full bg-[#0D0D0D] border border-white/20 focus:border-[#CCFF00] pl-10 pr-10 py-3 text-sm text-white placeholder:text-neutral-600 outline-none transition-colors disabled:opacity-60"
+              />
+              <button
+                type="button"
+                tabIndex={-1}
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-white transition-colors cursor-pointer"
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+          </div>
+
+          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <button
+              type="button"
+              disabled={verifying}
+              onClick={onClose}
+              className="sm:w-1/3 py-3.5 px-4 bg-[#0D0D0D] border border-white/20 hover:border-white text-white font-mono-spec text-xs uppercase tracking-[0.18em] transition-colors disabled:opacity-50 cursor-pointer"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              disabled={verifying}
+              className="sm:w-2/3 py-3.5 px-5 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs uppercase tracking-[0.18em] flex items-center justify-center gap-2 transition-colors disabled:opacity-70 cursor-pointer"
+            >
+              {verifying ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Verifying...</span>
+                </>
+              ) : (
+                <>
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>Verify &amp; Unlock</span>
+                </>
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};

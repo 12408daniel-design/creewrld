@@ -5,13 +5,17 @@ import { buildGeneralWhatsAppUrl, CREEWRLD_WHATSAPP_DISPLAY } from '../utils/wha
 
 interface FooterProps {
   onNavigate: (page: ActivePage) => void;
+  isAdmin: boolean;
   isSupabaseLive: boolean;
+  onOpenAuthModal: () => void;
   onOpenSupabaseModal: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
   onNavigate,
+  isAdmin,
   isSupabaseLive,
+  onOpenAuthModal,
   onOpenSupabaseModal,
 }) => {
   return (
@@ -48,13 +52,23 @@ export const Footer: React.FC<FooterProps> = ({
           >
             WhatsApp Order Desk
           </a>
-          <button
-            type="button"
-            onClick={onOpenSupabaseModal}
-            className="text-neutral-400 hover:text-white transition-colors cursor-pointer"
-          >
-            {isSupabaseLive ? '● Supabase Live' : '○ Connect Supabase'}
-          </button>
+          {isAdmin ? (
+            <button
+              type="button"
+              onClick={onOpenSupabaseModal}
+              className="admin-only text-neutral-400 hover:text-[#CCFF00] transition-colors cursor-pointer"
+            >
+              {isSupabaseLive ? '● Supabase Live' : '○ Connect Supabase'}
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={onOpenAuthModal}
+              className="text-neutral-500 hover:text-white transition-colors cursor-pointer"
+            >
+              Admin
+            </button>
+          )}
         </div>
       </div>
 

@@ -39,6 +39,7 @@ interface EmptyArchiveStateProps {
   selectedCategory?: string;
   onResetCategory?: () => void;
   onOpenAddModal?: () => void;
+  isAdmin?: boolean;
   isSupabaseLive: boolean;
 }
 
@@ -46,6 +47,7 @@ export const EmptyArchiveState: React.FC<EmptyArchiveStateProps> = ({
   selectedCategory = 'All',
   onResetCategory,
   onOpenAddModal,
+  isAdmin = false,
   isSupabaseLive,
 }) => {
   const isFiltered = selectedCategory !== 'All';
@@ -86,14 +88,14 @@ export const EmptyArchiveState: React.FC<EmptyArchiveStateProps> = ({
           </button>
         )}
 
-        {onOpenAddModal && (
+        {isAdmin && onOpenAddModal && (
           <button
             type="button"
             onClick={onOpenAddModal}
-            className="inline-flex items-center gap-2 px-5 py-3 bg-[#0D0D0D] border border-white/25 text-white hover:border-[#CCFF00] hover:text-[#CCFF00] font-mono-spec font-bold text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer"
+            className="admin-only inline-flex items-center gap-2 px-5 py-3 bg-[#0D0D0D] border border-white/25 text-white hover:border-[#CCFF00] hover:text-[#CCFF00] font-mono-spec font-bold text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer"
           >
             <Plus className="w-4 h-4" />
-            Upload Drop
+            Add Product
           </button>
         )}
 

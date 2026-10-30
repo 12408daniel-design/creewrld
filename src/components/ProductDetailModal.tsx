@@ -13,12 +13,14 @@ import { buildWhatsAppOrderUrl, formatKsh, CREEWRLD_WHATSAPP_DISPLAY } from '../
 
 interface ProductDetailModalProps {
   product: Product | null;
+  isAdmin: boolean;
   onClose: () => void;
   onRequestDelete: (product: Product) => void;
 }
 
 export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   product,
+  isAdmin,
   onClose,
   onRequestDelete,
 }) => {
@@ -155,17 +157,19 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 Direct Line: {CREEWRLD_WHATSAPP_DISPLAY}
               </span>
 
-              <button
-                type="button"
-                onClick={() => {
-                  onClose();
-                  onRequestDelete(product);
-                }}
-                className="inline-flex items-center gap-1.5 font-mono-spec text-[11px] uppercase tracking-wider text-neutral-400 hover:text-[#FF3B30] transition-colors cursor-pointer"
-              >
-                <Trash2 className="w-3.5 h-3.5" />
-                Delete Listing
-              </button>
+              {isAdmin && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    onRequestDelete(product);
+                  }}
+                  className="admin-only inline-flex items-center gap-1.5 font-mono-spec text-[11px] uppercase tracking-wider text-neutral-400 hover:text-[#FF3B30] transition-colors cursor-pointer"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  Delete Listing
+                </button>
+              )}
             </div>
           </div>
         </div>

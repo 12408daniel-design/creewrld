@@ -1,24 +1,25 @@
 # CREEWRLD // Nairobi Street-Culture & Vintage Thrift Archive
 
-High-contrast e-commerce landing page and shop web app for **CREEWRLD**, an online 1-of-1 thrift store based in Kenya, powered by **React + Vite + Tailwind CSS + Supabase** (`@supabase/supabase-js`) with direct **WhatsApp ordering**.
+High-contrast e-commerce landing page and shop web app for **CREEWRLD**, an online 1-of-1 thrift store based in Kenya, powered by **React + Vite + Tailwind CSS + Supabase** (`@supabase/supabase-js`) with **Supabase Auth** admin protection and direct **WhatsApp ordering**.
 
 ## Brand & Visual Identity
 - **Backgrounds**: Deep Obsidian (`#0D0D0D`) & Card Surfaces (`#181818`)
-- **Typography & Elements**: Stark White (`#FFFFFF`) with custom Interlocking Gothic Emblem (`C × W`) & Blackletter wordmark (`CREE WRLD`)
+- **Typography & Elements**: Stark White (`#FFFFFF`) with official Interlocking Gothic Emblem & Blackletter wordmark (`CREE WRLD`)
 - **Electric Accent**: Electric Lime (`#CCFF00`)
-- **Navigation**: Strictly two streamlined views — **Home** and **Shop** (plus subtle **Admin** management mode)
+- **Navigation**: Strictly two streamlined views — **Home** and **Shop** — plus a Supabase Auth-gated **Admin** verification trigger
 
-## Supabase Setup (`products` Table & `product-images` Bucket)
+## Supabase Database, Storage & Admin Auth Setup
 
-1. Open your Supabase project's **SQL Editor** and run [`supabase/schema.sql`](./supabase/schema.sql). This creates:
-   - Public storage bucket: `product-images` (with read/insert/delete RLS policies)
-   - Table: `public.products` (`id`, `title`, `category`, `price_ksh`, `size`, `condition`, `image_url`, `created_at`)
-2. Configure your Supabase credentials in [`src/supabaseClient.ts`](./src/supabaseClient.ts):
-   ```ts
-   const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-   const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-   ```
-   *(Alternatively, set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `.env`, or paste them directly via **Admin → Supabase Setup / Keys** in the live UI).*
+1. **Database & Storage RLS (`supabase/schema.sql`)**:
+   Run [`supabase/schema.sql`](./supabase/schema.sql) inside your Supabase **SQL Editor**. This configures:
+   - Public storage bucket: `product-images` (public read; `authenticated`-only upload & delete)
+   - Table: `public.products` (public read; `authenticated`-only insert, update & delete)
+2. **Create Your Admin Account in Supabase Auth**:
+   - In your Supabase Dashboard, go to **Authentication → Users → Add user → Create new user**.
+   - Enter your admin email & password and enable **Auto Confirm User**.
+   - Click **Admin** in the CREEWRLD site header and sign in via **Verify & Unlock** to reveal all `.admin-only` product upload and deletion controls.
+3. **Environment Variables (Optional Override)**:
+   Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `.env` (or edit `src/supabaseClient.ts`).
 
 ## Local Development
 
