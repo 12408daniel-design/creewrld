@@ -111,10 +111,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               onClick={() => onNavigate('home')}
-              className={`px-3 sm:px-6 py-2 text-xs sm:text-sm font-mono-spec uppercase tracking-[0.18em] sm:tracking-[0.2em] transition-all cursor-pointer ${
+              className={`px-3 sm:px-6 py-2 text-xs sm:text-sm font-sans uppercase tracking-[0.16em] transition-all cursor-pointer ${
                 activePage === 'home'
-                  ? 'bg-[#CCFF00] text-[#0D0D0D] font-bold'
-                  : 'text-neutral-300 hover:text-white'
+                  ? 'bg-[#CCFF00] text-[#0D0D0D] font-extrabold'
+                  : 'text-neutral-300 hover:text-white font-semibold'
               }`}
             >
               Home
@@ -124,15 +124,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               onClick={() => onNavigate('shop')}
-              className={`px-3 sm:px-6 py-2 text-xs sm:text-sm font-mono-spec uppercase tracking-[0.18em] sm:tracking-[0.2em] transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
+              className={`px-3 sm:px-6 py-2 text-xs sm:text-sm font-sans uppercase tracking-[0.16em] transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
                 activePage === 'shop'
-                  ? 'bg-[#CCFF00] text-[#0D0D0D] font-bold'
-                  : 'text-neutral-300 hover:text-white'
+                  ? 'bg-[#CCFF00] text-[#0D0D0D] font-extrabold'
+                  : 'text-neutral-300 hover:text-white font-semibold'
               }`}
             >
               <span>Shop</span>
               <span
-                className={`text-[10px] px-1.5 py-0.5 font-mono-spec ${
+                className={`text-[10px] px-1.5 py-0.5 font-cinzel font-bold ${
                   activePage === 'shop'
                     ? 'bg-[#0D0D0D] text-[#CCFF00]'
                     : 'bg-white/10 text-[#CCFF00]'

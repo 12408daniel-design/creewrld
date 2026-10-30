@@ -198,9 +198,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   <Star key={i} className="w-3.5 h-3.5 fill-[#CCFF00] stroke-[#CCFF00]" />
                 ))}
               </div>
-              <span className="font-mono-spec text-xs font-bold text-white">4.9 / 5.0</span>
+              <span className="font-cinzel text-xs font-bold tracking-wider text-white">4.9 / 5.0</span>
               <span className="text-white/25">|</span>
-              <span className="font-mono-spec text-[11px] uppercase tracking-[0.16em] text-neutral-300">
+              <span className="font-cinzel text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-200">
                 640+ Verified Kenyan Thrift Buyers
               </span>
             </div>
@@ -210,18 +210,18 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <div className="inline-flex flex-wrap items-center gap-3 max-w-full">
                 <CreewrldEmblem size={34} />
                 <CreewrldWordmark height={18} />
-                <span className="font-mono-spec text-[11px] uppercase tracking-[0.28em] text-[#CCFF00]">
+                <span className="font-cinzel font-semibold text-[11px] uppercase tracking-[0.22em] text-[#CCFF00]">
                   // EST. NAIROBI, KENYA
                 </span>
               </div>
 
-              <h1 className="hero-fluid-headline font-display text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-black uppercase tracking-tight leading-none break-words max-w-full overflow-hidden text-white">
+              <h1 className="hero-fluid-headline font-cinzel text-3xl sm:text-4xl lg:text-6xl font-bold uppercase tracking-wider leading-none break-words max-w-full overflow-hidden text-white">
                 1-of-1 Underground{' '}
                 <span className="text-[#CCFF00]">Thrift</span> &amp; Street Archive.
               </h1>
             </div>
 
-            <p className="text-neutral-300 text-base sm:text-lg max-w-2xl leading-relaxed break-words">
+            <p className="font-sans text-neutral-300 text-base sm:text-lg max-w-2xl leading-relaxed break-words">
               Hand-selected archival sneakers, heavyweight streetwear, Y2K leather, and Old Money
               tailoring curated in Nairobi. Priced in{' '}
               <span className="text-white font-semibold">KSh</span> — no bloated carts, claim
@@ -242,7 +242,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 <button
                   type="button"
                   onClick={() => onNavigateToShop('All')}
-                  className="px-7 py-4 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs sm:text-sm uppercase tracking-[0.2em] inline-flex items-center gap-3 transition-colors cursor-pointer"
+                  className="px-7 py-4 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-sans font-extrabold text-xs sm:text-sm uppercase tracking-[0.16em] inline-flex items-center gap-3 transition-colors cursor-pointer"
                 >
                   <span>Shop Live Drops</span>
                   <ArrowRight className="w-4 h-4" />
@@ -260,7 +260,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   href={buildGeneralWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-4 bg-[#181818]/95 border border-white/20 hover:border-[#CCFF00] text-white hover:text-[#CCFF00] font-mono-spec font-semibold text-xs sm:text-sm uppercase tracking-[0.18em] inline-flex items-center gap-2.5 transition-colors"
+                  className="px-6 py-4 bg-[#181818]/95 border border-white/20 hover:border-[#CCFF00] text-white hover:text-[#CCFF00] font-sans font-semibold text-xs sm:text-sm uppercase tracking-[0.16em] inline-flex items-center gap-2.5 transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>WhatsApp Concierge</span>
@@ -271,26 +271,26 @@ export const HomeView: React.FC<HomeViewProps> = ({
             {/* Nairobi Trust Strip */}
             <div className="pt-5 border-t border-white/12 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl">
               <div className="min-w-0">
-                <span className="block font-mono-spec text-lg sm:text-2xl font-bold text-white">
+                <span className="block font-cinzel text-lg sm:text-2xl font-bold tracking-wider text-white">
                   1-OF-1
                 </span>
-                <span className="font-mono-spec text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400">
+                <span className="font-sans text-[10px] sm:text-xs uppercase tracking-widest text-neutral-400">
                   Zero Restocks
                 </span>
               </div>
               <div className="min-w-0">
-                <span className="block font-mono-spec text-lg sm:text-2xl font-bold text-[#CCFF00]">
+                <span className="block font-cinzel text-lg sm:text-2xl font-bold tracking-wider text-[#CCFF00]">
                   SAME DAY
                 </span>
-                <span className="font-mono-spec text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400">
+                <span className="font-sans text-[10px] sm:text-xs uppercase tracking-widest text-neutral-400">
                   Nairobi Dispatch
                 </span>
               </div>
               <div className="min-w-0">
-                <span className="block font-mono-spec text-lg sm:text-2xl font-bold text-white">
+                <span className="block font-cinzel text-lg sm:text-2xl font-bold tracking-wider text-white">
                   47 COUNTIES
                 </span>
-                <span className="font-mono-spec text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-400">
+                <span className="font-sans text-[10px] sm:text-xs uppercase tracking-widest text-neutral-400">
                   Nationwide Courier
                 </span>
               </div>
@@ -315,11 +315,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-transparent to-transparent opacity-80" />
 
                 <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
-                  <span className="bg-[#0D0D0D]/90 border border-white/20 px-3 py-1 font-mono-spec text-[10px] uppercase tracking-[0.2em] text-white inline-flex items-center gap-1.5">
+                  <span className="bg-[#0D0D0D]/90 border border-white/20 px-3 py-1 font-cinzel font-semibold text-[10px] uppercase tracking-[0.18em] text-white inline-flex items-center gap-1.5">
                     <MapPin className="w-3 h-3 text-[#CCFF00]" />
                     NBO // KENYA
                   </span>
-                  <span className="bg-[#CCFF00] px-2.5 py-1 font-mono-spec text-[10px] font-bold uppercase tracking-[0.18em] text-[#0D0D0D]">
+                  <span className="bg-[#CCFF00] px-2.5 py-1 font-cinzel text-[10px] font-bold uppercase tracking-[0.16em] text-[#0D0D0D]">
                     SEASON ARCHIVE
                   </span>
                 </div>
@@ -327,7 +327,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
                   <div className="min-w-0">
                     <CreewrldWordmark height={18} className="mb-1.5" />
-                    <p className="font-mono-spec text-[11px] uppercase tracking-[0.18em] text-[#CCFF00] truncate">
+                    <p className="font-cinzel font-semibold text-[10px] uppercase tracking-[0.16em] text-[#CCFF00] truncate">
                       CURATED VINTAGE OUTERWEAR &amp; KICKS
                     </p>
                   </div>
@@ -342,7 +342,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                     <button
                       type="button"
                       onClick={() => onNavigateToShop('Streetwear')}
-                      className="px-3.5 py-2 bg-white text-[#0D0D0D] hover:bg-[#CCFF00] font-mono-spec font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer shrink-0"
+                      className="px-3.5 py-2 bg-white text-[#0D0D0D] hover:bg-[#CCFF00] font-sans font-extrabold text-[11px] uppercase tracking-wider transition-colors cursor-pointer shrink-0"
                     >
                       View Fit →
                     </button>
@@ -358,7 +358,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
           FULL-BLEED ELECTRIC LIME KINETIC TICKER
       ====================================================================== */}
       <div className="w-full bg-[#CCFF00] text-[#0D0D0D] border-b border-white/12 py-2.5 overflow-hidden select-none">
-        <div className="animate-creewrld-marquee font-mono-spec text-xs font-bold uppercase tracking-[0.24em]">
+        <div className="animate-creewrld-marquee font-cinzel text-xs font-bold uppercase tracking-[0.22em]">
           {Array.from({ length: 3 }).map((_, blockIdx) => (
             <div key={blockIdx} className="flex items-center gap-8 pr-8">
               <span>CREEWRLD KENYA</span>
@@ -413,33 +413,35 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   <CreewrldStackedLogo width={128} />
                 </div>
                 <div>
-                  <span className="font-mono-spec text-[11px] uppercase tracking-[0.28em] text-[#CCFF00] block mb-2">
+                  <span className="font-cinzel font-semibold text-[11px] uppercase tracking-[0.22em] text-[#CCFF00] block mb-2">
                     BRAND STATEMENT // THE CREEWRLD CODE
                   </span>
-                  <h2 className="font-display text-2xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">
+                  <h2 className="font-cinzel text-2xl sm:text-4xl font-bold uppercase tracking-[0.12em] text-white">
                     Nairobi Street Manifesto
                   </h2>
                 </div>
               </div>
 
-              <p className="text-lg sm:text-xl text-neutral-200 max-w-3xl leading-relaxed font-medium">
+              <p className="font-sans text-lg sm:text-xl text-neutral-200 max-w-3xl leading-relaxed font-medium">
                 “Born out of Nairobi’s underground thrift culture,{' '}
-                <span className="text-[#CCFF00] font-semibold">CREEWRLD</span> hunts down rare
-                1-of-1 garments with heavyweight fabric, real patina, and sharp silhouette —
-                eliminating generic mall fashion one drop at a time.”
+                <span className="font-cinzel tracking-wider text-[#CCFF00] font-bold">CREEWRLD</span>{' '}
+                hunts down rare 1-of-1 garments with heavyweight fabric, real patina, and sharp
+                silhouette — eliminating generic mall fashion one drop at a time.”
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-10 w-full">
               <div className="bg-[#0D0D0D] border border-white/10 p-6 lg:p-8">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="font-mono-spec text-xs text-[#CCFF00]">01 // CURATION</span>
+                  <span className="font-cinzel font-semibold text-xs tracking-[0.18em] text-[#CCFF00]">
+                    01 // CURATION
+                  </span>
                   <Sparkles className="w-4 h-4 text-[#CCFF00]" />
                 </div>
-                <h3 className="font-display text-lg font-bold uppercase text-white mb-2">
+                <h3 className="font-cinzel text-lg font-bold uppercase tracking-wider text-white mb-2">
                   Hand-Picked First Selection
                 </h3>
-                <p className="text-sm text-neutral-400 leading-relaxed">
+                <p className="font-sans text-sm text-neutral-400 leading-relaxed">
                   Every sneaker and garment is sourced from grade-A bales &amp; private archives,
                   steam-cleaned, and inspected before hitting the grid.
                 </p>
@@ -447,13 +449,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
               <div className="bg-[#0D0D0D] border border-white/10 p-6 lg:p-8">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="font-mono-spec text-xs text-[#CCFF00]">02 // TRANSPARENCY</span>
+                  <span className="font-cinzel font-semibold text-xs tracking-[0.18em] text-[#CCFF00]">
+                    02 // TRANSPARENCY
+                  </span>
                   <ShieldCheck className="w-4 h-4 text-[#CCFF00]" />
                 </div>
-                <h3 className="font-display text-lg font-bold uppercase text-white mb-2">
+                <h3 className="font-cinzel text-lg font-bold uppercase tracking-wider text-white mb-2">
                   Exact Condition Grading
                 </h3>
-                <p className="text-sm text-neutral-400 leading-relaxed">
+                <p className="font-sans text-sm text-neutral-400 leading-relaxed">
                   From 10/10 Mint deadstock to 8.5/10 faded vintage character, every card lists
                   exact condition, size, and KSh price upfront.
                 </p>
@@ -461,13 +465,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
               <div className="bg-[#0D0D0D] border border-white/10 p-6 lg:p-8">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="font-mono-spec text-xs text-[#CCFF00]">03 // SPEED</span>
+                  <span className="font-cinzel font-semibold text-xs tracking-[0.18em] text-[#CCFF00]">
+                    03 // SPEED
+                  </span>
                   <Zap className="w-4 h-4 text-[#CCFF00]" />
                 </div>
-                <h3 className="font-display text-lg font-bold uppercase text-white mb-2">
+                <h3 className="font-cinzel text-lg font-bold uppercase tracking-wider text-white mb-2">
                   Instant WhatsApp Lock-In
                 </h3>
-                <p className="text-sm text-neutral-400 leading-relaxed">
+                <p className="font-sans text-sm text-neutral-400 leading-relaxed">
                   Tap “Order via WhatsApp” on any piece to send pre-filled item specs straight to
                   our Nairobi dispatch desk for M-Pesa confirmation.
                 </p>
@@ -484,10 +490,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <div className="w-full px-6 md:px-12 lg:px-16">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <div>
-              <p className="font-mono-spec text-xs uppercase tracking-[0.25em] text-[#CCFF00] mb-2">
+              <p className="font-cinzel font-semibold text-xs uppercase tracking-[0.22em] text-[#CCFF00] mb-2">
                 CURATED SILHOUETTES // 06 ARCHIVES
               </p>
-              <h2 className="font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">
+              <h2 className="font-cinzel text-3xl sm:text-4xl font-bold uppercase tracking-[0.12em] text-white">
                 Shop By Aesthetic
               </h2>
             </div>
@@ -495,7 +501,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <button
                 type="button"
                 onClick={() => onNavigateToShop('All')}
-                className="font-mono-spec text-xs uppercase tracking-[0.2em] text-neutral-300 hover:text-[#CCFF00] inline-flex items-center gap-2 cursor-pointer"
+                className="font-sans font-semibold text-xs uppercase tracking-[0.18em] text-neutral-300 hover:text-[#CCFF00] inline-flex items-center gap-2 cursor-pointer"
               >
                 <span>Browse Full Catalog</span>
                 <ArrowRight className="w-4 h-4" />
@@ -521,23 +527,25 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-[#0D0D0D]/55 to-transparent" />
 
-                  <div className="relative z-10 flex items-center justify-between w-full">
-                    <span className="font-mono-spec text-xs text-[#CCFF00] bg-[#0D0D0D]/85 border border-white/15 px-2.5 py-1">
-                      {world.code} // ARCHIVE
+                  <div className="relative z-10 flex items-center justify-between gap-2 w-full">
+                    <span className="font-cinzel font-semibold text-[11px] uppercase tracking-[0.16em] text-[#CCFF00] bg-[#0D0D0D]/85 border border-white/15 px-2.5 py-1">
+                      {world.code} // {world.category.toUpperCase()} ARCHIVE
                     </span>
-                    <span className="font-mono-spec text-[11px] uppercase tracking-wider text-white bg-[#0D0D0D]/85 border border-white/15 px-2.5 py-1">
+                    <span className="font-cinzel font-semibold text-[11px] uppercase tracking-wider text-white bg-[#0D0D0D]/85 border border-white/15 px-2.5 py-1 shrink-0">
                       {count} {count === 1 ? 'Piece' : 'Pieces'}
                     </span>
                   </div>
 
                   <div className="relative z-10">
                     <div className="flex items-center justify-between gap-2">
-                      <h3 className="font-display text-2xl font-extrabold uppercase text-white group-hover:text-[#CCFF00] transition-colors">
+                      <h3 className="font-cinzel text-2xl font-bold uppercase tracking-[0.12em] text-white group-hover:text-[#CCFF00] transition-colors">
                         {world.category}
                       </h3>
                       <ArrowUpRight className="w-5 h-5 text-white group-hover:text-[#CCFF00] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </div>
-                    <p className="text-xs text-neutral-300 mt-1 line-clamp-1">{world.tagline}</p>
+                    <p className="font-sans text-xs text-neutral-300 mt-1 line-clamp-1">
+                      {world.tagline}
+                    </p>
                   </div>
                 </button>
               );
@@ -557,10 +565,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <div className="w-full px-6 md:px-12 lg:px-16 relative z-10">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <div>
-              <p className="font-mono-spec text-xs uppercase tracking-[0.25em] text-[#CCFF00] mb-2">
+              <p className="font-cinzel font-semibold text-xs uppercase tracking-[0.22em] text-[#CCFF00] mb-2">
                 FRESH OUT THE VAULT // LIVE DROPS
               </p>
-              <h2 className="font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">
+              <h2 className="font-cinzel text-3xl sm:text-4xl font-bold uppercase tracking-[0.12em] text-white">
                 Featured Thrift Grails
               </h2>
             </div>
@@ -576,7 +584,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <button
                 type="button"
                 onClick={() => onNavigateToShop('All')}
-                className="px-5 py-3 bg-[#181818] border border-white/20 hover:border-[#CCFF00] text-white hover:text-[#CCFF00] font-mono-spec text-xs uppercase tracking-[0.2em] inline-flex items-center gap-2 transition-colors cursor-pointer"
+                className="px-5 py-3 bg-[#181818] border border-white/20 hover:border-[#CCFF00] text-white hover:text-[#CCFF00] font-sans font-semibold text-xs uppercase tracking-[0.16em] inline-flex items-center gap-2 transition-colors cursor-pointer"
               >
                 <span>View All Drops ({products.length})</span>
                 <ArrowRight className="w-4 h-4" />
@@ -617,11 +625,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
           {/* Verified Customer Rating Banner */}
           <div className="w-full bg-[#181818] border border-white/15 p-8 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-white/12 pb-6 lg:pb-0 lg:pr-8">
-              <div className="inline-flex items-center gap-2 bg-[#CCFF00] text-[#0D0D0D] px-3 py-1 font-mono-spec text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
+              <div className="inline-flex items-center gap-2 bg-[#CCFF00] text-[#0D0D0D] px-3 py-1 font-cinzel text-[10px] font-bold uppercase tracking-[0.18em] mb-4">
                 VERIFIED BUYER RATING
               </div>
               <div className="flex items-baseline gap-4">
-                <span className="font-mono-spec text-5xl sm:text-6xl font-extrabold text-white">
+                <span className="font-cinzel text-5xl sm:text-6xl font-bold tracking-wider text-white">
                   4.9
                 </span>
                 <div>
@@ -630,7 +638,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                       <Star key={idx} className="w-4 h-4 fill-[#CCFF00] stroke-[#CCFF00]" />
                     ))}
                   </div>
-                  <p className="font-mono-spec text-xs text-neutral-400 uppercase tracking-wider">
+                  <p className="font-sans text-xs text-neutral-400 uppercase tracking-wider">
                     640+ Delivered WhatsApp Orders in Kenya
                   </p>
                 </div>
@@ -639,21 +647,21 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
               <blockquote className="bg-[#0D0D0D] border border-white/10 p-5 lg:p-6">
-                <p className="text-sm text-neutral-200 leading-relaxed mb-3">
+                <p className="font-sans text-sm text-neutral-200 leading-relaxed mb-3">
                   “Ordered the vintage leather racing jacket on WhatsApp at 11am, rider dropped it
                   in Westlands by 2pm. Condition was literally 10/10.”
                 </p>
-                <footer className="font-mono-spec text-[11px] uppercase tracking-wider text-[#CCFF00]">
+                <footer className="font-cinzel font-semibold text-[11px] uppercase tracking-wider text-[#CCFF00]">
                   — BRIAN K. // WESTLANDS, NAIROBI
                 </footer>
               </blockquote>
 
               <blockquote className="bg-[#0D0D0D] border border-white/10 p-5 lg:p-6">
-                <p className="text-sm text-neutral-200 leading-relaxed mb-3">
+                <p className="font-sans text-sm text-neutral-200 leading-relaxed mb-3">
                   “Cleanest thrift curation in 254. Accurate sizing, zero catfishing, and fast
                   overnight parcel delivery to Mombasa.”
                 </p>
-                <footer className="font-mono-spec text-[11px] uppercase tracking-wider text-[#CCFF00]">
+                <footer className="font-cinzel font-semibold text-[11px] uppercase tracking-wider text-[#CCFF00]">
                   — ACHIENG M. // KILIMANI &amp; MOMBASA
                 </footer>
               </blockquote>
@@ -663,7 +671,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
           {/* Social Links Grid */}
           <div className="w-full">
             <div className="flex items-center justify-between mb-6">
-              <p className="font-mono-spec text-xs uppercase tracking-[0.24em] text-neutral-400">
+              <p className="font-cinzel font-semibold text-xs uppercase tracking-[0.22em] text-neutral-400">
                 CONNECT WITH THE ARCHIVE // SOCIAL CHANNELS
               </p>
               <CreewrldWordmark height={17} />
@@ -679,16 +687,16 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   className="group bg-[#181818] border border-white/12 hover:border-[#CCFF00] p-6 flex flex-col justify-between gap-4 transition-colors"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-mono-spec text-xs uppercase tracking-[0.2em] text-neutral-400 group-hover:text-white">
+                    <span className="font-cinzel font-semibold text-xs uppercase tracking-[0.18em] text-neutral-400 group-hover:text-white">
                       {social.name}
                     </span>
                     <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-[#CCFF00] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </div>
                   <div>
-                    <p className="font-mono-spec text-base font-bold text-white group-hover:text-[#CCFF00] transition-colors">
+                    <p className="font-cinzel text-base font-bold tracking-wider text-white group-hover:text-[#CCFF00] transition-colors">
                       {social.handle}
                     </p>
-                    <p className="text-xs text-neutral-400 mt-1">{social.note}</p>
+                    <p className="font-sans text-xs text-neutral-400 mt-1">{social.note}</p>
                   </div>
                 </a>
               ))}

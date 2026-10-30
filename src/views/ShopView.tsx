@@ -127,23 +127,23 @@ export const ShopView: React.FC<ShopViewProps> = ({
         <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div>
             <div className="flex flex-wrap items-center gap-3 mb-2">
-              <span className="font-mono-spec text-xs uppercase tracking-[0.25em] text-[#CCFF00]">
+              <span className="font-cinzel font-semibold text-xs uppercase tracking-[0.22em] text-[#CCFF00]">
                 CREEWRLD // SHOP ARCHIVE
               </span>
-              <span className="bg-[#181818]/90 border border-white/15 px-2.5 py-0.5 font-mono-spec text-[10px] uppercase tracking-wider text-neutral-300">
+              <span className="bg-[#181818]/90 border border-white/15 px-2.5 py-0.5 font-cinzel font-semibold text-[10px] uppercase tracking-[0.16em] text-neutral-300">
                 {isSupabaseLive ? 'LIVE SUPABASE DB' : 'SHOWCASE CATALOG'}
               </span>
             </div>
-            <h1 className="font-display text-3xl sm:text-5xl xl:text-6xl font-extrabold uppercase tracking-tight text-white">
+            <h1 className="font-cinzel text-3xl sm:text-5xl xl:text-6xl font-bold uppercase tracking-[0.12em] text-white">
               All Thrift Drops
             </h1>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <span className="font-mono-spec text-xs uppercase tracking-widest text-neutral-300 bg-[#0D0D0D]/75 border border-white/10 px-3 py-2">
+            <span className="font-sans text-xs uppercase tracking-widest text-neutral-300 bg-[#0D0D0D]/75 border border-white/10 px-3 py-2">
               Showing{' '}
-              <strong className="text-white">{filteredProducts.length}</strong> of{' '}
-              <strong className="text-white">{products.length}</strong> pieces
+              <strong className="font-cinzel text-white">{filteredProducts.length}</strong> of{' '}
+              <strong className="font-cinzel text-white">{products.length}</strong> pieces
             </span>
 
             <Magnet padding={55} magnetStrength={3} maxOffset={10} tilt={4} scale={1.03}>
@@ -151,7 +151,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
                 type="button"
                 onClick={onRefresh}
                 title="Refresh inventory from Supabase"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#181818]/95 border border-white/15 hover:border-[#CCFF00] text-xs font-mono-spec uppercase tracking-wider text-neutral-200 hover:text-[#CCFF00] transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#181818]/95 border border-white/15 hover:border-[#CCFF00] text-xs font-sans font-semibold uppercase tracking-wider text-neutral-200 hover:text-[#CCFF00] transition-colors cursor-pointer"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
                 Sync
@@ -170,7 +170,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
                 <button
                   type="button"
                   onClick={onOpenAddModal}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white text-xs font-mono-spec font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white text-xs font-sans font-extrabold uppercase tracking-wider transition-colors cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   Add Product
@@ -202,10 +202,10 @@ export const ShopView: React.FC<ShopViewProps> = ({
                   role="tab"
                   aria-selected={active}
                   onClick={() => onSelectCategory(category)}
-                  className={`shrink-0 px-4 py-2.5 font-mono-spec text-xs uppercase tracking-[0.18em] border transition-all flex items-center gap-2 cursor-pointer ${
+                  className={`shrink-0 px-4 py-2.5 font-sans text-xs uppercase tracking-[0.16em] border transition-all flex items-center gap-2 cursor-pointer ${
                     active
-                      ? 'bg-[#CCFF00] text-[#0D0D0D] border-[#CCFF00] font-bold'
-                      : 'bg-[#181818] text-neutral-300 border-white/12 hover:border-white/35 hover:text-white'
+                      ? 'bg-[#CCFF00] text-[#0D0D0D] border-[#CCFF00] font-extrabold'
+                      : 'bg-[#181818] text-neutral-300 border-white/12 hover:border-white/35 hover:text-white font-semibold'
                   }`}
                 >
                   <span>{category}</span>

@@ -135,13 +135,13 @@ export const AdminAuthModal: React.FC<AdminAuthModalProps> = ({
             <CreewrldEmblem size={34} />
           </div>
           <div>
-            <div className="inline-flex items-center gap-1.5 font-mono-spec text-[10px] uppercase tracking-[0.24em] text-[#CCFF00]">
+            <div className="inline-flex items-center gap-1.5 font-cinzel font-semibold text-[10px] uppercase tracking-[0.2em] text-[#CCFF00]">
               <Lock className="w-3 h-3" />
               <span>SUPABASE AUTH // RESTRICTED</span>
             </div>
             <h2
               id="admin-auth-modal-title"
-              className="font-display text-xl sm:text-2xl font-extrabold uppercase tracking-tight text-white mt-0.5"
+              className="font-cinzel text-xl sm:text-2xl font-bold uppercase tracking-[0.12em] text-white mt-0.5"
             >
               Admin Verification
             </h2>

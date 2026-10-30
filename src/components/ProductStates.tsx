@@ -59,17 +59,17 @@ export const EmptyArchiveState: React.FC<EmptyArchiveStateProps> = ({
         <PackageOpen className="w-7 h-7" />
       </div>
 
-      <p className="font-mono-spec text-xs uppercase tracking-[0.25em] text-[#CCFF00] mb-2">
-        {isFiltered ? `CATEGORY // ${selectedCategory.toUpperCase()}` : 'ARCHIVE STATUS // 0 LIVE PIECES'}
+      <p className="font-cinzel font-semibold text-xs uppercase tracking-[0.22em] text-[#CCFF00] mb-2">
+        {isFiltered ? `CATEGORY // ${selectedCategory.toUpperCase()} ARCHIVE` : 'ARCHIVE STATUS // 0 LIVE PIECES'}
       </p>
 
-      <h3 className="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white mb-3">
+      <h3 className="font-cinzel text-2xl sm:text-3xl font-bold uppercase tracking-[0.12em] text-white mb-3">
         {isFiltered
           ? `No ${selectedCategory} Drops Available Right Now`
           : 'Vault Currently Empty — Next Drop Incoming'}
       </h3>
 
-      <p className="text-neutral-400 text-sm sm:text-base leading-relaxed mb-7">
+      <p className="font-sans text-neutral-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed mb-7">
         {isFiltered
           ? `Every CREEWRLD piece is 1-of-1. All items in "${selectedCategory}" have been claimed or haven't been uploaded yet.`
           : isSupabaseLive

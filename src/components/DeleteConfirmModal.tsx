@@ -50,10 +50,13 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
-            <p className="font-mono-spec text-[10px] uppercase tracking-[0.22em] text-[#FF3B30]">
+            <p className="font-cinzel font-semibold text-[10px] uppercase tracking-[0.2em] text-[#FF3B30]">
               ADMIN ACTION // PERMANENT DELETE
             </p>
-            <h3 id="delete-modal-heading" className="font-display text-xl font-bold text-white">
+            <h3
+              id="delete-modal-heading"
+              className="font-cinzel text-xl font-bold uppercase tracking-wider text-white"
+            >
               Remove Thrift Drop?
             </h3>
           </div>
@@ -67,8 +70,10 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
             className="w-14 h-16 object-cover bg-[#181818] shrink-0"
           />
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-white truncate">{product.title}</p>
-            <p className="font-mono-spec text-xs text-[#CCFF00] mt-0.5">
+            <p className="font-cinzel text-sm font-bold uppercase tracking-wider text-white truncate">
+              {product.title}
+            </p>
+            <p className="font-cinzel font-semibold text-xs tracking-wider text-[#CCFF00] mt-0.5">
               KSh {formatKsh(product.price_ksh)} · {product.size}
             </p>
             <p className="font-mono-spec text-[10px] text-neutral-400 truncate mt-0.5">

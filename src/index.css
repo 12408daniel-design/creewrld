@@ -1,13 +1,22 @@
 @import "tailwindcss";
+@import "@fontsource/cinzel/400.css";
+@import "@fontsource/cinzel/600.css";
+@import "@fontsource/cinzel/700.css";
+@import "@fontsource/cinzel/800.css";
+@import "@fontsource/cinzel/900.css";
+@import "@fontsource/plus-jakarta-sans/400.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
+@import "@fontsource/plus-jakarta-sans/800.css";
 @import "@fontsource/unifrakturmaguntia/400.css";
-@import "@fontsource/syne/700.css";
-@import "@fontsource/space-grotesk/400.css";
-@import "@fontsource/space-grotesk/500.css";
-@import "@fontsource/space-grotesk/600.css";
-@import "@fontsource/space-grotesk/700.css";
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/500.css";
 @import "@fontsource/jetbrains-mono/700.css";
+
+@theme {
+  --font-cinzel: 'Cinzel', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
 
 @layer base {
   :root {
@@ -29,14 +38,23 @@
   }
 
   html {
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     scroll-behavior: smooth;
     overflow-x: hidden;
   }
 
   body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
   }
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
 .font-blackletter {
@@ -45,19 +63,18 @@
 }
 
 .font-display {
-  font-family: 'Syne', 'Space Grotesk', sans-serif;
-  font-synthesis: none;
+  font-family: 'Cinzel', Georgia, serif;
 }
 
 .font-mono-spec {
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 }
 
-/* Responsive fluid hero headline scaling cleanly without clipping or overlap */
+/* Responsive fluid Cinzel hero headline — classical wide tracking without clipping */
 .hero-fluid-headline {
-  font-size: clamp(2rem, 4.5vw, 4rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.8rem, 4.1vw, 3.75rem);
+  line-height: 1.08;
+  letter-spacing: 0.06em;
   word-break: break-word;
   overflow-wrap: break-word;
 }

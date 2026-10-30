@@ -47,10 +47,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </button>
         )}
 
-        {/* Top-Left Category Tag */}
+        {/* Top-Left Luxury Category Tag */}
         <div className="absolute top-3 left-3 pointer-events-none">
-          <span className="inline-block bg-[#0D0D0D]/90 backdrop-blur-sm border border-white/15 px-2.5 py-1 font-mono-spec text-[10px] uppercase tracking-[0.18em] text-white">
-            {product.category}
+          <span className="inline-block bg-[#0D0D0D]/90 backdrop-blur-sm border border-white/15 px-2.5 py-1 font-cinzel font-semibold text-[10px] uppercase tracking-[0.18em] text-white">
+            {product.category} Archive
           </span>
         </div>
 
@@ -108,17 +108,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             onClick={() => onSelectProduct(product)}
             className="text-left group/title focus:outline-none cursor-pointer w-full"
           >
-            <h3 className="text-white font-semibold text-base leading-snug line-clamp-2 group-hover/title:text-[#CCFF00] transition-colors">
+            <h3 className="font-cinzel font-bold text-sm sm:text-base uppercase tracking-wider text-white leading-snug line-clamp-2 group-hover/title:text-[#CCFF00] transition-colors">
               {product.title}
             </h3>
           </button>
 
           {/* Size & KSh Price Spec Row */}
           <div className="mt-3 pt-3 border-t border-white/10 flex items-baseline justify-between gap-2">
-            <div className="font-mono-spec text-xs text-neutral-400 uppercase tracking-wider">
+            <div className="font-sans text-xs text-neutral-400 uppercase tracking-wider">
               SIZE: <span className="text-white font-semibold">{product.size}</span>
             </div>
-            <div className="font-mono-spec text-base sm:text-lg font-bold text-[#CCFF00] tracking-tight">
+            <div className="font-cinzel text-base sm:text-lg font-bold text-[#CCFF00] tracking-wider">
               KSh {formatKsh(product.price_ksh)}
             </div>
           </div>
@@ -139,7 +139,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-3 px-4 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs uppercase tracking-[0.16em] flex items-center justify-center gap-2 transition-colors duration-200"
+            className="w-full py-3 px-4 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-colors duration-200"
           >
             <MessageCircle className="w-4 h-4 fill-[#0D0D0D] stroke-[#0D0D0D]" />
             <span>Order via WhatsApp</span>

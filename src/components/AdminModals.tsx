@@ -137,10 +137,10 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        <p className="font-mono-spec text-[11px] uppercase tracking-[0.24em] text-[#CCFF00] mb-1">
+        <p className="font-cinzel font-semibold text-[11px] uppercase tracking-[0.2em] text-[#CCFF00] mb-1">
           ADMIN DROP UPLOADER // {isSupabaseLive ? 'LIVE SUPABASE BUCKET' : 'PREVIEW MODE'}
         </p>
-        <h3 className="font-display text-2xl font-extrabold text-white mb-5">
+        <h3 className="font-cinzel text-2xl font-bold uppercase tracking-[0.12em] text-white mb-5">
           Publish New Thrift Piece
         </h3>
 
@@ -379,7 +379,7 @@ export const SupabaseSetupModal: React.FC<SupabaseSetupModalProps> = ({
           </span>
         </div>
 
-        <h3 className="font-display text-2xl font-extrabold text-white mb-2">
+        <h3 className="font-cinzel text-2xl font-bold uppercase tracking-[0.12em] text-white mb-2">
           Dynamic Supabase Integration
         </h3>
         <p className="text-xs sm:text-sm text-neutral-400 mb-6">
