@@ -7,6 +7,7 @@ import {
 } from '../types/product';
 import { ProductCard } from '../components/ProductCard';
 import { ProductGridSkeleton, EmptyArchiveState } from '../components/ProductStates';
+import Topography from '../components/Topography';
 
 type SortOption = 'newest' | 'price-asc' | 'price-desc';
 
@@ -81,49 +82,81 @@ export const ShopView: React.FC<ShopViewProps> = ({
   return (
     <section className="py-10 sm:py-14 min-h-[75vh]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Shop Archive Masthead */}
-        <div className="border-b border-white/12 pb-8 mb-8 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-          <div>
-            <div className="flex flex-wrap items-center gap-3 mb-2">
-              <span className="font-mono-spec text-xs uppercase tracking-[0.25em] text-[#CCFF00]">
-                CREEWRLD // SHOP ARCHIVE
-              </span>
-              <span className="bg-[#181818] border border-white/15 px-2.5 py-0.5 font-mono-spec text-[10px] uppercase tracking-wider text-neutral-300">
-                {isSupabaseLive ? 'LIVE SUPABASE DB' : 'SHOWCASE CATALOG'}
-              </span>
-            </div>
-            <h1 className="font-display text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
-              All Thrift Drops
-            </h1>
+        {/* Shop Archive Masthead with Interactive Topographic Horizon */}
+        <div className="relative overflow-hidden border border-white/15 bg-[#0D0D0D] p-6 sm:p-8 lg:p-10 mb-8">
+          <div className="absolute inset-0 z-0">
+            <Topography
+              color="#CCFF00"
+              lineCount={20}
+              lineWidth={1.1}
+              majorLines={true}
+              elevation={0.85}
+              foreground={0.15}
+              scale={1.1}
+              detail={0.35}
+              tilt={36}
+              speed={0.18}
+              direction="forward"
+              morph={0.15}
+              glow={0.5}
+              depthOfField={0.3}
+              fog={0.42}
+              brightness={0.85}
+              opacity={0.62}
+              hoverEffect="trace"
+              clickEffect="pulse"
+              markers="dots"
+              intro={true}
+            />
           </div>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-[#0D0D0D]/90 via-[#0D0D0D]/68 to-[#0D0D0D]/30"
+          />
 
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="font-mono-spec text-xs uppercase tracking-widest text-neutral-400">
-              Showing{' '}
-              <strong className="text-white">{filteredProducts.length}</strong> of{' '}
-              <strong className="text-white">{products.length}</strong> pieces
-            </span>
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <div>
+              <div className="flex flex-wrap items-center gap-3 mb-2">
+                <span className="font-mono-spec text-xs uppercase tracking-[0.25em] text-[#CCFF00]">
+                  CREEWRLD // SHOP ARCHIVE
+                </span>
+                <span className="bg-[#181818]/90 border border-white/15 px-2.5 py-0.5 font-mono-spec text-[10px] uppercase tracking-wider text-neutral-300">
+                  {isSupabaseLive ? 'LIVE SUPABASE DB' : 'SHOWCASE CATALOG'}
+                </span>
+              </div>
+              <h1 className="font-display text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
+                All Thrift Drops
+              </h1>
+            </div>
 
-            <button
-              type="button"
-              onClick={onRefresh}
-              title="Refresh inventory from Supabase"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#181818] border border-white/15 hover:border-[#CCFF00] text-xs font-mono-spec uppercase tracking-wider text-neutral-200 hover:text-[#CCFF00] transition-colors cursor-pointer"
-            >
-              <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-              Sync
-            </button>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="font-mono-spec text-xs uppercase tracking-widest text-neutral-300 bg-[#0D0D0D]/75 border border-white/10 px-3 py-2">
+                Showing{' '}
+                <strong className="text-white">{filteredProducts.length}</strong> of{' '}
+                <strong className="text-white">{products.length}</strong> pieces
+              </span>
 
-            {adminMode && (
               <button
                 type="button"
-                onClick={onOpenAddModal}
-                className="admin-only inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white text-xs font-mono-spec font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                onClick={onRefresh}
+                title="Refresh inventory from Supabase"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#181818]/95 border border-white/15 hover:border-[#CCFF00] text-xs font-mono-spec uppercase tracking-wider text-neutral-200 hover:text-[#CCFF00] transition-colors cursor-pointer"
               >
-                <Plus className="w-3.5 h-3.5" />
-                Add Product
+                <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+                Sync
               </button>
-            )}
+
+              {adminMode && (
+                <button
+                  type="button"
+                  onClick={onOpenAddModal}
+                  className="admin-only inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white text-xs font-mono-spec font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  Add Product
+                </button>
+              )}
+            </div>
           </div>
         </div>
 

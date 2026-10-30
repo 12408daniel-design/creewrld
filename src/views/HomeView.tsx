@@ -15,6 +15,7 @@ import {
   CreewrldStackedLogo,
   CreewrldWordmark,
 } from '../components/CreewrldLogo';
+import Topography from '../components/Topography';
 import { ProductCard } from '../components/ProductCard';
 import { ProductGridSkeleton, EmptyArchiveState } from '../components/ProductStates';
 import { buildGeneralWhatsAppUrl, CREEWRLD_WHATSAPP_DISPLAY } from '../utils/whatsapp';
@@ -119,20 +120,52 @@ export const HomeView: React.FC<HomeViewProps> = ({
   return (
     <div>
       {/* =====================================================================
-          HERO SECTION
+          HERO SECTION (Interactive WebGL2 <Topography /> Contour Terrain)
       ====================================================================== */}
-      <section className="relative overflow-hidden border-b border-white/12">
-        {/* Subtle Architectural Hairline Grid */}
+      <section className="relative overflow-hidden border-b border-white/12 bg-[#0D0D0D]">
+        {/* Interactive Electric Lime Topographic Terrain */}
+        <div className="absolute inset-0 z-0">
+          <Topography
+            color="#CCFF00"
+            lineCount={24}
+            lineWidth={1.2}
+            majorLines={true}
+            elevation={1.05}
+            foreground={0.18}
+            scale={1.05}
+            detail={0.38}
+            tilt={31}
+            speed={0.22}
+            direction="forward"
+            morph={0.18}
+            glow={0.55}
+            depthOfField={0.35}
+            fog={0.38}
+            brightness={0.9}
+            opacity={0.78}
+            hoverEffect="lift"
+            mouseRadius={1.1}
+            mouseStrength={0.65}
+            trail={0.35}
+            parallax={0.45}
+            clickEffect="pulse"
+            markers="plus"
+            glitch={0.08}
+            intro={true}
+          />
+        </div>
+
+        {/* Directional Obsidian Readability Scrims */}
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.05]"
-          style={{
-            backgroundImage:
-              'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
-            backgroundSize: '72px 72px',
-          }}
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-[#0D0D0D]/88 via-[#0D0D0D]/62 to-[#0D0D0D]/20"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#0D0D0D]/50 via-transparent to-[#0D0D0D]/85"
         />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-22 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-22 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Editorial Column */}
             <div className="lg:col-span-7 space-y-7">
