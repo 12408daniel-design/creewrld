@@ -1,35 +1,38 @@
 import React, { useEffect } from 'react';
 import { X, MessageCircle, ShieldCheck, Truck, Sparkles, Trash2 } from 'lucide-react';
 import type { Product } from '../types/product';
-import { buildWhatsAppOrderUrl, formatKsh, CREEWRLD_WHATSAPP_DISPLAY } from '../utils/whatsapp';
+import { WHATSAPP_TELLERS } from '../config';
+import { formatKsh } from '../utils/whatsapp';
 import Magnet from './Magnet';
 import StarBorder from './StarBorder';
 
 interface ProductDetailModalProps {
   product: Product | null;
   isAdmin: boolean;
+  isTellerModalOpen?: boolean;
   onClose: () => void;
+  onOrderViaWhatsApp: (product: Product) => void;
   onRequestDelete: (product: Product) => void;
 }
 
 export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   product,
   isAdmin,
+  isTellerModalOpen = false,
   onClose,
+  onOrderViaWhatsApp,
   onRequestDelete,
 }) => {
   useEffect(() => {
-    if (!product) return;
+    if (!product || isTellerModalOpen) return;
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [product, onClose]);
+  }, [product, isTellerModalOpen, onClose]);
 
   if (!product) return null;
-
-  const whatsappUrl = buildWhatsAppOrderUrl(product);
 
   return (
     <div
@@ -134,10 +137,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               wrapperClassName="w-full creewrld-magnet-glow"
             >
               <StarBorder
-                as="a"
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={() => onOrderViaWhatsApp(product)}
                 color="#FFFFFF"
                 trailColor="#F4EFEA"
                 duration={3.8}
@@ -166,7 +166,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             </Magnet>
 
             <p className="text-center font-sans text-[11px] text-slate-400">
-              Direct line: {CREEWRLD_WHATSAPP_DISPLAY} · Pre-fills item title, size &amp; KSh price
+              {WHATSAPP_TELLERS.length} Active WhatsApp Tellers · Pre-fills item title, size &amp; KSh price
             </p>
 
             {isAdmin && (

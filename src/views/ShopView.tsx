@@ -22,6 +22,7 @@ interface ShopViewProps {
   adminMode: boolean;
   isSupabaseLive: boolean;
   onSelectProduct: (product: Product) => void;
+  onOrderViaWhatsApp: (product: Product) => void;
   onRequestDelete: (product: Product) => void;
   onRefresh: () => void;
   onOpenAddModal: () => void;
@@ -36,6 +37,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
   adminMode,
   isSupabaseLive,
   onSelectProduct,
+  onOrderViaWhatsApp,
   onRequestDelete,
   onRefresh,
   onOpenAddModal,
@@ -317,6 +319,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
                 product={product}
                 adminMode={adminMode}
                 onSelectProduct={onSelectProduct}
+                onOrderViaWhatsApp={onOrderViaWhatsApp}
                 onRequestDelete={onRequestDelete}
               />
             ))}
