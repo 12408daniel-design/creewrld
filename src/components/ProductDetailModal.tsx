@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import type { Product } from '../types/product';
 import { buildWhatsAppOrderUrl, formatKsh, CREEWRLD_WHATSAPP_DISPLAY } from '../utils/whatsapp';
+import Magnet from './Magnet';
 
 interface ProductDetailModalProps {
   product: Product | null;
@@ -141,16 +142,27 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
           {/* Action Block: Direct WhatsApp Order + Subtle Delete */}
           <div className="space-y-3 pt-2">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-4 px-5 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs sm:text-sm uppercase tracking-[0.18em] flex items-center justify-center gap-2.5 transition-colors"
+            <Magnet
+              padding={65}
+              magnetStrength={2.8}
+              maxOffset={10}
+              tilt={5}
+              scale={1.02}
+              wrapperClassName="w-full creewrld-magnet-glow"
+              innerClassName="w-full"
+              style={{ display: 'block', width: '100%' }}
             >
-              <MessageCircle className="w-4 h-4 fill-[#0D0D0D] stroke-[#0D0D0D]" />
-              <span>Order via WhatsApp</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-4 px-5 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs sm:text-sm uppercase tracking-[0.18em] flex items-center justify-center gap-2.5 transition-colors"
+              >
+                <MessageCircle className="w-4 h-4 fill-[#0D0D0D] stroke-[#0D0D0D]" />
+                <span>Order via WhatsApp</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </Magnet>
 
             <div className="flex items-center justify-between pt-1">
               <span className="font-mono-spec text-[11px] text-neutral-400">

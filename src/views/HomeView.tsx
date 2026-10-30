@@ -15,6 +15,7 @@ import {
   CreewrldStackedLogo,
   CreewrldWordmark,
 } from '../components/CreewrldLogo';
+import Magnet from '../components/Magnet';
 import Topography from '../components/Topography';
 import { ProductCard } from '../components/ProductCard';
 import { ProductGridSkeleton, EmptyArchiveState } from '../components/ProductStates';
@@ -230,24 +231,42 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
               {/* Primary & Secondary CTAs */}
               <div className="flex flex-wrap items-center gap-4 pt-1">
-                <button
-                  type="button"
-                  onClick={() => onNavigateToShop('All')}
-                  className="px-7 py-4 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs sm:text-sm uppercase tracking-[0.2em] inline-flex items-center gap-3 transition-colors cursor-pointer"
+                <Magnet
+                  padding={90}
+                  magnetStrength={2.4}
+                  maxOffset={18}
+                  tilt={6}
+                  scale={1.03}
+                  spring={{ stiffness: 190, damping: 15, mass: 1 }}
+                  wrapperClassName="creewrld-magnet-glow"
                 >
-                  <span>Shop Live Drops</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => onNavigateToShop('All')}
+                    className="px-7 py-4 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs sm:text-sm uppercase tracking-[0.2em] inline-flex items-center gap-3 transition-colors cursor-pointer"
+                  >
+                    <span>Shop Live Drops</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </Magnet>
 
-                <a
-                  href={buildGeneralWhatsAppUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-4 bg-[#181818]/95 border border-white/20 hover:border-[#CCFF00] text-white hover:text-[#CCFF00] font-mono-spec font-semibold text-xs sm:text-sm uppercase tracking-[0.18em] inline-flex items-center gap-2.5 transition-colors"
+                <Magnet
+                  padding={80}
+                  magnetStrength={2.8}
+                  maxOffset={15}
+                  tilt={5}
+                  scale={1.02}
                 >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>WhatsApp Concierge</span>
-                </a>
+                  <a
+                    href={buildGeneralWhatsAppUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-4 bg-[#181818]/95 border border-white/20 hover:border-[#CCFF00] text-white hover:text-[#CCFF00] font-mono-spec font-semibold text-xs sm:text-sm uppercase tracking-[0.18em] inline-flex items-center gap-2.5 transition-colors"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>WhatsApp Concierge</span>
+                  </a>
+                </Magnet>
               </div>
 
               {/* Nairobi Trust Strip */}
@@ -313,13 +332,22 @@ export const HomeView: React.FC<HomeViewProps> = ({
                         CURATED VINTAGE OUTERWEAR &amp; KICKS
                       </p>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => onNavigateToShop('Streetwear')}
-                      className="px-3.5 py-2 bg-white text-[#0D0D0D] hover:bg-[#CCFF00] font-mono-spec font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer shrink-0"
+                    <Magnet
+                      padding={60}
+                      magnetStrength={2.6}
+                      maxOffset={10}
+                      tilt={4}
+                      scale={1.04}
+                      wrapperClassName="shrink-0"
                     >
-                      View Fit →
-                    </button>
+                      <button
+                        type="button"
+                        onClick={() => onNavigateToShop('Streetwear')}
+                        className="px-3.5 py-2 bg-white text-[#0D0D0D] hover:bg-[#CCFF00] font-mono-spec font-bold text-[11px] uppercase tracking-wider transition-colors cursor-pointer shrink-0"
+                      >
+                        View Fit →
+                      </button>
+                    </Magnet>
                   </div>
                 </div>
               </div>
@@ -465,14 +493,16 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 Shop By Aesthetic
               </h2>
             </div>
-            <button
-              type="button"
-              onClick={() => onNavigateToShop('All')}
-              className="font-mono-spec text-xs uppercase tracking-[0.2em] text-neutral-300 hover:text-[#CCFF00] inline-flex items-center gap-2 cursor-pointer"
-            >
-              <span>Browse Full Catalog</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+            <Magnet padding={65} magnetStrength={3.2} maxOffset={10} scale={1.02}>
+              <button
+                type="button"
+                onClick={() => onNavigateToShop('All')}
+                className="font-mono-spec text-xs uppercase tracking-[0.2em] text-neutral-300 hover:text-[#CCFF00] inline-flex items-center gap-2 cursor-pointer"
+              >
+                <span>Browse Full Catalog</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </Magnet>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
@@ -537,14 +567,23 @@ export const HomeView: React.FC<HomeViewProps> = ({
               </h2>
             </div>
 
-            <button
-              type="button"
-              onClick={() => onNavigateToShop('All')}
-              className="px-5 py-3 bg-[#181818] border border-white/20 hover:border-[#CCFF00] text-white hover:text-[#CCFF00] font-mono-spec text-xs uppercase tracking-[0.2em] inline-flex items-center gap-2 transition-colors cursor-pointer self-start sm:self-auto"
+            <Magnet
+              padding={75}
+              magnetStrength={2.8}
+              maxOffset={14}
+              tilt={4}
+              scale={1.02}
+              wrapperClassName="self-start sm:self-auto"
             >
-              <span>View All Drops ({products.length})</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+              <button
+                type="button"
+                onClick={() => onNavigateToShop('All')}
+                className="px-5 py-3 bg-[#181818] border border-white/20 hover:border-[#CCFF00] text-white hover:text-[#CCFF00] font-mono-spec text-xs uppercase tracking-[0.2em] inline-flex items-center gap-2 transition-colors cursor-pointer"
+              >
+                <span>View All Drops ({products.length})</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </Magnet>
           </div>
 
           {loading ? (

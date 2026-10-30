@@ -7,6 +7,7 @@ import {
 } from '../types/product';
 import { ProductCard } from '../components/ProductCard';
 import { ProductGridSkeleton, EmptyArchiveState } from '../components/ProductStates';
+import Magnet from '../components/Magnet';
 import Topography from '../components/Topography';
 
 type SortOption = 'newest' | 'price-asc' | 'price-desc';
@@ -145,25 +146,36 @@ export const ShopView: React.FC<ShopViewProps> = ({
               <strong className="text-white">{products.length}</strong> pieces
             </span>
 
-            <button
-              type="button"
-              onClick={onRefresh}
-              title="Refresh inventory from Supabase"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#181818]/95 border border-white/15 hover:border-[#CCFF00] text-xs font-mono-spec uppercase tracking-wider text-neutral-200 hover:text-[#CCFF00] transition-colors cursor-pointer"
-            >
-              <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-              Sync
-            </button>
-
-            {adminMode && (
+            <Magnet padding={55} magnetStrength={3} maxOffset={10} tilt={4} scale={1.03}>
               <button
                 type="button"
-                onClick={onOpenAddModal}
-                className="admin-only inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white text-xs font-mono-spec font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                onClick={onRefresh}
+                title="Refresh inventory from Supabase"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#181818]/95 border border-white/15 hover:border-[#CCFF00] text-xs font-mono-spec uppercase tracking-wider text-neutral-200 hover:text-[#CCFF00] transition-colors cursor-pointer"
               >
-                <Plus className="w-3.5 h-3.5" />
-                Add Product
+                <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+                Sync
               </button>
+            </Magnet>
+
+            {adminMode && (
+              <Magnet
+                padding={60}
+                magnetStrength={2.8}
+                maxOffset={10}
+                tilt={4}
+                scale={1.03}
+                wrapperClassName="admin-only creewrld-magnet-glow"
+              >
+                <button
+                  type="button"
+                  onClick={onOpenAddModal}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white text-xs font-mono-spec font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  Add Product
+                </button>
+              </Magnet>
             )}
           </div>
         </div>

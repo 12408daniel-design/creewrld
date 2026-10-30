@@ -3,6 +3,7 @@ import { Trash2, ArrowUpRight, MessageCircle, Eye } from 'lucide-react';
 import type { Product } from '../types/product';
 import { buildWhatsAppOrderUrl, formatKsh } from '../utils/whatsapp';
 import { CreewrldStackedLogo } from './CreewrldLogo';
+import Magnet from './Magnet';
 
 interface ProductCardProps {
   product: Product;
@@ -21,7 +22,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const whatsappUrl = buildWhatsAppOrderUrl(product);
 
   return (
-    <article className="group relative bg-[#181818] border border-white/10 hover:border-[#CCFF00] transition-all duration-300 flex flex-col justify-between overflow-hidden">
+    <article className="group relative bg-[#181818] border border-white/10 hover:border-[#CCFF00] transition-all duration-300 flex flex-col justify-between">
       {/* Image Stage */}
       <div className="relative aspect-[4/5] w-full bg-[#111111] overflow-hidden border-b border-white/10">
         {!imageBroken && product.image_url ? (
@@ -124,16 +125,27 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Direct Order via WhatsApp Button */}
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full py-3 px-4 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs uppercase tracking-[0.16em] flex items-center justify-center gap-2 transition-colors duration-200"
+        <Magnet
+          padding={48}
+          magnetStrength={3.4}
+          maxOffset={8}
+          tilt={4}
+          scale={1.02}
+          wrapperClassName="w-full creewrld-magnet-glow"
+          innerClassName="w-full"
+          style={{ display: 'block', width: '100%' }}
         >
-          <MessageCircle className="w-4 h-4 fill-[#0D0D0D] stroke-[#0D0D0D]" />
-          <span>Order via WhatsApp</span>
-          <ArrowUpRight className="w-4 h-4" />
-        </a>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full py-3 px-4 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs uppercase tracking-[0.16em] flex items-center justify-center gap-2 transition-colors duration-200"
+          >
+            <MessageCircle className="w-4 h-4 fill-[#0D0D0D] stroke-[#0D0D0D]" />
+            <span>Order via WhatsApp</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
+        </Magnet>
       </div>
     </article>
   );
