@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "@fontsource/unifrakturmaguntia/400.css";
 @import "@fontsource/syne/700.css";
-@import "@fontsource/syne/800.css";
 @import "@fontsource/space-grotesk/400.css";
 @import "@fontsource/space-grotesk/500.css";
 @import "@fontsource/space-grotesk/600.css";
@@ -32,6 +31,7 @@
   html {
     font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
@@ -46,25 +46,20 @@
 
 .font-display {
   font-family: 'Syne', 'Space Grotesk', sans-serif;
+  font-synthesis: none;
 }
 
 .font-mono-spec {
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 }
 
-/* Responsive fluid hero headline scaling cleanly without awkward clipping */
+/* Responsive fluid hero headline scaling cleanly without clipping or overlap */
 .hero-fluid-headline {
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
-  line-height: 0.96;
-  letter-spacing: -0.035em;
-  overflow-wrap: normal;
-  word-break: normal;
-}
-
-@media (max-width: 420px) {
-  .hero-fluid-headline {
-    font-size: clamp(2rem, 8.8vw, 2.5rem);
-  }
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* Full-bleed architectural grid & ambient glow surface */
