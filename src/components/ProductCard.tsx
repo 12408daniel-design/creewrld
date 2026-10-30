@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Trash2, ArrowUpRight, MessageCircle, Eye } from 'lucide-react';
+import { MessageCircle, Trash2, ArrowUpRight, Sparkles } from 'lucide-react';
 import type { Product } from '../types/product';
 import { buildWhatsAppOrderUrl, formatKsh } from '../utils/whatsapp';
-import { CreewrldStackedLogo } from './CreewrldLogo';
 import Magnet from './Magnet';
 import StarBorder from './StarBorder';
 
@@ -19,122 +18,129 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onSelectProduct,
   onRequestDelete,
 }) => {
-  const [imageBroken, setImageBroken] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageFailed, setImageFailed] = useState(false);
+
   const whatsappUrl = buildWhatsAppOrderUrl(product);
 
   return (
-    <article className="group relative bg-[#181818] border border-white/10 hover:border-[#CCFF00] transition-all duration-300 flex flex-col justify-between">
-      {/* Image Stage */}
-      <div className="relative aspect-[4/5] w-full bg-[#111111] overflow-hidden border-b border-white/10">
-        {!imageBroken && product.image_url ? (
+    <article
+      data-product-id={product.id}
+      className="group relative bg-[#132238] border border-[#F4EFEA]/16 hover:border-[#F4EFEA]/65 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-[0_14px_34px_rgba(10,17,24,0.55)]"
+    >
+      {/* Subtle Yacht Club Navy Gradient Top Hairline Accent */}
+      <div aria-hidden="true" className="h-[2px] w-full yacht-club-gradient opacity-80" />
+
+      {/* Top Image Frame */}
+      <div
+        onClick={() => onSelectProduct(product)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onSelectProduct(product);
+          }
+        }}
+        className="relative aspect-[4/5] w-full overflow-hidden bg-[#0A1118] cursor-pointer"
+      >
+        {!imageLoaded && !imageFailed && (
+          <div className="absolute inset-0 skeleton-shimmer" aria-hidden="true" />
+        )}
+
+        {imageFailed ? (
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-[#0A1118] text-slate-400">
+            <Sparkles className="w-7 h-7 text-[#F4EFEA] mb-2" />
+            <span className="font-cinzel text-xs uppercase tracking-wider text-[#F4EFEA]">
+              CREEWRLD ARCHIVE PIECE
+            </span>
+          </div>
+        ) : (
           <img
             src={product.image_url}
             alt={product.title}
             loading="lazy"
-            onError={() => setImageBroken(true)}
-            onClick={() => onSelectProduct(product)}
-            className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105 cursor-pointer"
+            onLoad={() => setImageLoaded(true)}
+            onError={() => setImageFailed(true)}
+            className={`w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105 ${
+              imageLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
           />
-        ) : (
-          <button
-            type="button"
-            onClick={() => onSelectProduct(product)}
-            className="w-full h-full flex flex-col items-center justify-center bg-[#121212] text-neutral-500 p-6 text-center cursor-pointer"
-          >
-            <CreewrldStackedLogo width={110} className="opacity-35 mb-3" />
-            <span className="font-mono-spec text-[11px] uppercase tracking-widest">
-              Archive Visual Unavailable
-            </span>
-          </button>
         )}
 
-        {/* Top-Left Luxury Category Tag */}
-        <div className="absolute top-3 left-3 pointer-events-none">
-          <span className="inline-block bg-[#0D0D0D]/90 backdrop-blur-sm border border-white/15 px-2.5 py-1 font-cinzel font-semibold text-[10px] uppercase tracking-[0.18em] text-white">
-            {product.category} Archive
+        {/* Subtle Navy Gradient Overlay */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0A1118] via-transparent to-black/25 opacity-80" />
+
+        {/* Category Pill & Quick Inspect */}
+        <div className="absolute top-3 left-3 right-3 flex items-start justify-between gap-2">
+          <span className="px-2.5 py-1 bg-[#0A1118]/90 backdrop-blur-sm border border-[#F4EFEA]/25 font-cinzel text-[10px] font-semibold uppercase tracking-[0.18em] text-[#F4EFEA]">
+            {product.category}
           </span>
-        </div>
 
-        {/* Top-Right Action Controls: Quick View for shoppers + .admin-only Delete Trash icon when authenticated */}
-        <div
-          className={`absolute top-3 right-3 z-10 flex items-center gap-1.5 transition-opacity duration-200 ${
-            adminMode
-              ? 'opacity-100'
-              : 'opacity-0 group-hover:opacity-100 focus-within:opacity-100'
-          }`}
-        >
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              onSelectProduct(product);
-            }}
-            title="Quick View Item"
-            aria-label={`Quick view ${product.title}`}
-            className="w-8 h-8 flex items-center justify-center bg-[#0D0D0D]/90 border border-white/20 text-white hover:border-[#CCFF00] hover:text-[#CCFF00] transition-colors cursor-pointer"
-          >
-            <Eye className="w-3.5 h-3.5" />
-          </button>
-
-          {adminMode && (
+          {/* Admin Delete Trash Icon (Strictly rendered only for authenticated admins) */}
+          {adminMode ? (
             <button
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 onRequestDelete(product);
               }}
-              title="Delete item & storage image"
+              title="Delete product from Supabase Storage & Database"
               aria-label={`Delete ${product.title}`}
-              className="admin-only w-8 h-8 flex items-center justify-center bg-[#FF3B30] text-white border border-[#FF3B30] hover:bg-red-700 transition-colors cursor-pointer"
+              className="admin-only w-9 h-9 flex items-center justify-center bg-[#FF3B30] hover:bg-red-600 text-white shadow-lg transition-transform active:scale-95 cursor-pointer"
             >
-              <Trash2 className="w-3.5 h-3.5" />
+              <Trash2 className="w-4 h-4" />
             </button>
+          ) : (
+            <span className="px-2 py-1 bg-[#132238]/90 border border-[#F4EFEA]/20 font-cinzel text-[10px] font-semibold uppercase tracking-wider text-[#F4EFEA]">
+              1 OF 1
+            </span>
           )}
         </div>
 
-        {/* Bottom-Left Condition Rating Badge */}
-        <div className="absolute bottom-3 left-3 pointer-events-none">
-          <span className="inline-flex items-center gap-1.5 bg-[#0D0D0D]/90 backdrop-blur-sm border border-white/15 px-2.5 py-1 font-mono-spec text-[10px] uppercase tracking-wider text-neutral-200">
-            <span className="w-1.5 h-1.5 bg-[#CCFF00] inline-block" />
-            {product.condition}
+        {/* Size & Condition Spec Chips */}
+        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2">
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span className="px-2 py-0.5 bg-[#0A1118]/90 border border-[#F4EFEA]/20 font-sans font-semibold text-[11px] text-white">
+              SIZE: <strong className="text-[#F4EFEA]">{product.size}</strong>
+            </span>
+            <span className="px-2 py-0.5 bg-[#0A1118]/90 border border-[#F4EFEA]/20 font-sans text-[11px] text-slate-200">
+              {product.condition}
+            </span>
+          </div>
+          <span className="w-7 h-7 bg-[#0A1118]/85 border border-[#F4EFEA]/25 flex items-center justify-center text-[#F4EFEA] opacity-0 group-hover:opacity-100 transition-opacity">
+            <ArrowUpRight className="w-3.5 h-3.5" />
           </span>
         </div>
       </div>
 
-      {/* Card Body & Direct WhatsApp Ordering CTA */}
-      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between gap-4">
-        <div>
-          <button
-            type="button"
-            onClick={() => onSelectProduct(product)}
-            className="text-left group/title focus:outline-none cursor-pointer w-full"
-          >
-            <h3 className="font-cinzel font-bold text-sm sm:text-base uppercase tracking-wider text-white leading-snug line-clamp-2 group-hover/title:text-[#CCFF00] transition-colors">
-              {product.title}
-            </h3>
-          </button>
-
-          {/* Size & KSh Price Spec Row */}
-          <div className="mt-3 pt-3 border-t border-white/10 flex items-baseline justify-between gap-2">
-            <div className="font-sans text-xs text-neutral-400 uppercase tracking-wider">
-              SIZE: <span className="text-white font-semibold">{product.size}</span>
-            </div>
-            <div className="font-cinzel text-base sm:text-lg font-bold text-[#CCFF00] tracking-wider">
+      {/* Product Body + WhatsApp Direct Order CTA */}
+      <div className="p-4 sm:p-5 flex flex-col gap-4 flex-1 justify-between bg-[#132238]">
+        <div
+          onClick={() => onSelectProduct(product)}
+          className="space-y-1.5 cursor-pointer"
+        >
+          <h3 className="font-cinzel font-bold text-sm sm:text-base uppercase tracking-wider text-[#F4EFEA] leading-snug line-clamp-2 group-hover:text-white transition-colors">
+            {product.title}
+          </h3>
+          <div className="flex items-baseline justify-between pt-1">
+            <span className="font-cinzel text-lg sm:text-xl font-bold tracking-wider text-[#F4EFEA]">
               KSh {formatKsh(product.price_ksh)}
-            </div>
+            </span>
+            <span className="font-sans text-[10px] uppercase tracking-widest text-slate-400">
+              Nairobi Stock
+            </span>
           </div>
         </div>
 
-        {/* Direct Order via WhatsApp Button */}
+        {/* Direct Order via WhatsApp Button (Cream Ivory CTA with Deep Navy Text) */}
         <Magnet
-          padding={48}
-          magnetStrength={3.4}
-          maxOffset={8}
-          tilt={4}
+          padding={55}
+          magnetStrength={3.2}
+          maxOffset={9}
+          tilt={3}
           scale={1.02}
           wrapperClassName="w-full creewrld-magnet-glow"
-          innerClassName="w-full"
-          style={{ display: 'block', width: '100%' }}
         >
           <StarBorder
             as="a"
@@ -142,23 +148,23 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             color="#FFFFFF"
-            trailColor="#CCFF00"
+            trailColor="#F4EFEA"
             duration={4}
-            stars={1}
-            trailLength={0.28}
+            stars={2}
+            trailLength={0.32}
             thickness={1.2}
             radius={2}
-            glow={0.55}
-            hover="reveal"
+            glow={0.65}
+            sparkle
+            hover="lap"
             clickPulse
-            backgroundColor="#CCFF00"
-            textColor="#0D0D0D"
-            borderColor="rgba(255, 255, 255, 0.35)"
-            className="w-full py-3 px-4 hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-colors duration-200"
+            backgroundColor="#F4EFEA"
+            textColor="#0A1118"
+            borderColor="rgba(255, 255, 255, 0.65)"
+            className="w-full py-3 px-4 hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
           >
-            <MessageCircle className="w-4 h-4 fill-[#0D0D0D] stroke-[#0D0D0D]" />
+            <MessageCircle className="w-4 h-4 shrink-0" />
             <span>Order via WhatsApp</span>
-            <ArrowUpRight className="w-4 h-4" />
           </StarBorder>
         </Magnet>
       </div>

@@ -233,7 +233,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#0D0D0D] text-white flex flex-col overflow-x-hidden">
+    <div className="min-h-screen w-full bg-[#0A1118] text-white flex flex-col overflow-x-hidden">
       {/* Strictly Two-View Navigation Header + Supabase Auth Admin Trigger */}
       <Navbar
         activePage={activePage}
@@ -337,21 +337,21 @@ export const App: React.FC = () => {
           role="status"
           className={`fixed bottom-5 right-5 z-50 max-w-sm px-4 py-3.5 border shadow-2xl flex items-start gap-3 ${
             toast.type === 'success'
-              ? 'bg-[#181818] border-[#CCFF00] text-white'
-              : 'bg-[#181818] border-[#FF3B30] text-red-100'
+              ? 'bg-[#132238] border-[#F4EFEA]/70 text-[#F4EFEA]'
+              : 'bg-[#132238] border-[#FF3B30] text-red-100'
           }`}
         >
           {toast.type === 'success' ? (
-            <CheckCircle2 className="w-4 h-4 text-[#CCFF00] shrink-0 mt-0.5" />
+            <CheckCircle2 className="w-4 h-4 text-[#F4EFEA] shrink-0 mt-0.5" />
           ) : (
             <AlertCircle className="w-4 h-4 text-[#FF3B30] shrink-0 mt-0.5" />
           )}
-          <p className="font-mono-spec text-xs leading-relaxed flex-1">{toast.message}</p>
+          <p className="font-sans text-xs leading-relaxed flex-1">{toast.message}</p>
           <button
             type="button"
             onClick={() => setToast(null)}
             aria-label="Dismiss notification"
-            className="text-neutral-400 hover:text-white cursor-pointer"
+            className="text-slate-400 hover:text-[#F4EFEA] cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>

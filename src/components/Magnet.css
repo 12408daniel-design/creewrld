@@ -11,5 +11,5 @@
 }
 
 .creewrld-magnet-glow[data-magnet-active] > .creewrld-magnet-inner {
-  filter: drop-shadow(0 0 18px rgba(204, 255, 0, 0.28));
+  filter: drop-shadow(0 0 20px rgba(244, 239, 234, 0.28));
 }

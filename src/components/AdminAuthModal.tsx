@@ -102,21 +102,21 @@ export const AdminAuthModal: React.FC<AdminAuthModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0A1118]/85 backdrop-blur-md"
       onClick={() => !verifying && onClose()}
       role="dialog"
       aria-modal="true"
       aria-labelledby="admin-auth-modal-title"
     >
       <div
-        className="relative w-full max-w-md bg-[#181818] border border-[#CCFF00]/65 shadow-[0_0_45px_rgba(204,255,0,0.08)] p-6 sm:p-8"
+        className="relative w-full max-w-md bg-[#132238] border border-[#F4EFEA]/55 shadow-[0_24px_65px_rgba(10,17,24,0.85)] p-6 sm:p-8"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Electric Lime Architectural Corner Accents */}
-        <span className="pointer-events-none absolute -top-0.5 -left-0.5 w-3.5 h-3.5 border-t-2 border-l-2 border-[#CCFF00]" />
-        <span className="pointer-events-none absolute -top-0.5 -right-0.5 w-3.5 h-3.5 border-t-2 border-r-2 border-[#CCFF00]" />
-        <span className="pointer-events-none absolute -bottom-0.5 -left-0.5 w-3.5 h-3.5 border-b-2 border-l-2 border-[#CCFF00]" />
-        <span className="pointer-events-none absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 border-b-2 border-r-2 border-[#CCFF00]" />
+        {/* Cream Ivory Architectural Corner Accents */}
+        <span className="pointer-events-none absolute -top-0.5 -left-0.5 w-3.5 h-3.5 border-t-2 border-l-2 border-[#F4EFEA]" />
+        <span className="pointer-events-none absolute -top-0.5 -right-0.5 w-3.5 h-3.5 border-t-2 border-r-2 border-[#F4EFEA]" />
+        <span className="pointer-events-none absolute -bottom-0.5 -left-0.5 w-3.5 h-3.5 border-b-2 border-l-2 border-[#F4EFEA]" />
+        <span className="pointer-events-none absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 border-b-2 border-r-2 border-[#F4EFEA]" />
 
         {/* Close Button */}
         <button
@@ -124,31 +124,31 @@ export const AdminAuthModal: React.FC<AdminAuthModalProps> = ({
           disabled={verifying}
           onClick={onClose}
           aria-label="Close admin verification modal"
-          className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-[#0D0D0D] border border-white/15 text-neutral-400 hover:text-white hover:border-[#CCFF00] transition-colors disabled:opacity-40 cursor-pointer"
+          className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-[#0A1118] border border-[#F4EFEA]/20 text-slate-300 hover:text-[#F4EFEA] hover:border-[#F4EFEA] transition-colors disabled:opacity-40 cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>
 
         {/* Modal Header */}
         <div className="flex items-center gap-3.5 mb-6">
-          <div className="w-12 h-12 bg-[#0D0D0D] border border-[#CCFF00]/40 flex items-center justify-center shrink-0">
+          <div className="w-12 h-12 bg-[#0A1118] border border-[#F4EFEA]/35 flex items-center justify-center shrink-0">
             <CreewrldEmblem size={34} />
           </div>
           <div>
-            <div className="inline-flex items-center gap-1.5 font-cinzel font-semibold text-[10px] uppercase tracking-[0.2em] text-[#CCFF00]">
+            <div className="inline-flex items-center gap-1.5 font-cinzel font-semibold text-[10px] uppercase tracking-[0.2em] text-[#F4EFEA]/85">
               <Lock className="w-3 h-3" />
               <span>SUPABASE AUTH // RESTRICTED</span>
             </div>
             <h2
               id="admin-auth-modal-title"
-              className="font-cinzel text-xl sm:text-2xl font-bold uppercase tracking-[0.12em] text-white mt-0.5"
+              className="font-cinzel text-xl sm:text-2xl font-bold uppercase tracking-wider text-[#F4EFEA] mt-0.5"
             >
               Admin Verification
             </h2>
           </div>
         </div>
 
-        <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed mb-5">
+        <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed mb-5">
           Sign in with your verified CREEWRLD admin credentials to unlock drop uploads and storage
           management.
         </p>
@@ -169,12 +169,12 @@ export const AdminAuthModal: React.FC<AdminAuthModalProps> = ({
           <div>
             <label
               htmlFor="admin-email-input"
-              className="block font-mono-spec text-[11px] uppercase tracking-[0.18em] text-neutral-300 mb-1.5"
+              className="block font-sans font-semibold text-[11px] uppercase tracking-[0.18em] text-slate-200 mb-1.5"
             >
               Admin Email
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-neutral-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 id="admin-email-input"
                 type="email"
@@ -186,7 +186,7 @@ export const AdminAuthModal: React.FC<AdminAuthModalProps> = ({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@creewrld.com"
-                className="w-full bg-[#0D0D0D] border border-white/20 focus:border-[#CCFF00] pl-10 pr-3.5 py-3 text-sm text-white placeholder:text-neutral-600 outline-none transition-colors disabled:opacity-60"
+                className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] pl-10 pr-3.5 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-colors disabled:opacity-60"
               />
             </div>
           </div>
@@ -194,12 +194,12 @@ export const AdminAuthModal: React.FC<AdminAuthModalProps> = ({
           <div>
             <label
               htmlFor="admin-password-input"
-              className="block font-mono-spec text-[11px] uppercase tracking-[0.18em] text-neutral-300 mb-1.5"
+              className="block font-sans font-semibold text-[11px] uppercase tracking-[0.18em] text-slate-200 mb-1.5"
             >
               Password
             </label>
             <div className="relative">
-              <KeyRound className="w-4 h-4 text-neutral-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <KeyRound className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 id="admin-password-input"
                 type={showPassword ? 'text' : 'password'}
@@ -210,14 +210,14 @@ export const AdminAuthModal: React.FC<AdminAuthModalProps> = ({
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
-                className="w-full bg-[#0D0D0D] border border-white/20 focus:border-[#CCFF00] pl-10 pr-10 py-3 text-sm text-white placeholder:text-neutral-600 outline-none transition-colors disabled:opacity-60"
+                className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] pl-10 pr-10 py-3 text-sm text-white placeholder:text-slate-500 outline-none transition-colors disabled:opacity-60"
               />
               <button
                 type="button"
                 tabIndex={-1}
                 onClick={() => setShowPassword((prev) => !prev)}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-white transition-colors cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#F4EFEA] transition-colors cursor-pointer"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -229,7 +229,7 @@ export const AdminAuthModal: React.FC<AdminAuthModalProps> = ({
               type="button"
               disabled={verifying}
               onClick={onClose}
-              className="sm:w-1/3 py-3.5 px-4 bg-[#0D0D0D] border border-white/20 hover:border-white text-white font-mono-spec text-xs uppercase tracking-[0.18em] transition-colors disabled:opacity-50 cursor-pointer"
+              className="sm:w-1/3 py-3.5 px-4 bg-[#0A1118] border border-[#F4EFEA]/20 hover:border-[#F4EFEA] text-slate-200 hover:text-[#F4EFEA] font-sans font-semibold text-xs uppercase tracking-[0.18em] transition-colors disabled:opacity-50 cursor-pointer"
             >
               Cancel
             </button>
@@ -237,7 +237,7 @@ export const AdminAuthModal: React.FC<AdminAuthModalProps> = ({
             <button
               type="submit"
               disabled={verifying}
-              className="sm:w-2/3 py-3.5 px-5 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs uppercase tracking-[0.18em] flex items-center justify-center gap-2 transition-colors disabled:opacity-70 cursor-pointer"
+              className="sm:w-2/3 py-3.5 px-5 bg-[#F4EFEA] text-[#0A1118] hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.18em] flex items-center justify-center gap-2 transition-colors disabled:opacity-70 cursor-pointer"
             >
               {verifying ? (
                 <>

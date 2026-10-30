@@ -118,13 +118,13 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
 
   return (
     <div
-      className="admin-only fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
+      className="admin-only fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0A1118]/90 backdrop-blur-sm"
       onClick={() => !submitting && onClose()}
       role="dialog"
       aria-modal="true"
     >
       <div
-        className="w-full max-w-lg bg-[#181818] border border-white/20 p-6 sm:p-8 max-h-[92vh] overflow-y-auto relative"
+        className="w-full max-w-lg bg-[#132238] border border-[#F4EFEA]/25 p-6 sm:p-8 max-h-[92vh] overflow-y-auto relative shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -132,15 +132,15 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
           onClick={onClose}
           disabled={submitting}
           aria-label="Close upload modal"
-          className="absolute top-4 right-4 text-neutral-400 hover:text-white cursor-pointer"
+          className="absolute top-4 right-4 text-slate-300 hover:text-[#F4EFEA] cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
-        <p className="font-cinzel font-semibold text-[11px] uppercase tracking-[0.2em] text-[#CCFF00] mb-1">
+        <p className="font-cinzel font-semibold text-[11px] uppercase tracking-[0.2em] text-[#F4EFEA]/85 mb-1">
           ADMIN DROP UPLOADER // {isSupabaseLive ? 'LIVE SUPABASE BUCKET' : 'PREVIEW MODE'}
         </p>
-        <h3 className="font-cinzel text-2xl font-bold uppercase tracking-[0.12em] text-white mb-5">
+        <h3 className="font-cinzel text-2xl font-bold uppercase tracking-wider text-[#F4EFEA] mb-5">
           Publish New Thrift Piece
         </h3>
 
@@ -152,7 +152,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block font-mono-spec text-[11px] uppercase tracking-wider text-neutral-300 mb-1.5">
+            <label className="block font-sans font-semibold text-[11px] uppercase tracking-wider text-slate-200 mb-1.5">
               Product Title *
             </label>
             <input
@@ -160,19 +160,19 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Vintage 1998 Nike ACG Fleece Pullover"
-              className="w-full bg-[#0D0D0D] border border-white/20 focus:border-[#CCFF00] px-3.5 py-2.5 text-sm text-white outline-none"
+              className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block font-mono-spec text-[11px] uppercase tracking-wider text-neutral-300 mb-1.5">
+              <label className="block font-sans font-semibold text-[11px] uppercase tracking-wider text-slate-200 mb-1.5">
                 Category *
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as ProductCategory)}
-                className="w-full bg-[#0D0D0D] border border-white/20 focus:border-[#CCFF00] px-3.5 py-2.5 text-sm text-white outline-none"
+                className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white outline-none"
               >
                 {CATEGORIES_WITHOUT_ALL.map((cat) => (
                   <option key={cat} value={cat}>
@@ -183,7 +183,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
             </div>
 
             <div>
-              <label className="block font-mono-spec text-[11px] uppercase tracking-wider text-neutral-300 mb-1.5">
+              <label className="block font-sans font-semibold text-[11px] uppercase tracking-wider text-slate-200 mb-1.5">
                 Price (KSh) *
               </label>
               <input
@@ -193,14 +193,14 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                 value={priceKsh}
                 onChange={(e) => setPriceKsh(e.target.value)}
                 placeholder="4500"
-                className="w-full bg-[#0D0D0D] border border-white/20 focus:border-[#CCFF00] px-3.5 py-2.5 text-sm text-white font-mono-spec outline-none"
+                className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white font-mono-spec placeholder:text-slate-500 outline-none"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block font-mono-spec text-[11px] uppercase tracking-wider text-neutral-300 mb-1.5">
+              <label className="block font-sans font-semibold text-[11px] uppercase tracking-wider text-slate-200 mb-1.5">
                 Size *
               </label>
               <input
@@ -208,18 +208,18 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                 value={size}
                 onChange={(e) => setSize(e.target.value)}
                 placeholder="EU 42 / L / W32"
-                className="w-full bg-[#0D0D0D] border border-white/20 focus:border-[#CCFF00] px-3.5 py-2.5 text-sm text-white font-mono-spec outline-none"
+                className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white font-mono-spec placeholder:text-slate-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block font-mono-spec text-[11px] uppercase tracking-wider text-neutral-300 mb-1.5">
+              <label className="block font-sans font-semibold text-[11px] uppercase tracking-wider text-slate-200 mb-1.5">
                 Condition *
               </label>
               <select
                 value={condition}
                 onChange={(e) => setCondition(e.target.value)}
-                className="w-full bg-[#0D0D0D] border border-white/20 focus:border-[#CCFF00] px-3.5 py-2.5 text-sm text-white outline-none"
+                className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white outline-none"
               >
                 {CONDITION_PRESETS.map((preset) => (
                   <option key={preset} value={preset}>
@@ -231,31 +231,31 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
           </div>
 
           <div>
-            <label className="block font-mono-spec text-[11px] uppercase tracking-wider text-neutral-300 mb-1.5">
+            <label className="block font-sans font-semibold text-[11px] uppercase tracking-wider text-slate-200 mb-1.5">
               Product Image (`product-images` bucket) *
             </label>
-            <label className="flex flex-col items-center justify-center border border-dashed border-white/25 hover:border-[#CCFF00] bg-[#0D0D0D] p-5 cursor-pointer transition-colors">
+            <label className="flex flex-col items-center justify-center border border-dashed border-[#F4EFEA]/30 hover:border-[#F4EFEA] bg-[#0A1118] p-5 cursor-pointer transition-colors">
               {previewUrl ? (
                 <div className="flex items-center gap-4 w-full">
                   <img
                     src={previewUrl}
                     alt="Selected preview"
-                    className="w-16 h-20 object-cover border border-white/15"
+                    className="w-16 h-20 object-cover border border-[#F4EFEA]/20"
                   />
                   <div className="text-left min-w-0">
                     <p className="text-xs text-white font-medium truncate">{imageFile?.name}</p>
-                    <p className="font-mono-spec text-[11px] text-[#CCFF00] mt-1">
+                    <p className="font-sans text-[11px] text-[#F4EFEA] mt-1">
                       Click to replace image
                     </p>
                   </div>
                 </div>
               ) : (
                 <>
-                  <Upload className="w-6 h-6 text-[#CCFF00] mb-2" />
-                  <span className="font-mono-spec text-xs text-white uppercase tracking-wider">
+                  <Upload className="w-6 h-6 text-[#F4EFEA] mb-2" />
+                  <span className="font-sans font-semibold text-xs text-[#F4EFEA] uppercase tracking-wider">
                     Select JPG, PNG, or WEBP Photo
                   </span>
-                  <span className="text-[11px] text-neutral-500 mt-1">
+                  <span className="text-[11px] text-slate-400 mt-1">
                     Uploads directly to Supabase `product-images` public bucket
                   </span>
                 </>
@@ -272,7 +272,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3.5 px-5 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-colors disabled:opacity-60 cursor-pointer"
+            className="w-full py-3.5 px-5 bg-[#F4EFEA] text-[#0A1118] hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-colors disabled:opacity-60 cursor-pointer"
           >
             {submitting ? (
               <>
@@ -354,37 +354,37 @@ export const SupabaseSetupModal: React.FC<SupabaseSetupModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0A1118]/90 backdrop-blur-sm"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
     >
       <div
-        className="w-full max-w-2xl bg-[#181818] border border-white/20 p-6 sm:p-8 max-h-[92vh] overflow-y-auto relative"
+        className="w-full max-w-2xl bg-[#132238] border border-[#F4EFEA]/25 p-6 sm:p-8 max-h-[92vh] overflow-y-auto relative shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
           aria-label="Close Supabase setup"
-          className="absolute top-4 right-4 text-neutral-400 hover:text-white cursor-pointer"
+          className="absolute top-4 right-4 text-slate-300 hover:text-[#F4EFEA] cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
-        <div className="flex items-center gap-2.5 text-[#CCFF00] mb-1">
+        <div className="flex items-center gap-2.5 text-[#F4EFEA] mb-1">
           <Database className="w-4 h-4" />
-          <span className="font-mono-spec text-[11px] uppercase tracking-[0.24em]">
+          <span className="font-cinzel font-semibold text-[11px] uppercase tracking-[0.2em]">
             SUPABASE BACKEND // `products` TABLE + `product-images` BUCKET
           </span>
         </div>
 
-        <h3 className="font-cinzel text-2xl font-bold uppercase tracking-[0.12em] text-white mb-2">
+        <h3 className="font-cinzel text-2xl font-bold uppercase tracking-wider text-[#F4EFEA] mb-2">
           Dynamic Supabase Integration
         </h3>
-        <p className="text-xs sm:text-sm text-neutral-400 mb-6">
-          Update <code className="text-[#CCFF00]">SUPABASE_URL</code> and{' '}
-          <code className="text-[#CCFF00]">SUPABASE_ANON_KEY</code> at the top of{' '}
+        <p className="font-sans text-xs sm:text-sm text-slate-300 mb-6">
+          Update <code className="text-[#F4EFEA]">SUPABASE_URL</code> and{' '}
+          <code className="text-[#F4EFEA]">SUPABASE_ANON_KEY</code> at the top of{' '}
           <code className="text-white">src/supabaseClient.ts</code>, or paste them below to connect
           this live session immediately.
         </p>
@@ -397,7 +397,7 @@ export const SupabaseSetupModal: React.FC<SupabaseSetupModalProps> = ({
 
         <form onSubmit={handleConnect} className="space-y-4 mb-6">
           <div>
-            <label className="block font-mono-spec text-[11px] uppercase tracking-wider text-neutral-300 mb-1">
+            <label className="block font-mono-spec text-[11px] uppercase tracking-wider text-slate-200 mb-1">
               SUPABASE_URL
             </label>
             <input
@@ -405,12 +405,12 @@ export const SupabaseSetupModal: React.FC<SupabaseSetupModalProps> = ({
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
               placeholder="https://your-project-id.supabase.co"
-              className="w-full bg-[#0D0D0D] border border-white/20 focus:border-[#CCFF00] px-3.5 py-2.5 text-xs sm:text-sm font-mono-spec text-white outline-none"
+              className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-xs sm:text-sm font-mono-spec text-white placeholder:text-slate-500 outline-none"
             />
           </div>
 
           <div>
-            <label className="block font-mono-spec text-[11px] uppercase tracking-wider text-neutral-300 mb-1">
+            <label className="block font-mono-spec text-[11px] uppercase tracking-wider text-slate-200 mb-1">
               SUPABASE_ANON_KEY
             </label>
             <input
@@ -418,14 +418,14 @@ export const SupabaseSetupModal: React.FC<SupabaseSetupModalProps> = ({
               value={keyInput}
               onChange={(e) => setKeyInput(e.target.value)}
               placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-              className="w-full bg-[#0D0D0D] border border-white/20 focus:border-[#CCFF00] px-3.5 py-2.5 text-xs sm:text-sm font-mono-spec text-white outline-none"
+              className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-xs sm:text-sm font-mono-spec text-white placeholder:text-slate-500 outline-none"
             />
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <button
               type="submit"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#F4EFEA] text-[#0A1118] hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer"
             >
               <PlugZap className="w-4 h-4" />
               Connect Live Supabase
@@ -435,7 +435,7 @@ export const SupabaseSetupModal: React.FC<SupabaseSetupModalProps> = ({
               <button
                 type="button"
                 onClick={handleDisconnectRuntime}
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#0D0D0D] border border-white/20 text-neutral-300 hover:text-white font-mono-spec text-xs uppercase tracking-wider transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#0A1118] border border-[#F4EFEA]/20 text-slate-200 hover:border-[#F4EFEA] hover:text-[#F4EFEA] font-sans font-semibold text-xs uppercase tracking-wider transition-colors cursor-pointer"
               >
                 <Unplug className="w-4 h-4" />
                 Revert to Demo Catalog
@@ -445,21 +445,21 @@ export const SupabaseSetupModal: React.FC<SupabaseSetupModalProps> = ({
         </form>
 
         {/* SQL Schema Copy Block */}
-        <div className="border-t border-white/12 pt-5">
+        <div className="border-t border-[#F4EFEA]/15 pt-5">
           <div className="flex items-center justify-between mb-2">
-            <span className="font-mono-spec text-[11px] uppercase tracking-wider text-neutral-300">
+            <span className="font-mono-spec text-[11px] uppercase tracking-wider text-slate-200">
               SQL Editor Setup (`supabase/schema.sql`)
             </span>
             <button
               type="button"
               onClick={handleCopySql}
-              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#0D0D0D] border border-white/20 hover:border-[#CCFF00] text-xs font-mono-spec text-[#CCFF00] cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#0A1118] border border-[#F4EFEA]/25 hover:border-[#F4EFEA] text-xs font-mono-spec text-[#F4EFEA] cursor-pointer"
             >
               {copiedSql ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
               {copiedSql ? 'Copied SQL' : 'Copy SQL'}
             </button>
           </div>
-          <pre className="bg-[#0D0D0D] border border-white/12 p-3.5 text-[11px] font-mono-spec text-neutral-300 overflow-x-auto max-h-48 leading-relaxed">
+          <pre className="bg-[#0A1118] border border-[#F4EFEA]/15 p-3.5 text-[11px] font-mono-spec text-slate-200 overflow-x-auto max-h-48 leading-relaxed">
             {SUPABASE_SETUP_SQL}
           </pre>
         </div>
