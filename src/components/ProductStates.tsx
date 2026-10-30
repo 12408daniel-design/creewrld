@@ -2,6 +2,7 @@ import React from 'react';
 import { PackageOpen, Plus, MessageCircle, RotateCcw } from 'lucide-react';
 import { buildGeneralWhatsAppUrl } from '../utils/whatsapp';
 import Magnet from './Magnet';
+import StarBorder from './StarBorder';
 
 export const ProductGridSkeleton: React.FC<{ count?: number }> = ({ count = 8 }) => {
   return (
@@ -111,17 +112,32 @@ export const EmptyArchiveState: React.FC<EmptyArchiveStateProps> = ({
         )}
 
         <Magnet padding={65} magnetStrength={2.8} maxOffset={10} scale={1.03}>
-          <a
+          <StarBorder
+            as="a"
             href={buildGeneralWhatsAppUrl(
               'Hello CREEWRLD! Please alert me when the next thrift archive drop goes live.'
             )}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-[#121212] border border-[#CCFF00]/40 text-[#CCFF00] hover:bg-[#CCFF00] hover:text-[#0D0D0D] font-mono-spec font-bold text-xs uppercase tracking-[0.18em] transition-colors"
+            color="#CCFF00"
+            trailColor="#FFFFFF"
+            duration={4.2}
+            stars={1}
+            trailLength={0.32}
+            thickness={1.2}
+            radius={2}
+            glow={0.65}
+            sparkle
+            hover="lap"
+            clickPulse
+            backgroundColor="#121212"
+            textColor="#CCFF00"
+            borderColor="rgba(204, 255, 0, 0.4)"
+            className="inline-flex items-center gap-2 px-5 py-3 hover:bg-[#CCFF00] hover:text-[#0D0D0D] font-sans font-extrabold text-xs uppercase tracking-[0.16em] transition-colors"
           >
             <MessageCircle className="w-4 h-4" />
-            Request a Piece on WhatsApp
-          </a>
+            <span>Request a Piece on WhatsApp</span>
+          </StarBorder>
         </Magnet>
       </div>
     </div>

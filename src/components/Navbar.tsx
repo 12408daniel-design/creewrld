@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { CreewrldLogo } from './CreewrldLogo';
 import Magnet from './Magnet';
+import StarBorder from './StarBorder';
 
 export type ActivePage = 'home' | 'shop';
 
@@ -148,15 +149,27 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="relative flex items-center shrink-0" ref={dropdownContainerRef}>
           {!isAdmin ? (
             <Magnet padding={48} magnetStrength={3.5} maxOffset={7} scale={1.02}>
-              <button
-                type="button"
+              <StarBorder
                 onClick={onOpenAuthModal}
                 title="Admin Login"
-                className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-2 text-xs font-mono-spec uppercase tracking-[0.16em] bg-[#181818] border border-white/18 text-white hover:border-[#CCFF00] hover:text-[#CCFF00] transition-all cursor-pointer"
+                color="#CCFF00"
+                trailColor="#FFFFFF"
+                duration={4.5}
+                stars={1}
+                trailLength={0.3}
+                thickness={1}
+                radius={2}
+                glow={0.55}
+                hover="lap"
+                clickPulse
+                backgroundColor="#181818"
+                textColor="#FFFFFF"
+                borderColor="rgba(255, 255, 255, 0.2)"
+                className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-2 text-xs font-mono-spec uppercase tracking-[0.16em] hover:text-[#CCFF00] transition-all cursor-pointer"
               >
                 <Shield className="w-3.5 h-3.5 shrink-0" />
                 <span className="hidden xs:inline sm:inline">Admin</span>
-              </button>
+              </StarBorder>
             </Magnet>
           ) : (
             <>
@@ -167,12 +180,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                 scale={1.02}
                 disabled={dropdownOpen}
               >
-                <button
-                  type="button"
+                <StarBorder
                   onClick={() => setDropdownOpen((prev) => !prev)}
                   aria-expanded={dropdownOpen}
                   aria-haspopup="menu"
-                  className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2 text-xs font-mono-spec uppercase tracking-[0.14em] bg-[#181818] border border-[#CCFF00] text-white hover:bg-[#CCFF00]/10 transition-all cursor-pointer"
+                  color="#CCFF00"
+                  trailColor="#FFFFFF"
+                  duration={3.8}
+                  stars={2}
+                  trailLength={0.32}
+                  thickness={1.2}
+                  radius={2}
+                  glow={0.65}
+                  sparkle
+                  hover="lap"
+                  clickPulse
+                  backgroundColor="#181818"
+                  textColor="#FFFFFF"
+                  borderColor="rgba(204, 255, 0, 0.7)"
+                  className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2 text-xs font-mono-spec uppercase tracking-[0.14em] transition-all cursor-pointer"
                 >
                   <span className="w-2 h-2 rounded-full bg-[#CCFF00] animate-pulse shrink-0" />
                   <ShieldCheck className="w-3.5 h-3.5 text-[#CCFF00] hidden md:inline" />
@@ -185,7 +211,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       dropdownOpen ? 'rotate-180' : ''
                     }`}
                   />
-                </button>
+                </StarBorder>
               </Magnet>
 
               {/* Admin Active Dropdown Menu */}

@@ -4,6 +4,7 @@ import type { Product } from '../types/product';
 import { buildWhatsAppOrderUrl, formatKsh } from '../utils/whatsapp';
 import { CreewrldStackedLogo } from './CreewrldLogo';
 import Magnet from './Magnet';
+import StarBorder from './StarBorder';
 
 interface ProductCardProps {
   product: Product;
@@ -135,16 +136,30 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           innerClassName="w-full"
           style={{ display: 'block', width: '100%' }}
         >
-          <a
+          <StarBorder
+            as="a"
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-3 px-4 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-colors duration-200"
+            color="#FFFFFF"
+            trailColor="#CCFF00"
+            duration={4}
+            stars={1}
+            trailLength={0.28}
+            thickness={1.2}
+            radius={2}
+            glow={0.55}
+            hover="reveal"
+            clickPulse
+            backgroundColor="#CCFF00"
+            textColor="#0D0D0D"
+            borderColor="rgba(255, 255, 255, 0.35)"
+            className="w-full py-3 px-4 hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-colors duration-200"
           >
             <MessageCircle className="w-4 h-4 fill-[#0D0D0D] stroke-[#0D0D0D]" />
             <span>Order via WhatsApp</span>
             <ArrowUpRight className="w-4 h-4" />
-          </a>
+          </StarBorder>
         </Magnet>
       </div>
     </article>
