@@ -458,31 +458,36 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </svg>
 
         <div className="w-full px-6 md:px-12 lg:px-16 relative z-10">
-          <div className="w-full bg-[#132238] border border-[#F4EFEA]/18 p-8 sm:p-12 lg:p-16">
-            <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-8 pb-10 border-b border-[#F4EFEA]/12">
-              <div className="flex items-center gap-6">
-                <div className="bg-[#0A1118] border border-[#F4EFEA]/20 p-4 shrink-0">
-                  <CreewrldStackedLogo width={128} />
-                </div>
-                <div>
-                  <span className="font-cinzel font-semibold text-[11px] uppercase tracking-[0.22em] text-[#F4EFEA]/80 block mb-2">
+          <div className="w-full bg-[#132238] border border-[#F4EFEA]/18 p-6 sm:p-10 lg:p-14 space-y-10">
+            <div className="flex flex-col md:flex-row items-start gap-6 lg:gap-10 pb-10 border-b border-[#F4EFEA]/12">
+              <div className="bg-[#0A1118] border border-[#F4EFEA]/20 p-3.5 sm:p-4 self-start shrink-0">
+                <CreewrldStackedLogo width={116} />
+              </div>
+
+              <div className="flex-1 min-w-0 flex flex-col gap-6">
+                <div className="space-y-2">
+                  <span className="font-cinzel font-semibold text-[11px] sm:text-xs uppercase tracking-[0.22em] text-[#F4EFEA]/80 block">
                     BRAND STATEMENT // THE CREEWRLD CODE
                   </span>
-                  <h2 className="font-cinzel text-2xl sm:text-4xl font-bold uppercase tracking-wider text-[#F4EFEA]">
+                  <h2 className="block font-cinzel text-2xl lg:text-3xl font-bold uppercase tracking-wider leading-snug text-[#F4EFEA] break-words">
                     Nairobi Heritage Manifesto
                   </h2>
                 </div>
-              </div>
 
-              <p className="font-sans text-lg sm:text-xl text-slate-200 max-w-3xl leading-relaxed font-medium">
-                “Born out of Nairobi’s discerning thrift culture,{' '}
-                <span className="font-cinzel tracking-wider text-[#F4EFEA] font-bold">CREEWRLD</span>{' '}
-                hunts down rare 1-of-1 garments with heavyweight fabric, real patina, and tailored
-                silhouette — elevating timeless style one drop at a time.”
-              </p>
+                <blockquote className="border-l-2 border-[#F4EFEA]/35 pl-4 sm:pl-6 max-w-3xl">
+                  <p className="font-sans leading-relaxed text-sm lg:text-base text-[#F4EFEA]/80">
+                    “Born out of Nairobi’s discerning thrift culture,{' '}
+                    <span className="font-cinzel tracking-wider text-[#F4EFEA] font-bold">
+                      CREEWRLD
+                    </span>{' '}
+                    hunts down rare 1-of-1 garments with heavyweight fabric, real patina, and
+                    tailored silhouette — elevating timeless style one drop at a time.”
+                  </p>
+                </blockquote>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-10 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
               <div className="bg-[#0A1118] border border-[#F4EFEA]/14 p-6 lg:p-8">
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-cinzel font-semibold text-xs tracking-[0.18em] text-[#F4EFEA]/85">
