@@ -89,7 +89,7 @@ export const CreewrldLogo: React.FC<CreewrldLogoProps> = ({
           <CreewrldWordmark height={compact ? 17 : 21} className="w-auto" />
         </div>
         {showSubtag && (
-          <span className="font-cinzel font-semibold text-[9px] uppercase tracking-[0.26em] text-[#CCFF00] mt-1.5">
+          <span className="font-cinzel font-semibold text-[9px] uppercase tracking-[0.26em] text-[#F4EFEA]/85 mt-1.5">
             CREEWRLD // NAIROBI ARCHIVE
           </span>
         )}

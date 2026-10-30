@@ -1,13 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  X,
-  MessageCircle,
-  ArrowUpRight,
-  Trash2,
-  ShieldCheck,
-  Truck,
-  Sparkles,
-} from 'lucide-react';
+import { X, MessageCircle, ShieldCheck, Truck, Sparkles, Trash2 } from 'lucide-react';
 import type { Product } from '../types/product';
 import { buildWhatsAppOrderUrl, formatKsh, CREEWRLD_WHATSAPP_DISPLAY } from '../utils/whatsapp';
 import Magnet from './Magnet';
@@ -28,11 +20,11 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 }) => {
   useEffect(() => {
     if (!product) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
   }, [product, onClose]);
 
   if (!product) return null;
@@ -41,14 +33,14 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#0A1118]/90 backdrop-blur-md"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
-      aria-labelledby="modal-product-title"
+      aria-label={product.title}
     >
       <div
-        className="relative w-full max-w-4xl bg-[#181818] border border-white/20 overflow-hidden grid grid-cols-1 md:grid-cols-2 max-h-[92vh] overflow-y-auto"
+        className="relative w-full max-w-4xl bg-[#132238] border border-[#F4EFEA]/25 overflow-hidden grid grid-cols-1 md:grid-cols-2 max-h-[92vh] overflow-y-auto shadow-[0_24px_70px_rgba(10,17,24,0.85)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -56,102 +48,90 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           type="button"
           onClick={onClose}
           aria-label="Close product modal"
-          className="absolute top-4 right-4 z-20 w-10 h-10 bg-[#0D0D0D]/90 border border-white/20 text-white hover:border-[#CCFF00] hover:text-[#CCFF00] flex items-center justify-center transition-colors cursor-pointer"
+          className="absolute top-3 right-3 z-20 w-10 h-10 bg-[#0A1118]/90 border border-[#F4EFEA]/25 text-white hover:border-[#F4EFEA] hover:text-[#F4EFEA] flex items-center justify-center transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
-        {/* Left: Product Image */}
-        <div className="relative bg-[#0D0D0D] aspect-[4/5] md:aspect-auto md:min-h-[480px] border-b md:border-b-0 md:border-r border-white/12 overflow-hidden">
+        {/* Left Image */}
+        <div className="relative aspect-[4/5] md:aspect-auto md:min-h-[480px] bg-[#0A1118]">
           <img
             src={product.image_url}
             alt={product.title}
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-            <span className="bg-[#0D0D0D]/90 border border-white/20 px-3 py-1 font-cinzel font-semibold text-[11px] uppercase tracking-[0.18em] text-white">
-              {product.category} Archive
-            </span>
-            <span className="bg-[#CCFF00] px-3 py-1 font-cinzel text-[11px] font-bold uppercase tracking-[0.16em] text-[#0D0D0D]">
-              1-OF-1 PIECE
+          <div className="absolute top-3 left-3 flex items-center gap-2">
+            <span className="px-3 py-1 bg-[#0A1118]/90 border border-[#F4EFEA]/25 font-cinzel font-semibold text-xs uppercase tracking-[0.18em] text-[#F4EFEA]">
+              {product.category}
             </span>
           </div>
         </div>
 
-        {/* Right: Specs & Direct WhatsApp Ordering */}
-        <div className="p-6 sm:p-8 flex flex-col justify-between gap-6">
-          <div>
-            <p className="font-cinzel font-semibold text-[11px] uppercase tracking-[0.2em] text-neutral-400 mb-2">
-              CREEWRLD ARCHIVE // LOT #{product.id.slice(0, 8).toUpperCase()}
-            </p>
-
-            <h2
-              id="modal-product-title"
-              className="font-cinzel text-2xl sm:text-3xl font-bold uppercase tracking-wider text-white leading-snug"
-            >
-              {product.title}
-            </h2>
-
-            <div className="mt-4 pb-5 border-b border-white/12 flex items-baseline justify-between gap-4">
-              <div className="font-cinzel text-2xl sm:text-3xl font-bold tracking-wider text-[#CCFF00]">
-                KSh {formatKsh(product.price_ksh)}
+        {/* Right Details */}
+        <div className="p-6 sm:p-8 flex flex-col justify-between gap-6 bg-[#132238]">
+          <div className="space-y-5">
+            <div>
+              <p className="font-cinzel font-semibold text-[11px] uppercase tracking-[0.2em] text-slate-300 mb-2">
+                CREEWRLD // 1-OF-1 THRIFT ARCHIVE
+              </p>
+              <h2 className="font-cinzel text-2xl sm:text-3xl font-bold uppercase tracking-wider text-[#F4EFEA] leading-tight">
+                {product.title}
+              </h2>
+              <div className="mt-3 flex items-baseline gap-3">
+                <span className="font-cinzel text-2xl sm:text-3xl font-bold tracking-wider text-[#F4EFEA]">
+                  KSh {formatKsh(product.price_ksh)}
+                </span>
+                <span className="font-sans text-xs uppercase tracking-wider text-slate-400">
+                  M-Pesa / Cash on Pickup
+                </span>
               </div>
-              <span className="font-sans text-xs uppercase tracking-widest text-neutral-400">
-                M-PESA / CASH ON PICKUP
-              </span>
             </div>
 
-            {/* Technical Spec Grid */}
-            <div className="grid grid-cols-2 gap-3 my-5">
-              <div className="bg-[#0D0D0D] border border-white/10 p-3.5">
-                <span className="block font-mono-spec text-[10px] uppercase tracking-[0.2em] text-neutral-400">
-                  TAGGED SIZE
+            {/* Technical Specs Box */}
+            <div className="grid grid-cols-2 gap-3 border-y border-[#F4EFEA]/15 py-4">
+              <div className="bg-[#0A1118] p-3 border border-[#F4EFEA]/14">
+                <span className="block font-cinzel text-[10px] uppercase tracking-[0.18em] text-slate-400">
+                  TAG / FIT SIZE
                 </span>
-                <span className="mt-1 block font-mono-spec text-sm font-bold text-white">
+                <span className="font-sans text-sm font-bold text-[#F4EFEA] mt-1 block">
                   {product.size}
                 </span>
               </div>
-
-              <div className="bg-[#0D0D0D] border border-white/10 p-3.5">
-                <span className="block font-mono-spec text-[10px] uppercase tracking-[0.2em] text-neutral-400">
+              <div className="bg-[#0A1118] p-3 border border-[#F4EFEA]/14">
+                <span className="block font-cinzel text-[10px] uppercase tracking-[0.18em] text-slate-400">
                   CONDITION GRADE
                 </span>
-                <span className="mt-1 inline-flex items-center gap-1.5 font-mono-spec text-sm font-bold text-[#CCFF00]">
-                  <Sparkles className="w-3.5 h-3.5" />
+                <span className="font-sans text-sm font-bold text-[#F4EFEA] mt-1 block">
                   {product.condition}
                 </span>
               </div>
             </div>
 
-            {/* Fulfillment Assurance */}
-            <div className="font-sans space-y-2.5 text-xs text-neutral-300 border-t border-white/10 pt-4">
-              <div className="flex items-start gap-2.5">
-                <ShieldCheck className="w-4 h-4 text-[#CCFF00] shrink-0 mt-0.5" />
-                <span>
-                  Steam-sanitized, inspected, and graded by CREEWRLD Nairobi curators. Single piece
-                  only — first confirmed WhatsApp claim secures it.
-                </span>
-              </div>
-              <div className="flex items-start gap-2.5">
-                <Truck className="w-4 h-4 text-[#CCFF00] shrink-0 mt-0.5" />
-                <span>
-                  Same-day rider dispatch across Nairobi &amp; 24hr Wells Fargo / Fargo Courier nationwide across Kenya.
-                </span>
-              </div>
-            </div>
+            {/* Kenyan Thrift Assurance */}
+            <ul className="space-y-2.5 text-xs sm:text-sm font-sans text-slate-200">
+              <li className="flex items-center gap-2.5">
+                <Sparkles className="w-4 h-4 text-[#F4EFEA] shrink-0" />
+                <span>Single-piece curation — once claimed on WhatsApp, it’s gone.</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Truck className="w-4 h-4 text-[#F4EFEA] shrink-0" />
+                <span>Same-day rider dispatch across Nairobi &amp; 24hr nationwide courier.</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <ShieldCheck className="w-4 h-4 text-[#F4EFEA] shrink-0" />
+                <span>Steam-sanitized, authenticated &amp; quality-checked in Nairobi.</span>
+              </li>
+            </ul>
           </div>
 
-          {/* Action Block: Direct WhatsApp Order + Subtle Delete */}
           <div className="space-y-3 pt-2">
             <Magnet
-              padding={65}
-              magnetStrength={2.8}
-              maxOffset={10}
-              tilt={5}
+              padding={75}
+              magnetStrength={2.6}
+              maxOffset={14}
+              tilt={4}
               scale={1.02}
               wrapperClassName="w-full creewrld-magnet-glow"
-              innerClassName="w-full"
-              style={{ display: 'block', width: '100%' }}
             >
               <StarBorder
                 as="a"
@@ -159,46 +139,43 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 color="#FFFFFF"
-                trailColor="#CCFF00"
+                trailColor="#F4EFEA"
                 duration={3.8}
                 stars={2}
-                trailLength={0.32}
-                thickness={1.5}
+                trailLength={0.34}
+                thickness={1.4}
                 radius={2}
                 glow={0.7}
                 sparkle
                 hover="lap"
                 clickPulse
-                backgroundColor="#CCFF00"
-                textColor="#0D0D0D"
-                borderColor="rgba(255, 255, 255, 0.4)"
+                backgroundColor="#F4EFEA"
+                textColor="#0A1118"
+                borderColor="rgba(255, 255, 255, 0.7)"
                 className="w-full py-4 px-5 hover:bg-white font-sans font-extrabold text-xs sm:text-sm uppercase tracking-[0.16em] flex items-center justify-center gap-2.5 transition-colors"
               >
-                <MessageCircle className="w-4 h-4 fill-[#0D0D0D] stroke-[#0D0D0D]" />
+                <MessageCircle className="w-4 h-4" />
                 <span>Order via WhatsApp</span>
-                <ArrowUpRight className="w-4 h-4" />
               </StarBorder>
             </Magnet>
 
-            <div className="flex items-center justify-between pt-1">
-              <span className="font-mono-spec text-[11px] text-neutral-400">
-                Direct Line: {CREEWRLD_WHATSAPP_DISPLAY}
-              </span>
+            <p className="text-center font-sans text-[11px] text-slate-400">
+              Direct line: {CREEWRLD_WHATSAPP_DISPLAY} · Pre-fills item title, size &amp; KSh price
+            </p>
 
-              {isAdmin && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    onClose();
-                    onRequestDelete(product);
-                  }}
-                  className="admin-only inline-flex items-center gap-1.5 font-mono-spec text-[11px] uppercase tracking-wider text-neutral-400 hover:text-[#FF3B30] transition-colors cursor-pointer"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                  Delete Listing
-                </button>
-              )}
-            </div>
+            {isAdmin && (
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  onRequestDelete(product);
+                }}
+                className="admin-only w-full py-2.5 px-4 bg-[#FF3B30]/15 hover:bg-[#FF3B30] border border-[#FF3B30] text-[#FF3B30] hover:text-white font-sans text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
+              >
+                <Trash2 className="w-4 h-4" />
+                <span>Admin: Delete From Supabase</span>
+              </button>
+            )}
           </div>
         </div>
       </div>
