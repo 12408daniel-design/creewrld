@@ -1,0 +1,142 @@
+import React, { useState } from 'react';
+import { Trash2, ArrowUpRight, MessageCircle, Eye } from 'lucide-react';
+import type { Product } from '../types/product';
+import { buildWhatsAppOrderUrl, formatKsh } from '../utils/whatsapp';
+import { CreewrldStackedLogo } from './CreewrldLogo';
+
+interface ProductCardProps {
+  product: Product;
+  adminMode: boolean;
+  onSelectProduct: (product: Product) => void;
+  onRequestDelete: (product: Product) => void;
+}
+
+export const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  adminMode,
+  onSelectProduct,
+  onRequestDelete,
+}) => {
+  const [imageBroken, setImageBroken] = useState(false);
+  const whatsappUrl = buildWhatsAppOrderUrl(product);
+
+  return (
+    <article className="group relative bg-[#181818] border border-white/10 hover:border-[#CCFF00] transition-all duration-300 flex flex-col justify-between overflow-hidden">
+      {/* Image Stage */}
+      <div className="relative aspect-[4/5] w-full bg-[#111111] overflow-hidden border-b border-white/10">
+        {!imageBroken && product.image_url ? (
+          <img
+            src={product.image_url}
+            alt={product.title}
+            loading="lazy"
+            onError={() => setImageBroken(true)}
+            onClick={() => onSelectProduct(product)}
+            className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105 cursor-pointer"
+          />
+        ) : (
+          <button
+            type="button"
+            onClick={() => onSelectProduct(product)}
+            className="w-full h-full flex flex-col items-center justify-center bg-[#121212] text-neutral-500 p-6 text-center cursor-pointer"
+          >
+            <CreewrldStackedLogo width={110} className="opacity-35 mb-3" />
+            <span className="font-mono-spec text-[11px] uppercase tracking-widest">
+              Archive Visual Unavailable
+            </span>
+          </button>
+        )}
+
+        {/* Top-Left Category Tag */}
+        <div className="absolute top-3 left-3 pointer-events-none">
+          <span className="inline-block bg-[#0D0D0D]/90 backdrop-blur-sm border border-white/15 px-2.5 py-1 font-mono-spec text-[10px] uppercase tracking-[0.18em] text-white">
+            {product.category}
+          </span>
+        </div>
+
+        {/* Top-Right Delete / Trash Action (Visible on hover OR persistently in Admin Mode) */}
+        <div
+          className={`absolute top-3 right-3 z-10 flex items-center gap-1.5 transition-opacity duration-200 ${
+            adminMode
+              ? 'opacity-100'
+              : 'opacity-0 group-hover:opacity-100 focus-within:opacity-100'
+          }`}
+        >
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelectProduct(product);
+            }}
+            title="Quick View Item"
+            aria-label={`Quick view ${product.title}`}
+            className="w-8 h-8 flex items-center justify-center bg-[#0D0D0D]/90 border border-white/20 text-white hover:border-[#CCFF00] hover:text-[#CCFF00] transition-colors cursor-pointer"
+          >
+            <Eye className="w-3.5 h-3.5" />
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onRequestDelete(product);
+            }}
+            title="Delete item & storage image"
+            aria-label={`Delete ${product.title}`}
+            className={`w-8 h-8 flex items-center justify-center transition-colors cursor-pointer ${
+              adminMode
+                ? 'bg-[#FF3B30] text-white border border-[#FF3B30] hover:bg-red-700'
+                : 'bg-[#0D0D0D]/90 text-neutral-300 border border-white/20 hover:bg-[#FF3B30] hover:border-[#FF3B30] hover:text-white'
+            }`}
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        {/* Bottom-Left Condition Rating Badge */}
+        <div className="absolute bottom-3 left-3 pointer-events-none">
+          <span className="inline-flex items-center gap-1.5 bg-[#0D0D0D]/90 backdrop-blur-sm border border-white/15 px-2.5 py-1 font-mono-spec text-[10px] uppercase tracking-wider text-neutral-200">
+            <span className="w-1.5 h-1.5 bg-[#CCFF00] inline-block" />
+            {product.condition}
+          </span>
+        </div>
+      </div>
+
+      {/* Card Body & Direct WhatsApp Ordering CTA */}
+      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between gap-4">
+        <div>
+          <button
+            type="button"
+            onClick={() => onSelectProduct(product)}
+            className="text-left group/title focus:outline-none cursor-pointer w-full"
+          >
+            <h3 className="text-white font-semibold text-base leading-snug line-clamp-2 group-hover/title:text-[#CCFF00] transition-colors">
+              {product.title}
+            </h3>
+          </button>
+
+          {/* Size & KSh Price Spec Row */}
+          <div className="mt-3 pt-3 border-t border-white/10 flex items-baseline justify-between gap-2">
+            <div className="font-mono-spec text-xs text-neutral-400 uppercase tracking-wider">
+              SIZE: <span className="text-white font-semibold">{product.size}</span>
+            </div>
+            <div className="font-mono-spec text-base sm:text-lg font-bold text-[#CCFF00] tracking-tight">
+              KSh {formatKsh(product.price_ksh)}
+            </div>
+          </div>
+        </div>
+
+        {/* Direct Order via WhatsApp Button (Replaces Add to Cart completely) */}
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full py-3 px-4 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white font-mono-spec font-bold text-xs uppercase tracking-[0.16em] flex items-center justify-center gap-2 transition-colors duration-200"
+        >
+          <MessageCircle className="w-4 h-4 fill-[#0D0D0D] stroke-[#0D0D0D]" />
+          <span>Order via WhatsApp</span>
+          <ArrowUpRight className="w-4 h-4" />
+        </a>
+      </div>
+    </article>
+  );
+};

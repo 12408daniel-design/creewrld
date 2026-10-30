@@ -1,0 +1,245 @@
+import React, { useMemo, useState } from 'react';
+import { Search, SlidersHorizontal, RefreshCw, Plus } from 'lucide-react';
+import {
+  PRODUCT_CATEGORIES,
+  type FilterCategory,
+  type Product,
+} from '../types/product';
+import { ProductCard } from '../components/ProductCard';
+import { ProductGridSkeleton, EmptyArchiveState } from '../components/ProductStates';
+
+type SortOption = 'newest' | 'price-asc' | 'price-desc';
+
+interface ShopViewProps {
+  products: Product[];
+  loading: boolean;
+  error: string | null;
+  selectedCategory: FilterCategory;
+  onSelectCategory: (category: FilterCategory) => void;
+  adminMode: boolean;
+  isSupabaseLive: boolean;
+  onSelectProduct: (product: Product) => void;
+  onRequestDelete: (product: Product) => void;
+  onRefresh: () => void;
+  onOpenAddModal: () => void;
+}
+
+export const ShopView: React.FC<ShopViewProps> = ({
+  products,
+  loading,
+  error,
+  selectedCategory,
+  onSelectCategory,
+  adminMode,
+  isSupabaseLive,
+  onSelectProduct,
+  onRequestDelete,
+  onRefresh,
+  onOpenAddModal,
+}) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState<SortOption>('newest');
+
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = { All: products.length };
+    for (const cat of PRODUCT_CATEGORIES) {
+      if (cat !== 'All') {
+        counts[cat] = products.filter(
+          (item) => item.category.toLowerCase() === cat.toLowerCase()
+        ).length;
+      }
+    }
+    return counts;
+  }, [products]);
+
+  const filteredProducts = useMemo(() => {
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+
+    const byCategoryAndQuery = products.filter((item) => {
+      const matchesCategory =
+        selectedCategory === 'All' ||
+        item.category.toLowerCase() === selectedCategory.toLowerCase();
+
+      if (!matchesCategory) return false;
+      if (!normalizedQuery) return true;
+
+      return (
+        item.title.toLowerCase().includes(normalizedQuery) ||
+        item.category.toLowerCase().includes(normalizedQuery) ||
+        item.size.toLowerCase().includes(normalizedQuery) ||
+        item.condition.toLowerCase().includes(normalizedQuery)
+      );
+    });
+
+    return [...byCategoryAndQuery].sort((a, b) => {
+      if (sortBy === 'price-asc') return Number(a.price_ksh) - Number(b.price_ksh);
+      if (sortBy === 'price-desc') return Number(b.price_ksh) - Number(a.price_ksh);
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    });
+  }, [products, selectedCategory, searchQuery, sortBy]);
+
+  return (
+    <section className="py-10 sm:py-14 min-h-[75vh]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Shop Archive Masthead */}
+        <div className="border-b border-white/12 pb-8 mb-8 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+          <div>
+            <div className="flex flex-wrap items-center gap-3 mb-2">
+              <span className="font-mono-spec text-xs uppercase tracking-[0.25em] text-[#CCFF00]">
+                CREEWRLD // SHOP ARCHIVE
+              </span>
+              <span className="bg-[#181818] border border-white/15 px-2.5 py-0.5 font-mono-spec text-[10px] uppercase tracking-wider text-neutral-300">
+                {isSupabaseLive ? 'LIVE SUPABASE DB' : 'SHOWCASE CATALOG'}
+              </span>
+            </div>
+            <h1 className="font-display text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
+              All Thrift Drops
+            </h1>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="font-mono-spec text-xs uppercase tracking-widest text-neutral-400">
+              Showing{' '}
+              <strong className="text-white">{filteredProducts.length}</strong> of{' '}
+              <strong className="text-white">{products.length}</strong> pieces
+            </span>
+
+            <button
+              type="button"
+              onClick={onRefresh}
+              title="Refresh inventory from Supabase"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#181818] border border-white/15 hover:border-[#CCFF00] text-xs font-mono-spec uppercase tracking-wider text-neutral-200 hover:text-[#CCFF00] transition-colors cursor-pointer"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+              Sync
+            </button>
+
+            {adminMode && (
+              <button
+                type="button"
+                onClick={onOpenAddModal}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white text-xs font-mono-spec font-bold uppercase tracking-wider transition-colors cursor-pointer"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                Add Drop
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Filter Controls: Live Category Pill Tabs + Search + Sort */}
+        <div className="space-y-5 mb-10">
+          {/* Category Pills */}
+          <div
+            role="tablist"
+            aria-label="Filter products by category"
+            className="flex items-center gap-2 overflow-x-auto pb-2"
+          >
+            {PRODUCT_CATEGORIES.map((category) => {
+              const active = selectedCategory === category;
+              const count = categoryCounts[category] ?? 0;
+
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  role="tab"
+                  aria-selected={active}
+                  onClick={() => onSelectCategory(category)}
+                  className={`shrink-0 px-4 py-2.5 font-mono-spec text-xs uppercase tracking-[0.18em] border transition-all flex items-center gap-2 cursor-pointer ${
+                    active
+                      ? 'bg-[#CCFF00] text-[#0D0D0D] border-[#CCFF00] font-bold'
+                      : 'bg-[#181818] text-neutral-300 border-white/12 hover:border-white/35 hover:text-white'
+                  }`}
+                >
+                  <span>{category}</span>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.5 ${
+                      active
+                        ? 'bg-[#0D0D0D] text-[#CCFF00]'
+                        : 'bg-[#0D0D0D] text-neutral-400'
+                    }`}
+                  >
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Search & Price Sort Row */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+            <div className="md:col-span-8 relative">
+              <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                type="search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search drops by title, size (e.g. EU 42, L), or condition..."
+                className="w-full bg-[#181818] border border-white/12 focus:border-[#CCFF00] pl-10 pr-4 py-3 text-sm text-white placeholder:text-neutral-500 outline-none transition-colors"
+              />
+            </div>
+
+            <div className="md:col-span-4 relative flex items-center bg-[#181818] border border-white/12 px-3.5">
+              <SlidersHorizontal className="w-4 h-4 text-[#CCFF00] shrink-0 mr-2.5" />
+              <label htmlFor="shop-sort" className="sr-only">
+                Sort products
+              </label>
+              <select
+                id="shop-sort"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as SortOption)}
+                className="w-full bg-[#181818] py-3 font-mono-spec text-xs uppercase tracking-wider text-white outline-none cursor-pointer"
+              >
+                <option value="newest">Sort: Newest Drops</option>
+                <option value="price-asc">Price: Low to High (KSh)</option>
+                <option value="price-desc">Price: High to Low (KSh)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Supabase Error Banner if any */}
+        {error && (
+          <div className="mb-8 p-4 bg-[#FF3B30]/15 border border-[#FF3B30] text-xs sm:text-sm font-mono-spec text-red-200 flex items-center justify-between gap-4">
+            <span>Supabase Query Error: {error}</span>
+            <button
+              type="button"
+              onClick={onRefresh}
+              className="px-3 py-1 bg-[#FF3B30] text-white uppercase text-xs font-bold cursor-pointer"
+            >
+              Retry
+            </button>
+          </div>
+        )}
+
+        {/* Product Grid / Skeletons / Empty State */}
+        {loading ? (
+          <ProductGridSkeleton count={6} />
+        ) : filteredProducts.length === 0 ? (
+          <EmptyArchiveState
+            selectedCategory={selectedCategory}
+            onResetCategory={() => {
+              onSelectCategory('All');
+              setSearchQuery('');
+            }}
+            onOpenAddModal={onOpenAddModal}
+            isSupabaseLive={isSupabaseLive}
+          />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                adminMode={adminMode}
+                onSelectProduct={onSelectProduct}
+                onRequestDelete={onRequestDelete}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
