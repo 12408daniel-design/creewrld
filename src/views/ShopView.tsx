@@ -80,88 +80,99 @@ export const ShopView: React.FC<ShopViewProps> = ({
   }, [products, selectedCategory, searchQuery, sortBy]);
 
   return (
-    <section className="py-10 sm:py-14 min-h-[75vh]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Shop Archive Masthead with Interactive Topographic Horizon */}
-        <div className="relative overflow-hidden border border-white/15 bg-[#0D0D0D] p-6 sm:p-8 lg:p-10 mb-8">
-          <div className="absolute inset-0 z-0">
-            <Topography
-              color="#CCFF00"
-              lineCount={20}
-              lineWidth={1.1}
-              majorLines={true}
-              elevation={0.85}
-              foreground={0.15}
-              scale={1.1}
-              detail={0.35}
-              tilt={36}
-              speed={0.18}
-              direction="forward"
-              morph={0.15}
-              glow={0.5}
-              depthOfField={0.3}
-              fog={0.42}
-              brightness={0.85}
-              opacity={0.62}
-              hoverEffect="trace"
-              clickEffect="pulse"
-              markers="dots"
-              intro={true}
-            />
-          </div>
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-[#0D0D0D]/90 via-[#0D0D0D]/68 to-[#0D0D0D]/30"
+    <section
+      className={`relative w-full min-h-screen full-bleed-grid-bg overflow-x-hidden ${
+        adminMode ? 'pt-36 sm:pt-40' : 'pt-24 sm:pt-28'
+      } pb-16`}
+    >
+      {/* Full-Bleed Ambient Glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-10 -left-32 w-[32rem] h-[32rem] rounded-full bg-[#CCFF00]/7 blur-[140px]"
+      />
+
+      {/* Full-Bleed Interactive Topographic Masthead Banner */}
+      <div className="relative w-full overflow-hidden border-y border-white/15 bg-[#0D0D0D] py-10 sm:py-14 mb-10">
+        <div className="absolute inset-0 w-full h-full z-0">
+          <Topography
+            color="#CCFF00"
+            lineCount={20}
+            lineWidth={1.1}
+            majorLines={true}
+            elevation={0.85}
+            foreground={0.15}
+            scale={1.1}
+            detail={0.35}
+            tilt={36}
+            speed={0.18}
+            direction="forward"
+            morph={0.15}
+            glow={0.5}
+            depthOfField={0.3}
+            fog={0.42}
+            brightness={0.85}
+            opacity={0.62}
+            hoverEffect="trace"
+            clickEffect="pulse"
+            markers="dots"
+            intro={true}
           />
+        </div>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-[#0D0D0D]/90 via-[#0D0D0D]/68 to-[#0D0D0D]/30"
+        />
 
-          <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-            <div>
-              <div className="flex flex-wrap items-center gap-3 mb-2">
-                <span className="font-mono-spec text-xs uppercase tracking-[0.25em] text-[#CCFF00]">
-                  CREEWRLD // SHOP ARCHIVE
-                </span>
-                <span className="bg-[#181818]/90 border border-white/15 px-2.5 py-0.5 font-mono-spec text-[10px] uppercase tracking-wider text-neutral-300">
-                  {isSupabaseLive ? 'LIVE SUPABASE DB' : 'SHOWCASE CATALOG'}
-                </span>
-              </div>
-              <h1 className="font-display text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
-                All Thrift Drops
-              </h1>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="font-mono-spec text-xs uppercase tracking-widest text-neutral-300 bg-[#0D0D0D]/75 border border-white/10 px-3 py-2">
-                Showing{' '}
-                <strong className="text-white">{filteredProducts.length}</strong> of{' '}
-                <strong className="text-white">{products.length}</strong> pieces
+        <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+          <div>
+            <div className="flex flex-wrap items-center gap-3 mb-2">
+              <span className="font-mono-spec text-xs uppercase tracking-[0.25em] text-[#CCFF00]">
+                CREEWRLD // SHOP ARCHIVE
               </span>
+              <span className="bg-[#181818]/90 border border-white/15 px-2.5 py-0.5 font-mono-spec text-[10px] uppercase tracking-wider text-neutral-300">
+                {isSupabaseLive ? 'LIVE SUPABASE DB' : 'SHOWCASE CATALOG'}
+              </span>
+            </div>
+            <h1 className="font-display text-3xl sm:text-5xl xl:text-6xl font-extrabold uppercase tracking-tight text-white">
+              All Thrift Drops
+            </h1>
+          </div>
 
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="font-mono-spec text-xs uppercase tracking-widest text-neutral-300 bg-[#0D0D0D]/75 border border-white/10 px-3 py-2">
+              Showing{' '}
+              <strong className="text-white">{filteredProducts.length}</strong> of{' '}
+              <strong className="text-white">{products.length}</strong> pieces
+            </span>
+
+            <button
+              type="button"
+              onClick={onRefresh}
+              title="Refresh inventory from Supabase"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#181818]/95 border border-white/15 hover:border-[#CCFF00] text-xs font-mono-spec uppercase tracking-wider text-neutral-200 hover:text-[#CCFF00] transition-colors cursor-pointer"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+              Sync
+            </button>
+
+            {adminMode && (
               <button
                 type="button"
-                onClick={onRefresh}
-                title="Refresh inventory from Supabase"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#181818]/95 border border-white/15 hover:border-[#CCFF00] text-xs font-mono-spec uppercase tracking-wider text-neutral-200 hover:text-[#CCFF00] transition-colors cursor-pointer"
+                onClick={onOpenAddModal}
+                className="admin-only inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white text-xs font-mono-spec font-bold uppercase tracking-wider transition-colors cursor-pointer"
               >
-                <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-                Sync
+                <Plus className="w-3.5 h-3.5" />
+                Add Product
               </button>
-
-              {adminMode && (
-                <button
-                  type="button"
-                  onClick={onOpenAddModal}
-                  className="admin-only inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#CCFF00] text-[#0D0D0D] hover:bg-white text-xs font-mono-spec font-bold uppercase tracking-wider transition-colors cursor-pointer"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                  Add Product
-                </button>
-              )}
-            </div>
+            )}
           </div>
         </div>
+      </div>
 
+      {/* Full-Width Filter Controls & Product Grid */}
+      <div className="w-full px-6 md:px-12 lg:px-16 relative z-10">
         {/* Filter Controls: Live Category Pill Tabs + Search + Sort */}
-        <div className="space-y-5 mb-10">
+        <div className="space-y-5 mb-10 w-full">
           {/* Category Pills */}
           <div
             role="tablist"
@@ -201,8 +212,8 @@ export const ShopView: React.FC<ShopViewProps> = ({
           </div>
 
           {/* Search & Price Sort Row */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
-            <div className="md:col-span-8 relative">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 w-full">
+            <div className="md:col-span-8 lg:col-span-9 relative">
               <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="search"
@@ -213,7 +224,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
               />
             </div>
 
-            <div className="md:col-span-4 relative flex items-center bg-[#181818] border border-white/12 px-3.5">
+            <div className="md:col-span-4 lg:col-span-3 relative flex items-center bg-[#181818] border border-white/12 px-3.5">
               <SlidersHorizontal className="w-4 h-4 text-[#CCFF00] shrink-0 mr-2.5" />
               <label htmlFor="shop-sort" className="sr-only">
                 Sort products
@@ -248,7 +259,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
 
         {/* Product Grid / Skeletons / Empty State */}
         {loading ? (
-          <ProductGridSkeleton count={6} />
+          <ProductGridSkeleton count={8} />
         ) : filteredProducts.length === 0 ? (
           <EmptyArchiveState
             selectedCategory={selectedCategory}
@@ -261,7 +272,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
             isSupabaseLive={isSupabaseLive}
           />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
             {filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}
