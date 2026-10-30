@@ -133,7 +133,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         </div>
 
-        {/* Direct Order via WhatsApp Button (Cream Ivory CTA with Deep Navy Text) */}
+        {/* Direct Order via WhatsApp Button (Cream Ivory CTA with Solid Black Text & Icon) */}
         <Magnet
           padding={55}
           magnetStrength={3.2}
@@ -153,18 +153,24 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             stars={2}
             trailLength={0.32}
             thickness={1.2}
-            radius={2}
+            radius={6}
             glow={0.65}
             sparkle
             hover="lap"
             clickPulse
             backgroundColor="#F4EFEA"
-            textColor="#0A1118"
-            borderColor="rgba(255, 255, 255, 0.65)"
-            className="w-full py-3 px-4 hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
+            textColor="#000000"
+            borderColor="rgba(255, 255, 255, 0.75)"
+            style={{ color: '#000000' }}
+            className="w-full py-3.5 px-4 rounded-md bg-[#F4EFEA] text-black font-bold hover:bg-white transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer font-sans text-xs tracking-wider uppercase active:scale-[0.99]"
           >
-            <MessageCircle className="w-4 h-4 shrink-0" />
-            <span>Order via WhatsApp</span>
+            <MessageCircle
+              className="w-4 h-4 shrink-0 text-black"
+              style={{ color: '#000000' }}
+            />
+            <span className="text-black font-bold" style={{ color: '#000000' }}>
+              Order via WhatsApp
+            </span>
           </StarBorder>
         </Magnet>
       </div>
