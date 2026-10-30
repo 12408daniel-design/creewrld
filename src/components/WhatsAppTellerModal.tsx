@@ -42,17 +42,11 @@ export const WhatsAppTellerModal: React.FC<WhatsAppTellerModalProps> = ({
       aria-labelledby="whatsapp-teller-modal-title"
     >
       <div
-        className="relative w-full max-w-lg bg-[#132238] border border-[#F4EFEA]/35 shadow-[0_24px_70px_rgba(10,17,24,0.92)] overflow-hidden max-h-[92vh] overflow-y-auto"
+        className="relative w-full max-w-lg rounded-2xl bg-[#132238] border border-[#F4EFEA]/30 shadow-[0_24px_70px_rgba(10,17,24,0.92)] overflow-hidden max-h-[92vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Yacht Club Navy Gradient Hairline */}
         <div aria-hidden="true" className="h-[3px] w-full yacht-club-gradient" />
-
-        {/* Cream Ivory Architectural Corner Accents */}
-        <span className="pointer-events-none absolute top-0 left-0 w-3.5 h-3.5 border-t-2 border-l-2 border-[#F4EFEA]" />
-        <span className="pointer-events-none absolute top-0 right-0 w-3.5 h-3.5 border-t-2 border-r-2 border-[#F4EFEA]" />
-        <span className="pointer-events-none absolute bottom-0 left-0 w-3.5 h-3.5 border-b-2 border-l-2 border-[#F4EFEA]" />
-        <span className="pointer-events-none absolute bottom-0 right-0 w-3.5 h-3.5 border-b-2 border-r-2 border-[#F4EFEA]" />
 
         <div className="p-5 sm:p-7 space-y-5">
           {/* Close Button */}
@@ -60,14 +54,14 @@ export const WhatsAppTellerModal: React.FC<WhatsAppTellerModalProps> = ({
             type="button"
             onClick={onClose}
             aria-label="Close WhatsApp agent selection modal"
-            className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-[#0A1118] border border-[#F4EFEA]/25 text-slate-300 hover:text-[#F4EFEA] hover:border-[#F4EFEA] transition-colors cursor-pointer"
+            className="absolute top-4 right-4 w-9 h-9 rounded-lg flex items-center justify-center bg-[#0A1118] border border-[#F4EFEA]/25 text-slate-300 hover:text-[#F4EFEA] hover:border-[#F4EFEA] transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
 
           {/* Modal Header */}
           <div className="flex items-start gap-3.5 pr-10">
-            <div className="w-11 h-11 bg-[#0A1118] border border-[#F4EFEA]/30 flex items-center justify-center shrink-0">
+            <div className="w-11 h-11 rounded-xl bg-[#0A1118] border border-[#F4EFEA]/30 flex items-center justify-center shrink-0">
               <CreewrldEmblem size={30} />
             </div>
             <div className="min-w-0 space-y-1">
@@ -89,8 +83,8 @@ export const WhatsAppTellerModal: React.FC<WhatsAppTellerModalProps> = ({
           </p>
 
           {/* Selected Product Summary Strip */}
-          <div className="flex items-center gap-3.5 bg-[#0A1118] border border-[#F4EFEA]/18 p-3 rounded-md">
-            <div className="w-14 h-16 bg-[#132238] border border-[#F4EFEA]/15 overflow-hidden shrink-0 rounded">
+          <div className="flex items-center gap-3.5 bg-[#0A1118] border border-[#F4EFEA]/18 p-3 rounded-xl">
+            <div className="w-14 h-16 bg-[#132238] border border-[#F4EFEA]/15 overflow-hidden shrink-0 rounded-lg">
               {product.image_url ? (
                 <img
                   src={product.image_url}
@@ -137,10 +131,10 @@ export const WhatsAppTellerModal: React.FC<WhatsAppTellerModalProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={onClose}
-                  className="group w-full bg-[#0A1118] hover:bg-[#0A1118]/80 border border-[#F4EFEA]/22 hover:border-[#F4EFEA] rounded-md p-3.5 sm:p-4 flex items-center justify-between gap-3 transition-all duration-200 cursor-pointer"
+                  className="group w-full bg-[#0A1118] hover:bg-[#0A1118]/80 border border-[#F4EFEA]/22 hover:border-[#F4EFEA] rounded-xl p-3.5 sm:p-4 flex items-center justify-between gap-3 transition-all duration-200 cursor-pointer"
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-10 h-10 rounded-md bg-[#132238] border border-[#F4EFEA]/25 group-hover:bg-[#F4EFEA] flex items-center justify-center shrink-0 transition-colors">
+                    <div className="w-10 h-10 rounded-lg bg-[#132238] border border-[#F4EFEA]/25 group-hover:bg-[#F4EFEA] flex items-center justify-center shrink-0 transition-colors">
                       <MessageCircle className="w-4 h-4 text-[#F4EFEA] group-hover:text-black transition-colors" />
                     </div>
                     <div className="min-w-0">
@@ -157,7 +151,7 @@ export const WhatsAppTellerModal: React.FC<WhatsAppTellerModalProps> = ({
                   </div>
 
                   <span
-                    className="shrink-0 inline-flex items-center gap-1 px-3 py-2 rounded-md bg-[#F4EFEA] group-hover:bg-white text-black font-sans font-bold text-[11px] uppercase tracking-wider transition-colors"
+                    className="shrink-0 inline-flex items-center gap-1 px-3 py-2 rounded-lg bg-[#F4EFEA] group-hover:bg-white text-black font-sans font-bold text-[11px] uppercase tracking-wider transition-colors"
                     style={{ color: '#000000' }}
                   >
                     <span className="text-black" style={{ color: '#000000' }}>

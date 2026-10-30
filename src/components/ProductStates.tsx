@@ -14,13 +14,13 @@ export const ProductGridSkeleton: React.FC<{ count?: number }> = ({ count = 8 })
       {Array.from({ length: count }).map((_, index) => (
         <div
           key={index}
-          className="bg-[#132238] border border-[#F4EFEA]/15 overflow-hidden flex flex-col"
+          className="rounded-xl bg-[#132238] border border-[#F4EFEA]/15 overflow-hidden flex flex-col"
         >
           <div className="aspect-[4/5] w-full skeleton-shimmer" />
           <div className="p-4 sm:p-5 space-y-3">
-            <div className="h-4 w-4/5 skeleton-shimmer" />
-            <div className="h-6 w-2/5 skeleton-shimmer" />
-            <div className="h-11 w-full skeleton-shimmer mt-2" />
+            <div className="h-4 w-4/5 rounded-md skeleton-shimmer" />
+            <div className="h-6 w-2/5 rounded-md skeleton-shimmer" />
+            <div className="h-11 w-full rounded-lg skeleton-shimmer mt-2" />
           </div>
         </div>
       ))}
@@ -44,8 +44,8 @@ export const EmptyArchiveState: React.FC<EmptyStateProps> = ({
   isSupabaseLive,
 }) => {
   return (
-    <div className="border border-dashed border-[#F4EFEA]/25 bg-[#132238]/90 p-10 sm:p-16 text-center max-w-2xl mx-auto my-6">
-      <div className="w-14 h-14 mx-auto mb-5 bg-[#0A1118] border border-[#F4EFEA]/35 flex items-center justify-center text-[#F4EFEA]">
+    <div className="rounded-2xl overflow-hidden border border-dashed border-[#F4EFEA]/25 bg-[#132238]/90 p-10 sm:p-16 text-center max-w-2xl mx-auto my-6">
+      <div className="w-14 h-14 mx-auto mb-5 rounded-xl bg-[#0A1118] border border-[#F4EFEA]/35 flex items-center justify-center text-[#F4EFEA]">
         <PackageOpen className="w-7 h-7" />
       </div>
 
@@ -80,14 +80,14 @@ export const EmptyArchiveState: React.FC<EmptyStateProps> = ({
               stars={1}
               trailLength={0.3}
               thickness={1}
-              radius={2}
+              radius={8}
               glow={0.55}
               hover="lap"
               clickPulse
               backgroundColor="#0A1118"
               textColor="#F4EFEA"
               borderColor="rgba(244, 239, 234, 0.35)"
-              className="px-5 py-3 hover:border-[#F4EFEA] font-sans font-semibold text-xs uppercase tracking-widest inline-flex items-center gap-2 transition-colors cursor-pointer"
+              className="px-5 py-3 rounded-lg hover:border-[#F4EFEA] font-sans font-semibold text-xs uppercase tracking-widest inline-flex items-center gap-2 transition-colors cursor-pointer"
             >
               <RotateCcw className="w-4 h-4" />
               <span>View All Drops</span>
@@ -111,7 +111,7 @@ export const EmptyArchiveState: React.FC<EmptyStateProps> = ({
               stars={2}
               trailLength={0.32}
               thickness={1.2}
-              radius={2}
+              radius={8}
               glow={0.65}
               sparkle
               hover="lap"
@@ -119,7 +119,7 @@ export const EmptyArchiveState: React.FC<EmptyStateProps> = ({
               backgroundColor="#F4EFEA"
               textColor="#0A1118"
               borderColor="rgba(255, 255, 255, 0.65)"
-              className="px-5 py-3 hover:bg-white font-sans font-extrabold text-xs uppercase tracking-widest inline-flex items-center gap-2 transition-colors cursor-pointer"
+              className="px-5 py-3 rounded-lg hover:bg-white font-sans font-extrabold text-xs uppercase tracking-widest inline-flex items-center gap-2 transition-colors cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Upload Drop (Admin)</span>

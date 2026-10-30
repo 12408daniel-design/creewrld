@@ -26,7 +26,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <article
       data-product-id={product.id}
-      className="group relative bg-[#132238] border border-[#F4EFEA]/16 hover:border-[#F4EFEA]/65 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-[0_14px_34px_rgba(10,17,24,0.55)]"
+      className="group relative rounded-xl bg-[#132238] border border-[#F4EFEA]/20 hover:border-[#F4EFEA]/65 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-[0_14px_34px_rgba(10,17,24,0.55)]"
     >
       {/* Subtle Yacht Club Navy Gradient Top Hairline Accent */}
       <div aria-hidden="true" className="h-[2px] w-full yacht-club-gradient opacity-80" />
@@ -73,7 +73,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Category Pill & Quick Inspect */}
         <div className="absolute top-3 left-3 right-3 flex items-start justify-between gap-2">
-          <span className="px-2.5 py-1 bg-[#0A1118]/90 backdrop-blur-sm border border-[#F4EFEA]/25 font-cinzel text-[10px] font-semibold uppercase tracking-[0.18em] text-[#F4EFEA]">
+          <span className="px-2.5 py-1 rounded-full bg-[#0A1118]/90 backdrop-blur-sm border border-[#F4EFEA]/25 font-cinzel text-[10px] font-semibold uppercase tracking-[0.18em] text-[#F4EFEA]">
             {product.category}
           </span>
 
@@ -87,12 +87,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               }}
               title="Delete product from Supabase Storage & Database"
               aria-label={`Delete ${product.title}`}
-              className="admin-only w-9 h-9 flex items-center justify-center bg-[#FF3B30] hover:bg-red-600 text-white shadow-lg transition-transform active:scale-95 cursor-pointer"
+              className="admin-only w-9 h-9 rounded-lg flex items-center justify-center bg-[#FF3B30] hover:bg-red-600 text-white shadow-lg transition-transform active:scale-95 cursor-pointer"
             >
               <Trash2 className="w-4 h-4" />
             </button>
           ) : (
-            <span className="px-2 py-1 bg-[#132238]/90 border border-[#F4EFEA]/20 font-cinzel text-[10px] font-semibold uppercase tracking-wider text-[#F4EFEA]">
+            <span className="px-2.5 py-1 rounded-full bg-[#132238]/90 border border-[#F4EFEA]/20 font-cinzel text-[10px] font-semibold uppercase tracking-wider text-[#F4EFEA]">
               1 OF 1
             </span>
           )}
@@ -101,14 +101,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         {/* Size & Condition Spec Chips */}
         <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2">
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="px-2 py-0.5 bg-[#0A1118]/90 border border-[#F4EFEA]/20 font-sans font-semibold text-[11px] text-white">
+            <span className="px-2.5 py-0.5 rounded-md bg-[#0A1118]/90 border border-[#F4EFEA]/20 font-sans font-semibold text-[11px] text-white">
               SIZE: <strong className="text-[#F4EFEA]">{product.size}</strong>
             </span>
-            <span className="px-2 py-0.5 bg-[#0A1118]/90 border border-[#F4EFEA]/20 font-sans text-[11px] text-slate-200">
+            <span className="px-2.5 py-0.5 rounded-md bg-[#0A1118]/90 border border-[#F4EFEA]/20 font-sans text-[11px] text-slate-200">
               {product.condition}
             </span>
           </div>
-          <span className="w-7 h-7 bg-[#0A1118]/85 border border-[#F4EFEA]/25 flex items-center justify-center text-[#F4EFEA] opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className="w-7 h-7 rounded-lg bg-[#0A1118]/85 border border-[#F4EFEA]/25 flex items-center justify-center text-[#F4EFEA] opacity-0 group-hover:opacity-100 transition-opacity">
             <ArrowUpRight className="w-3.5 h-3.5" />
           </span>
         </div>
@@ -150,7 +150,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             stars={2}
             trailLength={0.32}
             thickness={1.2}
-            radius={6}
+            radius={8}
             glow={0.65}
             sparkle
             hover="lap"
@@ -159,7 +159,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             textColor="#000000"
             borderColor="rgba(255, 255, 255, 0.75)"
             style={{ color: '#000000' }}
-            className="w-full py-3.5 px-4 rounded-md bg-[#F4EFEA] text-black font-bold hover:bg-white transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer font-sans text-xs tracking-wider uppercase active:scale-[0.99]"
+            className="w-full py-3.5 px-4 rounded-lg bg-[#F4EFEA] text-black font-bold hover:bg-white transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer font-sans text-xs tracking-wider uppercase active:scale-[0.99]"
           >
             <MessageCircle
               className="w-4 h-4 shrink-0 text-black"

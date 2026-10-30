@@ -133,7 +133,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
               <span className="font-cinzel font-semibold text-xs uppercase tracking-[0.22em] text-[#F4EFEA]/85">
                 CREEWRLD // SHOP ARCHIVE
               </span>
-              <span className="bg-[#132238]/95 border border-[#F4EFEA]/20 px-2.5 py-0.5 font-cinzel font-semibold text-[10px] uppercase tracking-[0.16em] text-[#F4EFEA]">
+              <span className="rounded-full bg-[#132238]/95 border border-[#F4EFEA]/20 px-3 py-0.5 font-cinzel font-semibold text-[10px] uppercase tracking-[0.16em] text-[#F4EFEA]">
                 {isSupabaseLive ? 'LIVE SUPABASE DB' : 'SHOWCASE CATALOG'}
               </span>
             </div>
@@ -143,7 +143,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <span className="font-sans text-xs uppercase tracking-widest text-slate-300 bg-[#0A1118]/80 border border-[#F4EFEA]/15 px-3 py-2">
+            <span className="rounded-lg font-sans text-xs uppercase tracking-widest text-slate-300 bg-[#0A1118]/80 border border-[#F4EFEA]/15 px-3.5 py-2">
               Showing{' '}
               <strong className="font-cinzel text-[#F4EFEA]">{filteredProducts.length}</strong> of{' '}
               <strong className="font-cinzel text-[#F4EFEA]">{products.length}</strong> pieces
@@ -159,14 +159,14 @@ export const ShopView: React.FC<ShopViewProps> = ({
                 stars={1}
                 trailLength={0.3}
                 thickness={1}
-                radius={2}
+                radius={8}
                 glow={0.55}
                 hover="lap"
                 clickPulse
                 backgroundColor="#132238"
                 textColor="#F4EFEA"
                 borderColor="rgba(244, 239, 234, 0.35)"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-sans font-semibold uppercase tracking-wider hover:bg-[#F4EFEA] hover:text-[#0A1118] transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-sans font-semibold uppercase tracking-wider hover:bg-[#F4EFEA] hover:text-[#0A1118] transition-colors cursor-pointer"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
                 <span>Sync</span>
@@ -190,7 +190,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
                   stars={2}
                   trailLength={0.32}
                   thickness={1.2}
-                  radius={2}
+                  radius={8}
                   glow={0.65}
                   sparkle
                   hover="lap"
@@ -198,7 +198,7 @@ export const ShopView: React.FC<ShopViewProps> = ({
                   backgroundColor="#F4EFEA"
                   textColor="#0A1118"
                   borderColor="rgba(255, 255, 255, 0.65)"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 hover:bg-white text-xs font-sans font-extrabold uppercase tracking-wider transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg hover:bg-white text-xs font-sans font-extrabold uppercase tracking-wider transition-colors cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add Product</span>
@@ -230,15 +230,15 @@ export const ShopView: React.FC<ShopViewProps> = ({
                   role="tab"
                   aria-selected={active}
                   onClick={() => onSelectCategory(category)}
-                  className={`shrink-0 px-4 py-2.5 font-sans text-xs uppercase tracking-[0.16em] border transition-all flex items-center gap-2 cursor-pointer ${
+                  className={`shrink-0 px-4 py-2.5 rounded-lg font-sans text-xs uppercase tracking-[0.16em] border transition-all flex items-center gap-2 cursor-pointer ${
                     active
                       ? 'bg-[#F4EFEA] text-[#0A1118] border-[#F4EFEA] font-extrabold'
-                      : 'bg-[#132238] text-slate-200 border-[#F4EFEA]/15 hover:border-[#F4EFEA]/50 hover:text-[#F4EFEA] font-semibold'
+                      : 'bg-[#132238] text-slate-200 border-[#F4EFEA]/20 hover:border-[#F4EFEA]/60 hover:text-[#F4EFEA] font-semibold'
                   }`}
                 >
                   <span>{category}</span>
                   <span
-                    className={`text-[10px] px-1.5 py-0.5 font-cinzel font-bold ${
+                    className={`rounded-md text-[10px] px-1.5 py-0.5 font-cinzel font-bold ${
                       active
                         ? 'bg-[#0A1118] text-[#F4EFEA]'
                         : 'bg-[#0A1118]/75 text-slate-300'
@@ -260,11 +260,11 @@ export const ShopView: React.FC<ShopViewProps> = ({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search drops by title, size (e.g. EU 42, L), or condition..."
-                className="w-full bg-[#132238] border border-[#F4EFEA]/18 focus:border-[#F4EFEA] pl-10 pr-4 py-3 font-sans text-sm text-white placeholder:text-slate-400 outline-none transition-colors"
+                className="w-full rounded-lg bg-[#132238] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] pl-10 pr-4 py-3 font-sans text-sm text-white placeholder:text-slate-400 outline-none transition-colors"
               />
             </div>
 
-            <div className="md:col-span-4 lg:col-span-3 relative flex items-center bg-[#132238] border border-[#F4EFEA]/18 px-3.5">
+            <div className="md:col-span-4 lg:col-span-3 relative flex items-center rounded-lg bg-[#132238] border border-[#F4EFEA]/20 px-3.5">
               <SlidersHorizontal className="w-4 h-4 text-[#F4EFEA] shrink-0 mr-2.5" />
               <label htmlFor="shop-sort" className="sr-only">
                 Sort products
@@ -285,12 +285,12 @@ export const ShopView: React.FC<ShopViewProps> = ({
 
         {/* Supabase Error Banner if any */}
         {error && (
-          <div className="mb-8 p-4 bg-[#FF3B30]/15 border border-[#FF3B30] text-xs sm:text-sm font-sans text-red-200 flex items-center justify-between gap-4">
+          <div className="mb-8 p-4 rounded-xl bg-[#FF3B30]/15 border border-[#FF3B30] text-xs sm:text-sm font-sans text-red-200 flex items-center justify-between gap-4">
             <span>Supabase Query Error: {error}</span>
             <button
               type="button"
               onClick={onRefresh}
-              className="px-3 py-1 bg-[#FF3B30] text-white uppercase text-xs font-bold cursor-pointer"
+              className="px-3.5 py-1.5 rounded-lg bg-[#FF3B30] text-white uppercase text-xs font-bold cursor-pointer"
             >
               Retry
             </button>

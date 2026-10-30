@@ -124,7 +124,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
       aria-modal="true"
     >
       <div
-        className="w-full max-w-lg bg-[#132238] border border-[#F4EFEA]/25 p-6 sm:p-8 max-h-[92vh] overflow-y-auto relative shadow-2xl"
+        className="w-full max-w-lg rounded-2xl overflow-hidden bg-[#132238] border border-[#F4EFEA]/25 p-6 sm:p-8 max-h-[92vh] overflow-y-auto relative shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -132,9 +132,9 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
           onClick={onClose}
           disabled={submitting}
           aria-label="Close upload modal"
-          className="absolute top-4 right-4 text-slate-300 hover:text-[#F4EFEA] cursor-pointer"
+          className="absolute top-4 right-4 w-9 h-9 rounded-lg bg-[#0A1118] border border-[#F4EFEA]/20 text-slate-300 hover:border-[#F4EFEA] hover:text-[#F4EFEA] flex items-center justify-center transition-colors cursor-pointer"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
 
         <p className="font-cinzel font-semibold text-[11px] uppercase tracking-[0.2em] text-[#F4EFEA]/85 mb-1">
@@ -145,7 +145,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
         </h3>
 
         {formError && (
-          <div className="mb-4 p-3 bg-[#FF3B30]/15 border border-[#FF3B30] text-xs text-red-200 font-mono-spec">
+          <div className="mb-4 p-3 rounded-xl bg-[#FF3B30]/15 border border-[#FF3B30] text-xs text-red-200 font-mono-spec">
             {formError}
           </div>
         )}
@@ -160,7 +160,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Vintage 1998 Nike ACG Fleece Pullover"
-              className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none"
+              className="w-full rounded-lg bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none transition-colors"
             />
           </div>
 
@@ -172,7 +172,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as ProductCategory)}
-                className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white outline-none"
+                className="w-full rounded-lg bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white outline-none transition-colors"
               >
                 {CATEGORIES_WITHOUT_ALL.map((cat) => (
                   <option key={cat} value={cat}>
@@ -193,7 +193,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                 value={priceKsh}
                 onChange={(e) => setPriceKsh(e.target.value)}
                 placeholder="4500"
-                className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white font-mono-spec placeholder:text-slate-500 outline-none"
+                className="w-full rounded-lg bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white font-mono-spec placeholder:text-slate-500 outline-none transition-colors"
               />
             </div>
           </div>
@@ -208,7 +208,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                 value={size}
                 onChange={(e) => setSize(e.target.value)}
                 placeholder="EU 42 / L / W32"
-                className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white font-mono-spec placeholder:text-slate-500 outline-none"
+                className="w-full rounded-lg bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white font-mono-spec placeholder:text-slate-500 outline-none transition-colors"
               />
             </div>
 
@@ -219,7 +219,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
               <select
                 value={condition}
                 onChange={(e) => setCondition(e.target.value)}
-                className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white outline-none"
+                className="w-full rounded-lg bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-sm text-white outline-none transition-colors"
               >
                 {CONDITION_PRESETS.map((preset) => (
                   <option key={preset} value={preset}>
@@ -234,13 +234,13 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
             <label className="block font-sans font-semibold text-[11px] uppercase tracking-wider text-slate-200 mb-1.5">
               Product Image (`product-images` bucket) *
             </label>
-            <label className="flex flex-col items-center justify-center border border-dashed border-[#F4EFEA]/30 hover:border-[#F4EFEA] bg-[#0A1118] p-5 cursor-pointer transition-colors">
+            <label className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[#F4EFEA]/30 hover:border-[#F4EFEA] bg-[#0A1118] p-5 cursor-pointer transition-colors">
               {previewUrl ? (
                 <div className="flex items-center gap-4 w-full">
                   <img
                     src={previewUrl}
                     alt="Selected preview"
-                    className="w-16 h-20 object-cover border border-[#F4EFEA]/20"
+                    className="w-16 h-20 rounded-lg object-cover border border-[#F4EFEA]/20"
                   />
                   <div className="text-left min-w-0">
                     <p className="text-xs text-white font-medium truncate">{imageFile?.name}</p>
@@ -272,7 +272,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3.5 px-5 bg-[#F4EFEA] text-[#0A1118] hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-colors disabled:opacity-60 cursor-pointer"
+            className="w-full py-3.5 px-5 rounded-lg bg-[#F4EFEA] text-[#0A1118] hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-colors disabled:opacity-60 cursor-pointer"
           >
             {submitting ? (
               <>
@@ -360,16 +360,16 @@ export const SupabaseSetupModal: React.FC<SupabaseSetupModalProps> = ({
       aria-modal="true"
     >
       <div
-        className="w-full max-w-2xl bg-[#132238] border border-[#F4EFEA]/25 p-6 sm:p-8 max-h-[92vh] overflow-y-auto relative shadow-2xl"
+        className="w-full max-w-2xl rounded-2xl overflow-hidden bg-[#132238] border border-[#F4EFEA]/25 p-6 sm:p-8 max-h-[92vh] overflow-y-auto relative shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
           aria-label="Close Supabase setup"
-          className="absolute top-4 right-4 text-slate-300 hover:text-[#F4EFEA] cursor-pointer"
+          className="absolute top-4 right-4 w-9 h-9 rounded-lg bg-[#0A1118] border border-[#F4EFEA]/20 text-slate-300 hover:border-[#F4EFEA] hover:text-[#F4EFEA] flex items-center justify-center transition-colors cursor-pointer"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
 
         <div className="flex items-center gap-2.5 text-[#F4EFEA] mb-1">
@@ -390,7 +390,7 @@ export const SupabaseSetupModal: React.FC<SupabaseSetupModalProps> = ({
         </p>
 
         {errorMsg && (
-          <div className="mb-4 p-3 bg-[#FF3B30]/15 border border-[#FF3B30] text-xs text-red-200 font-mono-spec">
+          <div className="mb-4 p-3 rounded-xl bg-[#FF3B30]/15 border border-[#FF3B30] text-xs text-red-200 font-mono-spec">
             {errorMsg}
           </div>
         )}
@@ -405,7 +405,7 @@ export const SupabaseSetupModal: React.FC<SupabaseSetupModalProps> = ({
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
               placeholder="https://your-project-id.supabase.co"
-              className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-xs sm:text-sm font-mono-spec text-white placeholder:text-slate-500 outline-none"
+              className="w-full rounded-lg bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-xs sm:text-sm font-mono-spec text-white placeholder:text-slate-500 outline-none transition-colors"
             />
           </div>
 
@@ -418,14 +418,14 @@ export const SupabaseSetupModal: React.FC<SupabaseSetupModalProps> = ({
               value={keyInput}
               onChange={(e) => setKeyInput(e.target.value)}
               placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-              className="w-full bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-xs sm:text-sm font-mono-spec text-white placeholder:text-slate-500 outline-none"
+              className="w-full rounded-lg bg-[#0A1118] border border-[#F4EFEA]/20 focus:border-[#F4EFEA] px-3.5 py-2.5 text-xs sm:text-sm font-mono-spec text-white placeholder:text-slate-500 outline-none transition-colors"
             />
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <button
               type="submit"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#F4EFEA] text-[#0A1118] hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#F4EFEA] text-[#0A1118] hover:bg-white font-sans font-extrabold text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer"
             >
               <PlugZap className="w-4 h-4" />
               Connect Live Supabase
@@ -435,7 +435,7 @@ export const SupabaseSetupModal: React.FC<SupabaseSetupModalProps> = ({
               <button
                 type="button"
                 onClick={handleDisconnectRuntime}
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#0A1118] border border-[#F4EFEA]/20 text-slate-200 hover:border-[#F4EFEA] hover:text-[#F4EFEA] font-sans font-semibold text-xs uppercase tracking-wider transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#0A1118] border border-[#F4EFEA]/20 text-slate-200 hover:border-[#F4EFEA] hover:text-[#F4EFEA] font-sans font-semibold text-xs uppercase tracking-wider transition-colors cursor-pointer"
               >
                 <Unplug className="w-4 h-4" />
                 Revert to Demo Catalog
@@ -453,13 +453,13 @@ export const SupabaseSetupModal: React.FC<SupabaseSetupModalProps> = ({
             <button
               type="button"
               onClick={handleCopySql}
-              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#0A1118] border border-[#F4EFEA]/25 hover:border-[#F4EFEA] text-xs font-mono-spec text-[#F4EFEA] cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#0A1118] border border-[#F4EFEA]/25 hover:border-[#F4EFEA] text-xs font-mono-spec text-[#F4EFEA] cursor-pointer transition-colors"
             >
               {copiedSql ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
               {copiedSql ? 'Copied SQL' : 'Copy SQL'}
             </button>
           </div>
-          <pre className="bg-[#0A1118] border border-[#F4EFEA]/15 p-3.5 text-[11px] font-mono-spec text-slate-200 overflow-x-auto max-h-48 leading-relaxed">
+          <pre className="rounded-xl bg-[#0A1118] border border-[#F4EFEA]/15 p-3.5 text-[11px] font-mono-spec text-slate-200 overflow-x-auto max-h-48 leading-relaxed">
             {SUPABASE_SETUP_SQL}
           </pre>
         </div>
