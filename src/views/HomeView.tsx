@@ -469,6 +469,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <EmptyArchiveState
               selectedCategory="All"
               onOpenAddModal={onOpenAddModal}
+              isAdmin={adminMode}
               isSupabaseLive={isSupabaseLive}
             />
           ) : (

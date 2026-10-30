@@ -1,6 +1,6 @@
 -- ============================================================================
--- CREEWRLD // SUPABASE DATABASE & STORAGE BUCKET SETUP
--- Run this entire script inside your Supabase Project -> SQL Editor
+-- CREEWRLD // SUPABASE DATABASE, STORAGE & AUTH RLS SETUP
+-- Run this script inside your Supabase Project -> SQL Editor
 -- ============================================================================
 
 -- 1. Enable pgcrypto for gen_random_uuid() if not already active
@@ -12,20 +12,32 @@ values ('product-images', 'product-images', true)
 on conflict (id) do update set public = true;
 
 -- Storage RLS Policies for `product-images`
+-- Public read for storefront visitors; authenticated-only mutations for admins
 drop policy if exists "Public read access for product-images" on storage.objects;
 create policy "Public read access for product-images"
   on storage.objects for select
   using (bucket_id = 'product-images');
 
 drop policy if exists "Allow upload to product-images" on storage.objects;
-create policy "Allow upload to product-images"
+drop policy if exists "Authenticated admins can upload product-images" on storage.objects;
+create policy "Authenticated admins can upload product-images"
   on storage.objects for insert
-  with check (bucket_id = 'product-images');
+  to authenticated
+  with check (bucket_id = 'product-images' and auth.role() = 'authenticated');
+
+drop policy if exists "Authenticated admins can update product-images" on storage.objects;
+create policy "Authenticated admins can update product-images"
+  on storage.objects for update
+  to authenticated
+  using (bucket_id = 'product-images' and auth.role() = 'authenticated')
+  with check (bucket_id = 'product-images' and auth.role() = 'authenticated');
 
 drop policy if exists "Allow delete from product-images" on storage.objects;
-create policy "Allow delete from product-images"
+drop policy if exists "Authenticated admins can delete product-images" on storage.objects;
+create policy "Authenticated admins can delete product-images"
   on storage.objects for delete
-  using (bucket_id = 'product-images');
+  to authenticated
+  using (bucket_id = 'product-images' and auth.role() = 'authenticated');
 
 -- 3. Create the `products` table
 create table if not exists public.products (
@@ -52,14 +64,24 @@ create policy "Public can view all products"
   on public.products for select
   using (true);
 
--- Storefront admin insert & delete policies
--- (Note: Restrict `using (auth.role() = 'authenticated')` in production if enabling Supabase Auth)
+-- Authenticated admin-only insert, update & delete policies
 drop policy if exists "Allow product creation" on public.products;
-create policy "Allow product creation"
+drop policy if exists "Authenticated admins can insert products" on public.products;
+create policy "Authenticated admins can insert products"
   on public.products for insert
-  with check (true);
+  to authenticated
+  with check (auth.role() = 'authenticated');
+
+drop policy if exists "Authenticated admins can update products" on public.products;
+create policy "Authenticated admins can update products"
+  on public.products for update
+  to authenticated
+  using (auth.role() = 'authenticated')
+  with check (auth.role() = 'authenticated');
 
 drop policy if exists "Allow product deletion" on public.products;
-create policy "Allow product deletion"
+drop policy if exists "Authenticated admins can delete products" on public.products;
+create policy "Authenticated admins can delete products"
   on public.products for delete
-  using (true);
+  to authenticated
+  using (auth.role() = 'authenticated');

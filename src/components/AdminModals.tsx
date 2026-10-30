@@ -118,7 +118,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
+      className="admin-only fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
       onClick={() => !submitting && onClose()}
       role="dialog"
       aria-modal="true"

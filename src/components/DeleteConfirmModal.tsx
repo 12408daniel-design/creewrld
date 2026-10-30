@@ -25,7 +25,7 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
+      className="admin-only fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm"
       onClick={() => !isDeleting && onCancel()}
       role="alertdialog"
       aria-modal="true"

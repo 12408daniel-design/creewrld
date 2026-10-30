@@ -1,12 +1,18 @@
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import {
+  createClient,
+  type AuthChangeEvent,
+  type Session,
+  type SupabaseClient,
+} from '@supabase/supabase-js';
 import type { NewProductInput, Product } from './types/product';
 
 // ============================================================================
-// SUPABASE CREDENTIALS — Replace placeholders below with your project keys
-// (Or provide VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY in .env, or connect via Admin UI)
+// SUPABASE PUBLIC CLIENT CREDENTIALS
+// (Override via VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY in .env if desired)
 // ============================================================================
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://wtefokhvofihnroqwsjr.supabase.co';
+const SUPABASE_ANON_KEY =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind0ZWZva2h2b2ZpaG5yb3F3c2pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzNTc5MjEsImV4cCI6MjEwODkzMzkyMX0.32NgMil7VGBFEFoQsLdBzVoPujbwdEQsBX_RnAQ5_bc';
 
 export const PRODUCT_IMAGES_BUCKET = 'product-images';
 const RUNTIME_URL_STORAGE_KEY = 'creewrld_supabase_url';
@@ -15,7 +21,7 @@ const RUNTIME_ANON_STORAGE_KEY = 'creewrld_supabase_anon_key';
 export interface SupabaseCredentials {
   url: string;
   anonKey: string;
-  source: 'code' | 'env' | 'runtime' | 'placeholder';
+  source: 'env' | 'runtime' | 'code' | 'placeholder';
 }
 
 function isRealSupabaseValue(val: string | undefined | null, placeholder: string): val is string {
@@ -34,16 +40,7 @@ function isValidHttpUrl(value: string): boolean {
 }
 
 export function resolveSupabaseCredentials(): SupabaseCredentials {
-  // 1. Check hardcoded constants at top of file first if replaced by developer
-  if (
-    isRealSupabaseValue(SUPABASE_URL, 'YOUR_SUPABASE_URL') &&
-    isRealSupabaseValue(SUPABASE_ANON_KEY, 'YOUR_SUPABASE_ANON_KEY') &&
-    isValidHttpUrl(SUPABASE_URL)
-  ) {
-    return { url: SUPABASE_URL.trim(), anonKey: SUPABASE_ANON_KEY.trim(), source: 'code' };
-  }
-
-  // 2. Check Vite environment variables (.env)
+  // 1. Check Vite environment variables (.env) first
   const envUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
   const envKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
   if (
@@ -54,7 +51,7 @@ export function resolveSupabaseCredentials(): SupabaseCredentials {
     return { url: envUrl.trim(), anonKey: envKey.trim(), source: 'env' };
   }
 
-  // 3. Check runtime credentials saved via Admin Connection Modal
+  // 2. Check runtime credentials saved via Admin Connection Modal
   if (typeof window !== 'undefined') {
     const storedUrl = window.localStorage.getItem(RUNTIME_URL_STORAGE_KEY);
     const storedKey = window.localStorage.getItem(RUNTIME_ANON_STORAGE_KEY);
@@ -65,6 +62,15 @@ export function resolveSupabaseCredentials(): SupabaseCredentials {
     ) {
       return { url: storedUrl.trim(), anonKey: storedKey.trim(), source: 'runtime' };
     }
+  }
+
+  // 3. Check configured project constants at top of file
+  if (
+    isRealSupabaseValue(SUPABASE_URL, 'YOUR_SUPABASE_URL') &&
+    isRealSupabaseValue(SUPABASE_ANON_KEY, 'YOUR_SUPABASE_ANON_KEY') &&
+    isValidHttpUrl(SUPABASE_URL)
+  ) {
+    return { url: SUPABASE_URL.trim(), anonKey: SUPABASE_ANON_KEY.trim(), source: 'code' };
   }
 
   return { url: SUPABASE_URL, anonKey: SUPABASE_ANON_KEY, source: 'placeholder' };
@@ -81,11 +87,19 @@ export function getSupabaseClient(): SupabaseClient | null {
 
   const signature = `${creds.url}::${creds.anonKey}`;
   if (!cachedClient || cachedSignature !== signature) {
-    cachedClient = createClient(creds.url, creds.anonKey);
+    cachedClient = createClient(creds.url, creds.anonKey, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+      },
+    });
     cachedSignature = signature;
   }
   return cachedClient;
 }
+
+export const supabase = getSupabaseClient();
 
 export function saveRuntimeSupabaseCredentials(url: string, anonKey: string): void {
   if (typeof window === 'undefined') return;
@@ -103,9 +117,121 @@ export function clearRuntimeSupabaseCredentials(): void {
   cachedSignature = '';
 }
 
+// ============================================================================
+// SUPABASE AUTHENTICATION & ADMIN SESSION ENFORCEMENT
+// ============================================================================
+
+/**
+ * Authenticates an admin using Email + Password via Supabase Auth.
+ */
+export async function signInAdminWithPassword(email: string, password: string): Promise<Session> {
+  const client = getSupabaseClient();
+  if (!client) {
+    throw new Error('Supabase is not configured. Please configure SUPABASE_URL and SUPABASE_ANON_KEY.');
+  }
+
+  const { data, error } = await client.auth.signInWithPassword({
+    email: email.trim(),
+    password,
+  });
+
+  if (error) {
+    const normalized = error.message.toLowerCase();
+    if (
+      normalized.includes('invalid login credentials') ||
+      normalized.includes('invalid credentials')
+    ) {
+      throw new Error('Invalid admin credentials');
+    }
+    throw new Error(error.message);
+  }
+
+  if (!data.session) {
+    throw new Error('Authentication did not return an active admin session.');
+  }
+
+  return data.session;
+}
+
+/**
+ * Signs out the currently authenticated admin via Supabase Auth.
+ */
+export async function signOutAdmin(): Promise<void> {
+  const client = getSupabaseClient();
+  if (!client) return;
+
+  const { error } = await client.auth.signOut();
+  if (error) {
+    throw new Error(error.message);
+  }
+}
+
+/**
+ * Returns the currently persisted Supabase Auth session (if any).
+ */
+export async function getActiveAdminSession(): Promise<Session | null> {
+  const client = getSupabaseClient();
+  if (!client) return null;
+
+  const {
+    data: { session },
+  } = await client.auth.getSession();
+  return session;
+}
+
+/**
+ * Subscribes to Supabase Auth state changes so the UI reacts immediately to sign-in, sign-out, or token expiry.
+ */
+export function subscribeToAuthState(
+  onChange: (event: AuthChangeEvent, session: Session | null) => void
+): () => void {
+  const client = getSupabaseClient();
+  if (!client) {
+    return () => {};
+  }
+
+  const {
+    data: { subscription },
+  } = client.auth.onAuthStateChange((event, session) => {
+    onChange(event, session);
+  });
+
+  return () => {
+    subscription.unsubscribe();
+  };
+}
+
+/**
+ * Security Guard: Verifies an active authenticated Supabase `session` exists
+ * BEFORE allowing any admin Storage or Database write/delete API call.
+ */
+export async function requireActiveAdminSession(): Promise<{
+  client: SupabaseClient;
+  session: Session;
+}> {
+  const client = getSupabaseClient();
+  if (!client) {
+    throw new Error('Supabase client is not configured.');
+  }
+
+  const {
+    data: { session },
+    error,
+  } = await client.auth.getSession();
+
+  if (error || !session || !session.access_token) {
+    throw new Error('Unauthorized: An active admin session is required to perform this action.');
+  }
+
+  return { client, session };
+}
+
+// ============================================================================
+// PRODUCT QUERIES & SESSION-PROTECTED ADMIN MUTATIONS
+// ============================================================================
+
 /**
  * Extracts the storage object path inside the `product-images` bucket from `image_url`.
- * Handles full Supabase public URLs (including nested folders & query strings) as well as plain filenames.
  */
 export function extractStorageFilePath(imageUrl: string): string | null {
   if (!imageUrl) return null;
@@ -128,12 +254,12 @@ export function extractStorageFilePath(imageUrl: string): string | null {
  * Queries all rows from the Supabase `products` table ordered newest first.
  */
 export async function fetchProductsFromSupabase(): Promise<Product[]> {
-  const supabase = getSupabaseClient();
-  if (!supabase) {
+  const client = getSupabaseClient();
+  if (!client) {
     return [];
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from('products')
     .select('*')
     .order('created_at', { ascending: false });
@@ -158,31 +284,28 @@ export async function fetchProductsFromSupabase(): Promise<Product[]> {
  * Deletes both:
  *  a) The image file from Supabase Storage (`product-images` bucket)
  *  b) The product record from the `products` database table
+ * Enforces an active admin `session` before making any API call.
  */
 export async function deleteProductFromSupabase(product: Product): Promise<{
   removedStoragePath: string | null;
 }> {
-  const supabase = getSupabaseClient();
+  // Security Enforcement: verify active Supabase session before any API call
+  const { client } = await requireActiveAdminSession();
   const filePath = extractStorageFilePath(product.image_url);
-
-  if (!supabase) {
-    return { removedStoragePath: filePath };
-  }
 
   // Step a: Remove image file from Supabase Storage bucket `product-images`
   if (filePath) {
-    const { error: storageError } = await supabase.storage
+    const { error: storageError } = await client.storage
       .from(PRODUCT_IMAGES_BUCKET)
       .remove([filePath]);
 
     if (storageError) {
-      // Log storage warning while still ensuring DB row cleanup proceeds cleanly
       console.warn('Supabase storage deletion warning:', storageError.message);
     }
   }
 
   // Step b: Delete row from `products` table
-  const { error: dbError } = await supabase
+  const { error: dbError } = await client
     .from('products')
     .delete()
     .eq('id', product.id);
@@ -196,34 +319,14 @@ export async function deleteProductFromSupabase(product: Product): Promise<{
 
 /**
  * Uploads an image to `product-images` in Supabase Storage and inserts a new row into `products`.
+ * Enforces an active admin `session` before making any API call.
  */
 export async function createProductInSupabase(
   input: NewProductInput,
   imageFile: File
 ): Promise<Product> {
-  const supabase = getSupabaseClient();
-
-  if (!supabase) {
-    // Preview fallback when Supabase placeholders haven't been replaced yet:
-    // converts image to data URL so Admin product creation works seamlessly in preview too
-    const dataUrl = await new Promise<string>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(String(reader.result));
-      reader.onerror = () => reject(new Error('Failed to read image file'));
-      reader.readAsDataURL(imageFile);
-    });
-
-    return {
-      id: crypto.randomUUID(),
-      title: input.title.trim(),
-      category: input.category,
-      price_ksh: Number(input.price_ksh),
-      size: input.size.trim(),
-      condition: input.condition.trim(),
-      image_url: dataUrl,
-      created_at: new Date().toISOString(),
-    };
-  }
+  // Security Enforcement: verify active Supabase session before any API call
+  const { client } = await requireActiveAdminSession();
 
   const sanitizedExt = (imageFile.name.split('.').pop() || 'jpg')
     .toLowerCase()
@@ -235,7 +338,7 @@ export async function createProductInSupabase(
     .slice(0, 40);
   const filePath = `${Date.now()}-${slugTitle || 'drop'}.${sanitizedExt || 'jpg'}`;
 
-  const { error: uploadError } = await supabase.storage
+  const { error: uploadError } = await client.storage
     .from(PRODUCT_IMAGES_BUCKET)
     .upload(filePath, imageFile, {
       cacheControl: '3600',
@@ -246,13 +349,13 @@ export async function createProductInSupabase(
     throw new Error(`Storage upload failed: ${uploadError.message}`);
   }
 
-  const { data: publicUrlData } = supabase.storage
+  const { data: publicUrlData } = client.storage
     .from(PRODUCT_IMAGES_BUCKET)
     .getPublicUrl(filePath);
 
   const publicImageUrl = publicUrlData.publicUrl;
 
-  const { data: insertedRow, error: insertError } = await supabase
+  const { data: insertedRow, error: insertError } = await client
     .from('products')
     .insert([
       {
@@ -269,7 +372,7 @@ export async function createProductInSupabase(
 
   if (insertError) {
     // Roll back orphan uploaded image if table insert fails
-    await supabase.storage.from(PRODUCT_IMAGES_BUCKET).remove([filePath]);
+    await client.storage.from(PRODUCT_IMAGES_BUCKET).remove([filePath]);
     throw new Error(`Database insert failed: ${insertError.message}`);
   }
 

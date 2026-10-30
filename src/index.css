@@ -84,6 +84,11 @@
   animation: skeleton-shimmer 1.6s ease-in-out infinite;
 }
 
+/* Hide all .admin-only elements whenever no verified Supabase admin session is active */
+body:not(.admin-authenticated) .admin-only {
+  display: none !important;
+}
+
 /* Custom high-contrast scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import type { Session } from '@supabase/supabase-js';
 import { CheckCircle2, AlertCircle, X } from 'lucide-react';
 import { Navbar, type ActivePage } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -7,13 +8,17 @@ import { ShopView } from './views/ShopView';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { DeleteConfirmModal } from './components/DeleteConfirmModal';
 import { AddProductModal, SupabaseSetupModal } from './components/AdminModals';
+import { AdminAuthModal } from './components/AdminAuthModal';
 import { PREVIEW_SHOWCASE_PRODUCTS } from './data/previewProducts';
 import type { FilterCategory, NewProductInput, Product } from './types/product';
 import {
   createProductInSupabase,
   deleteProductFromSupabase,
   fetchProductsFromSupabase,
+  getActiveAdminSession,
   resolveSupabaseCredentials,
+  signOutAdmin,
+  subscribeToAuthState,
 } from './supabaseClient';
 
 interface ToastBanner {
@@ -30,19 +35,24 @@ export const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
 
-  const [adminMode, setAdminMode] = useState<boolean>(false);
+  // Supabase Auth Session State
+  const [session, setSession] = useState<Session | null>(null);
+  const [authModalOpen, setAuthModalOpen] = useState<boolean>(false);
+  const [isSigningOut, setIsSigningOut] = useState<boolean>(false);
+
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [productPendingDelete, setProductPendingDelete] = useState<Product | null>(null);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
   const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
   const [supabaseModalOpen, setSupabaseModalOpen] = useState<boolean>(false);
-  const [simulatedEmpty, setSimulatedEmpty] = useState<boolean>(false);
 
   const [isSupabaseLive, setIsSupabaseLive] = useState<boolean>(
     () => resolveSupabaseCredentials().source !== 'placeholder'
   );
   const [toast, setToast] = useState<ToastBanner | null>(null);
+
+  const isAdmin = Boolean(session);
 
   const showToast = useCallback((type: 'success' | 'error', message: string) => {
     const id = Date.now();
@@ -51,6 +61,41 @@ export const App: React.FC = () => {
       setToast((current) => (current?.id === id ? null : current));
     }, 4000);
   }, []);
+
+  // Synchronize body class with authenticated admin session to strictly enforce .admin-only visibility
+  useEffect(() => {
+    document.body.classList.toggle('admin-authenticated', isAdmin);
+    if (!isAdmin) {
+      setAddModalOpen(false);
+      setProductPendingDelete(null);
+      setSupabaseModalOpen(false);
+    }
+    return () => {
+      document.body.classList.remove('admin-authenticated');
+    };
+  }, [isAdmin]);
+
+  // Hydrate persisted Supabase Auth session & subscribe to live auth state changes
+  useEffect(() => {
+    let active = true;
+
+    void getActiveAdminSession().then((initialSession) => {
+      if (active) {
+        setSession(initialSession);
+      }
+    });
+
+    const unsubscribe = subscribeToAuthState((_event, nextSession) => {
+      if (active) {
+        setSession(nextSession);
+      }
+    });
+
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, [isSupabaseLive]);
 
   const loadProducts = useCallback(async () => {
     const creds = resolveSupabaseCredentials();
@@ -72,12 +117,11 @@ export const App: React.FC = () => {
         setLoading(false);
       }
     } else {
-      // Graceful skeleton transition into preview showcase when SUPABASE_URL === 'YOUR_SUPABASE_URL'
       await new Promise((resolve) => setTimeout(resolve, 420));
-      setProducts(simulatedEmpty ? [] : PREVIEW_SHOWCASE_PRODUCTS);
+      setProducts(PREVIEW_SHOWCASE_PRODUCTS);
       setLoading(false);
     }
-  }, [simulatedEmpty]);
+  }, []);
 
   useEffect(() => {
     void loadProducts();
@@ -94,7 +138,58 @@ export const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleAdminAuthenticated = (verifiedSession: Session) => {
+    setSession(verifiedSession);
+    showToast('success', `Admin unlocked (${verifiedSession.user.email ?? 'Verified'}).`);
+  };
+
+  const handleSignOut = async () => {
+    setIsSigningOut(true);
+    try {
+      await signOutAdmin();
+      setSession(null);
+      setAddModalOpen(false);
+      setProductPendingDelete(null);
+      setSupabaseModalOpen(false);
+      showToast('success', 'Logged out of Admin mode.');
+    } catch (err) {
+      showToast('error', err instanceof Error ? err.message : 'Failed to sign out.');
+    } finally {
+      setIsSigningOut(false);
+    }
+  };
+
+  // Security Enforcement: ensure active session before opening Admin modals or executing mutations
+  const handleRequestOpenAddModal = async () => {
+    const currentSession = await getActiveAdminSession();
+    if (!currentSession) {
+      setSession(null);
+      setAuthModalOpen(true);
+      return;
+    }
+    setAddModalOpen(true);
+  };
+
+  const handleRequestDeleteProduct = async (product: Product) => {
+    const currentSession = await getActiveAdminSession();
+    if (!currentSession) {
+      setSession(null);
+      setAuthModalOpen(true);
+      return;
+    }
+    setProductPendingDelete(product);
+  };
+
   const handleConfirmDelete = async (target: Product) => {
+    const currentSession = await getActiveAdminSession();
+    if (!currentSession) {
+      setSession(null);
+      setProductPendingDelete(null);
+      setAuthModalOpen(true);
+      showToast('error', 'Admin session expired. Please verify credentials again.');
+      return;
+    }
+
     setIsDeleting(true);
     try {
       const { removedStoragePath } = await deleteProductFromSupabase(target);
@@ -108,9 +203,7 @@ export const App: React.FC = () => {
 
       showToast(
         'success',
-        isSupabaseLive
-          ? `Deleted "${target.title}" & storage image (${removedStoragePath ?? 'product-images'}).`
-          : `Removed "${target.title}" from live catalog state.`
+        `Deleted "${target.title}" & storage image (${removedStoragePath ?? 'product-images'}).`
       );
     } catch (err) {
       showToast(
@@ -123,46 +216,36 @@ export const App: React.FC = () => {
   };
 
   const handleCreateProduct = async (input: NewProductInput, file: File) => {
+    const currentSession = await getActiveAdminSession();
+    if (!currentSession) {
+      setSession(null);
+      setAddModalOpen(false);
+      setAuthModalOpen(true);
+      throw new Error('Unauthorized: Please sign in as admin first.');
+    }
+
     const created = await createProductInSupabase(input, file);
-    setSimulatedEmpty(false);
     setProducts((prev) => [created, ...prev]);
     showToast(
       'success',
-      isSupabaseLive
-        ? `Uploaded "${created.title}" to Supabase Storage & products table.`
-        : `Added "${created.title}" to live preview catalog.`
+      `Uploaded "${created.title}" to Supabase Storage & products table.`
     );
-  };
-
-  const handleToggleSimulatedEmpty = () => {
-    setSimulatedEmpty((prev) => {
-      const next = !prev;
-      setProducts(next ? [] : PREVIEW_SHOWCASE_PRODUCTS);
-      return next;
-    });
-  };
-
-  const handleResetPreviewCatalog = () => {
-    setSimulatedEmpty(false);
-    setProducts(PREVIEW_SHOWCASE_PRODUCTS);
-    showToast('success', 'Restored all 9 Nairobi showcase drops.');
   };
 
   return (
     <div className="min-h-screen bg-[#0D0D0D] text-white flex flex-col">
-      {/* Strictly Two-View Navigation Header + Subtle Admin Toggle */}
+      {/* Strictly Two-View Navigation Header + Supabase Auth Admin Trigger */}
       <Navbar
         activePage={activePage}
         onNavigate={handleNavigate}
         productCount={products.length}
-        adminMode={adminMode}
-        onToggleAdminMode={() => setAdminMode((prev) => !prev)}
+        session={session}
+        isSigningOut={isSigningOut}
         isSupabaseLive={isSupabaseLive}
-        onOpenAddModal={() => setAddModalOpen(true)}
+        onOpenAuthModal={() => setAuthModalOpen(true)}
+        onSignOut={handleSignOut}
+        onOpenAddModal={() => void handleRequestOpenAddModal()}
         onOpenSupabaseModal={() => setSupabaseModalOpen(true)}
-        onSimulateEmptyState={handleToggleSimulatedEmpty}
-        onResetPreviewCatalog={handleResetPreviewCatalog}
-        showingSimulatedEmpty={simulatedEmpty}
       />
 
       {/* Main Two-View Router: HOME or SHOP */}
@@ -171,12 +254,12 @@ export const App: React.FC = () => {
           <HomeView
             products={products}
             loading={loading}
-            adminMode={adminMode}
+            adminMode={isAdmin}
             isSupabaseLive={isSupabaseLive}
             onNavigateToShop={handleNavigateToShop}
             onSelectProduct={setSelectedProduct}
-            onRequestDelete={setProductPendingDelete}
-            onOpenAddModal={() => setAddModalOpen(true)}
+            onRequestDelete={(product) => void handleRequestDeleteProduct(product)}
+            onOpenAddModal={() => void handleRequestOpenAddModal()}
           />
         ) : (
           <ShopView
@@ -185,12 +268,12 @@ export const App: React.FC = () => {
             error={fetchError}
             selectedCategory={selectedCategory}
             onSelectCategory={setSelectedCategory}
-            adminMode={adminMode}
+            adminMode={isAdmin}
             isSupabaseLive={isSupabaseLive}
             onSelectProduct={setSelectedProduct}
-            onRequestDelete={setProductPendingDelete}
+            onRequestDelete={(product) => void handleRequestDeleteProduct(product)}
             onRefresh={() => void loadProducts()}
-            onOpenAddModal={() => setAddModalOpen(true)}
+            onOpenAddModal={() => void handleRequestOpenAddModal()}
           />
         )}
       </main>
@@ -198,43 +281,55 @@ export const App: React.FC = () => {
       {/* Footer */}
       <Footer
         onNavigate={handleNavigate}
+        isAdmin={isAdmin}
         isSupabaseLive={isSupabaseLive}
+        onOpenAuthModal={() => setAuthModalOpen(true)}
         onOpenSupabaseModal={() => setSupabaseModalOpen(true)}
+      />
+
+      {/* Admin Password Verification Modal (Supabase Auth) */}
+      <AdminAuthModal
+        open={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        onAuthenticated={handleAdminAuthenticated}
       />
 
       {/* Quick-View Product Modal (with Direct Order via WhatsApp) */}
       <ProductDetailModal
         product={selectedProduct}
+        isAdmin={isAdmin}
         onClose={() => setSelectedProduct(null)}
-        onRequestDelete={setProductPendingDelete}
+        onRequestDelete={(product) => void handleRequestDeleteProduct(product)}
       />
 
-      {/* Delete Confirmation Modal (Supabase Storage + DB Row + Instant UI State) */}
-      <DeleteConfirmModal
-        product={productPendingDelete}
-        isDeleting={isDeleting}
-        isSupabaseLive={isSupabaseLive}
-        onCancel={() => !isDeleting && setProductPendingDelete(null)}
-        onConfirmDelete={(product) => void handleConfirmDelete(product)}
-      />
+      {/* Admin-Only Modals (Rendered only when an active Supabase Auth session is verified) */}
+      {isAdmin && (
+        <>
+          <DeleteConfirmModal
+            product={productPendingDelete}
+            isDeleting={isDeleting}
+            isSupabaseLive={isSupabaseLive}
+            onCancel={() => !isDeleting && setProductPendingDelete(null)}
+            onConfirmDelete={(product) => void handleConfirmDelete(product)}
+          />
 
-      {/* Admin Product Upload Modal */}
-      <AddProductModal
-        open={addModalOpen}
-        isSupabaseLive={isSupabaseLive}
-        onClose={() => setAddModalOpen(false)}
-        onCreateProduct={handleCreateProduct}
-      />
+          <AddProductModal
+            open={addModalOpen}
+            isSupabaseLive={isSupabaseLive}
+            onClose={() => setAddModalOpen(false)}
+            onCreateProduct={handleCreateProduct}
+          />
 
-      {/* Supabase Credentials & SQL Schema Modal */}
-      <SupabaseSetupModal
-        open={supabaseModalOpen}
-        onClose={() => setSupabaseModalOpen(false)}
-        onCredentialsUpdated={() => {
-          void loadProducts();
-          showToast('success', 'Supabase connection settings updated.');
-        }}
-      />
+          <SupabaseSetupModal
+            open={supabaseModalOpen}
+            onClose={() => setSupabaseModalOpen(false)}
+            onCredentialsUpdated={() => {
+              void loadProducts();
+              showToast('success', 'Supabase connection settings updated.');
+            }}
+          />
+        </>
+      )}
 
       {/* Toast Notification */}
       {toast && (
